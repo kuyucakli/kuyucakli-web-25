@@ -1,22 +1,72 @@
+---
+import "../assets/css/main.css";
+import Logo from "../components/Logo.astro";
+import { ClientRouter } from "astro:transitions";
+import Nav from "../components/Nav.astro";
+import BtnThemeToggle from "../components/BtnThemeToggle.astro";
+
+const { title, description, className } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta
+      name="description"
+      content={description || "Burak Kuyucaklı's personal web page"}
+    />
+    <meta
+      property="og:title"
+      content={`Burak Kuyucaklı 𝤃 ${title ? title : ""}`}
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content={`https://kuyucakli.com${Astro.url.pathname}`}
+    />
+    <meta
+      property="og:image"
+      content="https://www.kuyucakli.com/_astro/logo-kuyucakli.svg"
+    />
+    <meta property="og:site_name" content="Burak Kuyucaklı" />
+
+    <title>Burak Kuyucaklı 𝞝 {title ? title : ""}</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <div id="root">
+      <header>
+        <Logo />
+
+        <Nav />
+        <BtnThemeToggle />
+      </header>
+      <main class={className}>
+        <slot />
+      </main>
+    </div>
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<script>
+  import { throttle, debounce } from "../utils";
+  let headerEl = document.querySelector("#root>header");
+  window.addEventListener(
+    "scroll",
+    debounce(() => {
+      const scrollY = window.scrollY;
+      headerEl = document.querySelector("#root>header");
+
+      if (scrollY > 50) {
+        headerEl?.classList.add("compact");
+      } else {
+        headerEl?.classList.remove("compact");
+      }
+    }, 50)
+  );
+</script>

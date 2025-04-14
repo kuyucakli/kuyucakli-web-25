@@ -1,11 +1,117 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { getCollection } from "astro:content";
+
+import InfiniteGrid from "../components/InfiniteGrid.astro";
+
+import TemplateTextOnlyBigHeading from "../components/TemplateTextOnlyBigHeading.astro";
+import TemplateFullCoverOnly from "../components/TemplateFullCoverOnly.astro";
+import TemplateComplete from "../components/TemplateComplete.astro";
+import TemplateTextOnCover from "../components/TemplateTextOnCover.astro";
+
+const workPosts = await getCollection(
+  "posts",
+  (p) => p.data.published && p.data.pinned && p.data.category == "work"
+);
+const blogPosts = await getCollection(
+  "posts",
+  (p) => p.data.published && p.data.pinned && p.data.category == "blog"
+);
+
+const anim = {
+  old: {
+    name: "bump",
+    duration: "0.5s",
+    easing: "ease-in",
+    direction: "reverse",
+  },
+  new: {
+    name: "bump",
+    duration: "0.5s",
+    easing: "ease-in-out",
+  },
+};
+
+const customTransition = {
+  forwards: anim,
+  backwards: anim,
+};
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Frontend Developer Burak Kuyucaklı">
+  <InfiniteGrid>
+    <slot>
+      <li data-sequence>
+        <p class="headlinelarge" data-sequence-item>
+          Hi, I’m Burak Kuyucaklı, Frontend Developer & UX Enthusiast.
+        </p>
+        <p class="headlinelarge" data-sequence-item>
+          This is where I share my work, ideas, and the things I’m learning
+          along the way.
+        </p>
+
+        <p class="headlinelarge" data-sequence-item>
+          My <a
+            href="https://github.com/kuyucakli"
+            target="_blank"
+            class="txt-underline">github</a
+          > and <a
+            class="txt-underline"
+            href="https://www.linkedin.com/in/burak-kuyucakl%C4%B1/"
+            target="_blank">linkedin</a
+          > account.
+        </p>
+        <p class="headlinelarge" data-sequence-item>Yeps works</p>
+        <p class="headlinelarge" data-sequence-item>Ops</p>
+        <p class="headlinelarge" data-sequence-item>Enough</p>
+      </li>
+
+      <li class="infinity-grid-intro-section flex-col-center p-h-md-1">
+        <h1 class="displaylarge">Pinned Works</h1>
+      </li>
+
+      {
+        workPosts
+          .sort(
+            (a, b) => new Date(a.data.createdAt) - new Date(b.data.createdAt)
+          )
+          .map((d) => {
+            if (d.data.excerptTemplate == "text-only-big-heading") {
+              return <TemplateTextOnlyBigHeading id={d.id} data={d.data} />;
+            }
+            if (d.data.excerptTemplate == "full-cover-only") {
+              return <TemplateFullCoverOnly id={d.id} data={d.data} />;
+            }
+            if (d.data.excerptTemplate == "text-on-cover") {
+              return <TemplateTextOnCover id={d.id} data={d.data} />;
+            }
+            return <TemplateComplete id={d.id} data={d.data} />;
+          })
+      }
+
+      <li class="infinity-grid-intro-section flex-col-center p-h-md-1">
+        <h1 class="displaylarge">Pinned Blog Posts</h1>
+      </li>
+
+      {
+        blogPosts
+          .sort(
+            (a, b) => new Date(a.data.createdAt) - new Date(b.data.createdAt)
+          )
+          .map((d) => {
+            if (d.data.excerptTemplate == "text-only-big-heading") {
+              return <TemplateTextOnlyBigHeading id={d.id} data={d.data} />;
+            }
+            if (d.data.excerptTemplate == "full-cover-only") {
+              return <TemplateFullCoverOnly id={d.id} data={d.data} />;
+            }
+            if (d.data.excerptTemplate == "text-on-cover") {
+              return <TemplateTextOnCover id={d.id} data={d.data} />;
+            }
+            return <TemplateComplete id={d.id} data={d.data} />;
+          })
+      }
+    </slot>
+  </InfiniteGrid>
 </Layout>
