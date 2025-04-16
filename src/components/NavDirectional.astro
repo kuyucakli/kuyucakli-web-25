@@ -1,7 +1,15 @@
 ---
 import { IconBackArrow } from "./Icons";
-
 const { nextItem, prevItem, category } = Astro.props;
+let prevHref, nextHref;
+
+if (category) {
+  prevHref = `/posts/${category}-${prevItem?.id}`;
+  nextHref = `/posts/${category}-${nextItem?.id}`;
+} else {
+  prevHref = `${prevItem?.id}`;
+  nextHref = `${nextItem?.id}`;
+}
 ---
 
 <nav class="flex-row-center" id="nav-directional">
@@ -14,8 +22,8 @@ const { nextItem, prevItem, category } = Astro.props;
     Back
   </a>
 
-  {prevItem && <a href={`/posts/${category}-${prevItem.id}`}>Prev</a>}
-  {nextItem && <a href={`/posts/${category}-${nextItem.id}`}>Next</a>}
+  {prevItem && <a href={prevHref}>Prev</a>}
+  {nextItem && <a href={nextHref}>Next</a>}
 </nav>
 
 <style>

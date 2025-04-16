@@ -3,16 +3,21 @@ import { Image } from "astro:assets";
 import { IconBackArrow } from "../../components/Icons";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
+import NavDirectional from "../../components/NavDirectional.astro";
 
 export async function getStaticPaths() {
   const images = await getCollection("drawingImages");
-  return images.map((image) => ({
+  return images.map((image, i) => ({
     params: { id: image.id },
-    props: { image },
+    props: {
+      image,
+      prevItem: images[i - 1],
+      nextItem: images[i + 1],
+    },
   }));
 }
 
-const { image } = Astro.props;
+const { image, prevItem, nextItem } = Astro.props;
 const { Content } = await render(image);
 ---
 
@@ -49,4 +54,5 @@ const { Content } = await render(image);
   </p>
 
   <Content />
+  <NavDirectional {prevItem} {nextItem} />
 </Layout>
