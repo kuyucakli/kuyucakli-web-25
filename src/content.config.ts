@@ -18,6 +18,7 @@ const posts = defineCollection({
         category: z.enum(["blog", "work", "author", "home-intro"]),
         excerptTemplate: z.enum(["text-only-big-heading", "full-cover-only", "two-parts", "text-on-cover"]).optional(),
         tags: z.array(z.string()),
+        link: z.string().url().optional(),
     }),
 })
 
@@ -31,6 +32,7 @@ const drawingImages = defineCollection({
             description: z.string().optional(),
             createdAt: z.coerce.date(),
             category: z.enum(["watercolor", "pen", "digital-illustration", "oil", "acrylic"]),
+            link: z.string().url().optional(),
         }
     )
 })

@@ -1,9 +1,10 @@
 ---
 import "../assets/css/main.css";
-import Logo from "../components/Logo.astro";
-import { ClientRouter } from "astro:transitions";
-import Nav from "../components/Nav.astro";
 import BtnThemeToggle from "../components/BtnThemeToggle.astro";
+import { ClientRouter } from "astro:transitions";
+
+import Logo from "../components/Logo.astro";
+import Nav from "../components/Nav.astro";
 
 const { title, description, className } = Astro.props;
 ---
@@ -13,7 +14,7 @@ const { title, description, className } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
     <meta

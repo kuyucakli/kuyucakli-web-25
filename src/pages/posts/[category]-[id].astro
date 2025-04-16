@@ -1,5 +1,5 @@
 ---
-import { IconBackArrow } from "../../components/Icons";
+import { IconBackArrow, IconOpenInNew } from "../../components/Icons";
 import NavDirectional from "../../components/NavDirectional.astro";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
@@ -33,7 +33,16 @@ const { Content } = await render(post);
     Back
   </a>
   <header class="m-v-md-0">
-    <h1 class="displaylarge">{post.data.title}</h1>
+    <h1 class="displaylarge">
+      {post.data.title}
+      {
+        post.data.link && (
+          <a href={post.data.link} target="_blank">
+            <IconOpenInNew fill="var(--clr-on-surface)" />
+          </a>
+        )
+      }
+    </h1>
     <p class="bodymedium">
       {
         post.data.createdAt.toLocaleDateString("en-us", {

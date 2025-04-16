@@ -9,10 +9,13 @@ pinned: true
 tags: ["work"]
 category: "work"
 excerptTemplate: "full-cover-only"
+link: "https://pinball.kuyucakli.com/"
 ---
 
 import {Picture} from "astro:assets"
+
 import Cover from "../../assets/img/tilt-cover-artwork.png"
+
 
 
 # Pinball Prototype – A Physics-Based Browser Game
@@ -21,10 +24,12 @@ import Cover from "../../assets/img/tilt-cover-artwork.png"
 - Technologies: TypeScript, Canvas/WebGL, Physics Engine (Planck.js), HTML/CSS
 
 
+
 ## Overview
 
 This browser-based pinball prototype was my personal deep dive into real-time interaction design, physics simulation, and game feel. Inspired by classic pinball mechanics, I wanted to challenge myself with collision detection, timing, user feedback, and smooth rendering—all in a lightweight, browser-native environment.
 
+<iframe class="border-type-1 m-v-md-2" style="border:none" src="https://pinball.kuyucakli.com" width="100%" height="600"></iframe>
 
 ## Goals
 -	Build a working physics-based pinball game using only web technologies.
@@ -36,7 +41,7 @@ This browser-based pinball prototype was my personal deep dive into real-time in
 
 ## Features
 -	🌀 Interactive Flippers: Smooth, reactive control using keyboard or touchscreen input.
--	🧲 Realistic Ball Physics: Implemented using [Matter.js] or custom force logic, including friction, gravity, and rebounds.
+-	🧲 Realistic Ball Physics: Implemented using [Planck.js] or custom force logic, including friction, gravity, and rebounds.
 -	🎯 Scoring System: Points awarded for targets hit and combo chains.
 -	🌈 Retro Aesthetic: Pixel-inspired visuals and simple game loop for a nostalgic feel.
 -	🔄 Restartable Loop: Quick reset flow for instant replayability.
@@ -66,7 +71,7 @@ Even though this was a technical challenge, I approached it with a UX mindset:
 -	Reinforced the idea that even small games benefit from intentional design.
 
 ## Next Steps
--	Add levels, multi-ball mode, and more complex bumpers.
+-	Add more levels.
 -	Explore porting it to WebAssembly for performance experiments.
 -	Release as an open-source project or tutorial series on real-time browser games.
 
@@ -87,4 +92,3 @@ widths={[240, 540, 720, Cover.width]}
   sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${Cover.width}px`}
 /> */}
 
-<iframe class="border-type-1 m-v-md-2" style="border:none" src="https://pinball.kuyucakli.com" width="100%" height="600"></iframe>
