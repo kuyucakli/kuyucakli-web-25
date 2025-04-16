@@ -9,6 +9,7 @@ import TemplateTextOnlyBigHeading from "../components/TemplateTextOnlyBigHeading
 import TemplateFullCoverOnly from "../components/TemplateFullCoverOnly.astro";
 import TemplateComplete from "../components/TemplateComplete.astro";
 import TemplateTextOnCover from "../components/TemplateTextOnCover.astro";
+import { sortByPostDate } from "../utils";
 
 const workPosts = await getCollection(
   "posts",
@@ -18,28 +19,9 @@ const blogPosts = await getCollection(
   "posts",
   (p) => p.data.published && p.data.pinned && p.data.category == "blog"
 );
-
-const anim = {
-  old: {
-    name: "bump",
-    duration: "0.5s",
-    easing: "ease-in",
-    direction: "reverse",
-  },
-  new: {
-    name: "bump",
-    duration: "0.5s",
-    easing: "ease-in-out",
-  },
-};
-
-const customTransition = {
-  forwards: anim,
-  backwards: anim,
-};
 ---
 
-<Layout title="Frontend Developer Burak Kuyucaklı">
+<Layout title="Frontend Developer">
   <InfiniteGrid>
     <slot>
       <li data-sequence>
@@ -72,22 +54,18 @@ const customTransition = {
       </li>
 
       {
-        workPosts
-          .sort(
-            (a, b) => new Date(a.data.createdAt) - new Date(b.data.createdAt)
-          )
-          .map((d) => {
-            if (d.data.excerptTemplate == "text-only-big-heading") {
-              return <TemplateTextOnlyBigHeading id={d.id} data={d.data} />;
-            }
-            if (d.data.excerptTemplate == "full-cover-only") {
-              return <TemplateFullCoverOnly id={d.id} data={d.data} />;
-            }
-            if (d.data.excerptTemplate == "text-on-cover") {
-              return <TemplateTextOnCover id={d.id} data={d.data} />;
-            }
-            return <TemplateComplete id={d.id} data={d.data} />;
-          })
+        sortByPostDate(workPosts).map((d) => {
+          if (d.data.excerptTemplate == "text-only-big-heading") {
+            return <TemplateTextOnlyBigHeading id={d.id} data={d.data} />;
+          }
+          if (d.data.excerptTemplate == "full-cover-only") {
+            return <TemplateFullCoverOnly id={d.id} data={d.data} />;
+          }
+          if (d.data.excerptTemplate == "text-on-cover") {
+            return <TemplateTextOnCover id={d.id} data={d.data} />;
+          }
+          return <TemplateComplete id={d.id} data={d.data} />;
+        })
       }
 
       <li class="infinity-grid-intro-section flex-col-center p-h-md-1">
@@ -95,22 +73,18 @@ const customTransition = {
       </li>
 
       {
-        blogPosts
-          .sort(
-            (a, b) => new Date(a.data.createdAt) - new Date(b.data.createdAt)
-          )
-          .map((d) => {
-            if (d.data.excerptTemplate == "text-only-big-heading") {
-              return <TemplateTextOnlyBigHeading id={d.id} data={d.data} />;
-            }
-            if (d.data.excerptTemplate == "full-cover-only") {
-              return <TemplateFullCoverOnly id={d.id} data={d.data} />;
-            }
-            if (d.data.excerptTemplate == "text-on-cover") {
-              return <TemplateTextOnCover id={d.id} data={d.data} />;
-            }
-            return <TemplateComplete id={d.id} data={d.data} />;
-          })
+        sortByPostDate(blogPosts).map((d) => {
+          if (d.data.excerptTemplate == "text-only-big-heading") {
+            return <TemplateTextOnlyBigHeading id={d.id} data={d.data} />;
+          }
+          if (d.data.excerptTemplate == "full-cover-only") {
+            return <TemplateFullCoverOnly id={d.id} data={d.data} />;
+          }
+          if (d.data.excerptTemplate == "text-on-cover") {
+            return <TemplateTextOnCover id={d.id} data={d.data} />;
+          }
+          return <TemplateComplete id={d.id} data={d.data} />;
+        })
       }
     </slot>
   </InfiniteGrid>

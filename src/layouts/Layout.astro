@@ -56,6 +56,7 @@ const { title, description, className } = Astro.props;
 <script>
   import { throttle, debounce } from "../utils";
   let headerEl = document.querySelector("#root>header");
+
   window.addEventListener(
     "scroll",
     debounce(() => {
