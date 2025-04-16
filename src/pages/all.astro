@@ -1,0 +1,11 @@
+---
+import InfiniteGrid from "../components/InfiniteGrid.astro";
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("posts", (p) => p.data.published);
+---
+
+<Layout title="Frontend Developer Burak Kuyucaklı">
+  <InfiniteGrid postsData={JSON.stringify(posts)} />
+</Layout>

@@ -1,0 +1,84 @@
+<label for="btn-toggle-theme">
+  <input
+    type="checkbox"
+    id="btn-toggle-theme"
+    checked
+    aria-label="Toggle dark mode"
+  />
+  <span class="icon-contrast">
+    <span class="sliding-door"></span>
+  </span>
+</label>
+
+<script>
+  type theme = "dark" | "light";
+
+  document.addEventListener("astro:page-load", () => {
+    const btnToggleTheme = document.getElementById(
+      "btn-toggle-theme"
+    ) as HTMLInputElement;
+    btnToggleTheme?.addEventListener("change", handleBtnThemeToggle);
+
+    function handleBtnThemeToggle() {
+      const theme = btnToggleTheme.checked ? "dark" : "light";
+      window.localStorage.setItem("theme", theme);
+      changeTheme(theme);
+    }
+
+    function changeTheme(theme: theme) {
+      if (theme == "dark") {
+        btnToggleTheme.checked = true;
+      }
+      if (theme == "light") {
+        btnToggleTheme.checked = false;
+      }
+    }
+    const storedTheme = window.localStorage.getItem("theme") as theme;
+
+    if (storedTheme) {
+      changeTheme(storedTheme);
+    }
+  });
+</script>
+
+<style>
+  label[for="btn-toggle-theme"] {
+    position: relative;
+    line-height: 18px;
+
+    input {
+      opacity: 0;
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .icon-contrast {
+      display: block;
+      width: 18px;
+      height: 18px;
+      border: 1px solid var(--clr-on-surface);
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .icon-contrast > .sliding-door {
+      display: block;
+      width: 50%;
+      height: 100%;
+      background-color: blue;
+      transition:
+        width 0.4s ease-in-out,
+        transform 0.2s ease-in;
+    }
+
+    :checked + .icon-contrast > .sliding-door {
+      width: 100%;
+      transform: translateX(50%);
+    }
+  }
+</style>

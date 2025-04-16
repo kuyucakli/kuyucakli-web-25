@@ -1,0 +1,42 @@
+---
+import { Picture } from "astro:assets";
+
+const { data, id } = Astro.props;
+---
+
+<li>
+  <a href={"/posts/" + data.category + "-" + id}>
+    {
+      data.poster ? (
+        <Picture
+          src={data?.poster}
+          alt="Pinball(Tilt) Game"
+          formats={["avif", "webp"]}
+          widths={[240, 540, 720, data?.poster?.width]}
+          sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${data?.poster?.width}px`}
+          style={data?.posterFitCss || ""}
+        />
+      ) : null
+    }
+  </a>
+</li>
+<li>
+  <h1 class="headlinesmall">
+    <a href={"/posts/" + data.category + "-" + id}>{data.title}</a>
+  </h1>
+  <p>
+    {data.excerpt}
+  </p>
+  <a
+    href={"/posts/" + data.category + "-" + id}
+    class="cover-link"
+    aria-label={data.title}></a>
+</li>
+
+<style>
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

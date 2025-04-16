@@ -1,0 +1,564 @@
+@layer reset {
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+  }
+
+  html {
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ol,
+  ul,
+  figure {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+  }
+
+  ol,
+  ul {
+    list-style: none;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* kirang-haerang-latin-400-normal */
+  @font-face {
+    font-family: "Kirang Haerang";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/kirang-haerang@latest/latin-400-normal.woff2)
+        format("woff2"),
+      url(https://cdn.jsdelivr.net/fontsource/fonts/kirang-haerang@latest/latin-400-normal.woff)
+        format("woff");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+      U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+      U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  /* overpass-mono-latin-wght-normal */
+  @font-face {
+    font-family: "Overpass Mono Variable";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 300 700;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/overpass-mono:vf@latest/latin-wght-normal.woff2)
+      format("woff2-variations");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+      U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+      U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+}
+
+@layer general {
+  * {
+    transition: background-color 0.2s ease-in, color 0.2s ease-out;
+  }
+  body {
+    font-family: "Overpass Mono Variable", sans-serif;
+    /* background: linear-gradient(
+      to bottom,
+      rgba(255, 137, 137, 0) 0%,
+      rgba(255, 137, 137, 0.01) 1%,
+      rgba(255, 0, 0, 0.59) 58%,
+      rgb(65 0 0) 99%,
+      rgba(166, 17, 17, 1) 100%
+    ); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  }
+
+  body::before {
+    content: "";
+    display: block;
+    background: var(--grd-clr-3);
+    width: 100%;
+    height: 50vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  body::after {
+    content: "";
+    display: block;
+    background: var(--grd-clr-4);
+    width: 100%;
+    height: 50vh;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  #root > header {
+    display: flex;
+    align-items: center;
+    gap: var(--s-sm-0);
+    padding: var(--s-md-0);
+    padding-bottom: 0;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+  }
+
+  #root > header > nav {
+    flex: 1 1 0;
+  }
+
+  #root > header > .logo {
+    overflow: hidden;
+    transition: width 0.4s;
+    width: 64px;
+  }
+
+  #root > header.compact > .logo {
+    width: 0;
+  }
+
+  main.post-detail {
+    padding-top: var(--s-lg-2);
+    padding-bottom: var(--s-xl-2);
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  main.post-detail p {
+    margin-top: var(--s-md-0);
+    margin-bottom: var(--s-md-0);
+  }
+
+  main.post-detail h2 + ul {
+    margin-top: var(--s-sm-0);
+    margin-bottom: var(--s-md-0);
+  }
+
+  main.post-detail ul:not([class]) li {
+    margin: var(--s-sm-2);
+    list-style: circle;
+  }
+
+  @media screen and (max-width: 680px) {
+    #root > header {
+      flex-wrap: wrap;
+    }
+  }
+}
+
+@layer sys {
+  #root {
+    background-color: var(--clr-surface);
+    color: var(--clr-on-surface);
+    min-height: 100vh;
+  }
+
+  :root {
+    --clr-surface: #eee;
+    --clr-on-surface: #333;
+    --clr-on-surface-fixed: #c3c6ce;
+    --clr-on-surface-container-1: pink;
+    --clr-on-surface-container-2: #c3c6ce;
+    --clr-accent-1: rgb(170, 173, 171);
+    /* --clr-surface-container-1: #0000ff;
+    --clr-surface-container-2: #395151;
+    --clr-surface-container-3: #434a39;
+    --clr-surface-container-4: #4d4b3b; */
+
+    --clr-surface-container-1: #ded8eb;
+    --clr-surface-container-2: #c4d0d0;
+    --clr-surface-container-3: #bcbfb7;
+    --clr-surface-container-4: #b4b3aa;
+
+    --grd-clr-1: linear-gradient(
+      to right,
+      rgba(255, 212, 212, 0),
+      rgba(255, 219, 219, 0)
+    );
+
+    --grd-clr-2: linear-gradient(
+      to bottom,
+      rgba(255, 221, 221, 0),
+      rgba(255, 219, 219, 0.764),
+      rgba(255, 221, 221, 0)
+    );
+
+    --grd-clr-3: linear-gradient(
+      180deg,
+      rgb(218, 214, 224) 0%,
+      rgba(31, 29, 34, 0) 40%
+    );
+    --grd-clr-4: linear-gradient(
+      0deg,
+      rgb(218, 214, 224) 0%,
+      rgba(31, 29, 34, 0) 40%
+    );
+
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+
+    --s-xs: 4px;
+    --s-sm-0: 8px;
+    --s-sm-1: 16px;
+    --s-sm-2: 24px;
+    --s-md-0: 32px;
+    --s-md-1: 40px;
+    --s-md-2: 48px;
+    --s-lg-0: 56px;
+    --s-lg-1: 64px;
+    --s-lg-2: 72px;
+    --s-xl-0: 96px;
+    --s-xl-1: 120px;
+    --s-xl-2: 144px;
+  }
+
+  /* dark theme */
+  :root:has(input:checked) {
+    --clr-surface: hsl(162, 8%, 16%);
+    --clr-on-surface: #c3c6ce;
+    --clr-on-surface-fixed: #c3c6ce;
+    --clr-primary-on-surface: #fff761;
+    --clr-tertiary-on-surface: #f6c8bb;
+    --clr-on-surface-container-1: pink;
+    --clr-on-surface-container-2: #c3c6ce;
+    --clr-accent-1: pink;
+
+    --clr-surface-container-1: #305752;
+    --clr-surface-container-2: #395151;
+    --clr-surface-container-3: #434a39;
+    --clr-surface-container-4: #4d4b3b;
+
+    --grd-clr-1: linear-gradient(to right, #ece4f7, rgba(255, 219, 219, 0));
+
+    --grd-clr-3: linear-gradient(
+      180deg,
+      rgb(31, 29, 34) 0%,
+      rgba(31, 29, 34, 0) 40%
+    );
+    --grd-clr-4: linear-gradient(
+      0deg,
+      rgb(31, 29, 34) 0%,
+      rgba(31, 29, 34, 0) 40%
+    );
+  }
+
+  /* @media (prefers-color-scheme: dark) {
+    :root {
+      --clr-surface: #333;
+      --clr-on-surface: #eee;
+    }
+  } */
+
+  .displaylarge {
+    font-family: "Kirang Haerang", sans-serif;
+    font-size: 57px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.12;
+    letter-spacing: -0.25px;
+  }
+  .displaymedium {
+    font-family: "Kirang Haerang", sans-serif;
+    font-size: 45px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.16;
+    letter-spacing: normal;
+  }
+  .displaysmall {
+    font-family: "Kirang Haerang", sans-serif;
+    font-size: 36px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.22;
+    letter-spacing: normal;
+  }
+  .headlinelarge {
+    font-family: "Overpass Mono Variable", serif;
+    font-size: 32px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+  }
+  .headlinemedium,
+  .post-detail h2 {
+    font-family: "Overpass Mono Variable", serif;
+    font-size: 28px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+  }
+  .headlinesmall,
+  .post-detail h3 {
+    font-family: "Overpass Mono Variable", serif;
+    font-size: 24px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+  }
+  .titlelarge,
+  .from-notion h2 {
+    font-family: "Overpass Mono Variable", sans-serif;
+    font-size: 22px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.27;
+    letter-spacing: normal;
+  }
+  .titlemedium {
+    font-family: "Overpass Mono Variable", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 0.15px;
+  }
+  .bodylarge {
+    font-family: "Overpass Mono Variable", sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+  }
+  .titlesmall,
+  .from-notion {
+    font-family: "Overpass Mono Variable", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: 0.1px;
+  }
+  .labellarge {
+    font-family: "Overpass Mono Variable", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: 0.1px;
+  }
+  .bodymedium,
+  .post-detail h2 + ul {
+    font-family: "Overpass Mono Variable", sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: 0.25px;
+  }
+  .labelmedium {
+    font-family: "Overpass Mono Variable", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: 0.5px;
+  }
+  .bodysmall {
+    font-family: "Overpass Mono Variable", sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: 0.4px;
+  }
+  .labelsmall {
+    font-family: "Overpass Mono Variable", sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.45;
+    letter-spacing: 0.5px;
+  }
+}
+
+@layer utils {
+  .m-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .m-v-xs {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+  .m-v-sm-0 {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  .m-v-sm-1 {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+  .m-v-sm-2 {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+  .m-v-md-0 {
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
+  .m-v-md-1 {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  .m-v-md-2 {
+    margin-top: 48px;
+    margin-bottom: 48px;
+  }
+  .p-h-sm-2 {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .p-v-sm-2 {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  .p-h-md-1 {
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+  }
+
+  .txt-center {
+    text-align: center;
+  }
+  .txt-justify {
+    text-align: justify;
+  }
+
+  .txt-underline {
+    text-decoration: wavy underline var(--clr-on-surface-container-2) 6px;
+  }
+  .flex-row-center {
+    display: flex;
+    justify-content: center;
+  }
+
+  .flex-col-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flex-vertical-center {
+    display: flex;
+    align-items: center;
+  }
+
+  .max-w-240 {
+    max-width: 240px;
+  }
+
+  .max-w-400 {
+    max-width: 400px;
+  }
+
+  .cover {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  .vertical-align-middle {
+    vertical-align: middle;
+  }
+
+  .cover-link {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .thumb-sm-0 {
+    width: 56px;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+  .radial {
+    border-radius: 50%;
+  }
+}
+
+@layer layout-grids {
+  .grid-deep-0 {
+    display: grid;
+    gap: var(--s-md-2);
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-test {
+    display: grid;
+    grid-template-columns: repeat(6, max-content);
+    justify-items: start;
+    gap: 6px;
+  }
+}
+
+@keyframes bump {
+  0% {
+    opacity: 0;
+    transform: scale(1) translateX(200px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+}

@@ -1,0 +1,52 @@
+---
+import { IconBackArrow } from "../../components/Icons";
+import NavDirectional from "../../components/NavDirectional.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+import { sortByPostDate } from "../../utils";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return sortByPostDate(posts).map((post, i) => ({
+    params: { id: post.id, category: post.data.category },
+    props: {
+      post,
+      prevItem:
+        posts[i - 1]?.data.category == post.data.category ? posts[i - 1] : null,
+      nextItem:
+        posts[i + 1]?.data.category == post.data.category ? posts[i + 1] : null,
+    },
+  }));
+}
+
+const { post, prevItem, nextItem } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout className="post-detail" title={post.data.title}>
+  <a
+    href="/"
+    class="headlinemedium flex-vertical-center"
+    style="margin-left:-24px;"
+  >
+    <IconBackArrow fill="var(--clr-on-surface)" width={128} height={128} />
+    Back
+  </a>
+  <header class="m-v-md-0">
+    <h1 class="displaylarge">{post.data.title}</h1>
+    <p class="bodymedium">
+      {
+        post.data.createdAt.toLocaleDateString("en-us", {
+          weekday: "long",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      }
+    </p>
+  </header>
+
+  <Content />
+
+  <NavDirectional {prevItem} {nextItem} category={post.data.category} />
+</Layout>

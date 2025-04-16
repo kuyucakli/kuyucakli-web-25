@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+import { IconBackArrow } from "../../components/Icons";
+import Layout from "../../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const images = await getCollection("drawingImages");
+  return images.map((image) => ({
+    params: { id: image.id },
+    props: { image },
+  }));
+}
+
+const { image } = Astro.props;
+const { Content } = await render(image);
+---
+
+<Layout className="post-detail" title={image.data.altText}>
+  <a
+    href="/posts/blog-drawings"
+    class="headlinemedium flex-vertical-center"
+    style="margin-left:-24px;"
+  >
+    <IconBackArrow fill="var(--clr-on-surface)" width={128} height={128} />
+    Back
+  </a>
+  <Image src={image.data.file} alt={image.data.altText} />
+  <header class="m-v-md-0">
+    <h1 class="displaylarge">{image.data.altText}</h1>
+    <p class="bodymedium">
+      {
+        image.data.createdAt.toLocaleDateString("en-us", {
+          weekday: "long",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      }
+    </p>
+  </header>
+
+  <h2>
+    {image.data.excerpt}
+  </h2>
+
+  <p>
+    {image.data.description}
+  </p>
+
+  <Content />
+</Layout>

@@ -1,0 +1,27 @@
+---
+title: "Hello, and welcome to the home of Burak Kuyucaklı, a frontend developer focused on crafting intuitive web experiences."
+excerpt: "This is a summary text..."
+poster: "../../assets/img/tilt-cover-artwork.png"
+createdAt: "Tuesday, July 27 1978"
+updatedAt: "Tuesday, July 27 2021"
+published: true
+pinned: true
+category: "home-intro"
+tags: []
+excerptTemplate: "text-only-big-heading"
+---
+
+import {Picture} from "astro:assets"
+import Cover from "../../assets/img/tilt-cover-artwork.png"
+
+# Hello Post 1
+
+This is body text
+
+<Picture 
+src={Cover} 
+alt="Pinball(Tilt) Game" 
+formats={["avif", "webp"]}
+widths={[240, 540, 720, Cover.width]}
+  sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${Cover.width}px`}
+/>

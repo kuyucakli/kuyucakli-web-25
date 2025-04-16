@@ -1,0 +1,162 @@
+---
+//type Json<T> = string & { readonly __jsonType?: T };
+interface Props {
+  children?: HTMLLIElement[];
+
+  className?: string;
+}
+const { className }: Props = Astro.props;
+---
+
+<infinite-grid>
+  <ul class=`infinite-grid ${className}`>
+    <slot />
+  </ul>
+</infinite-grid>
+
+<script>
+  import { throttle } from "../utils";
+
+  class InfiniteGrid extends HTMLElement {
+    connectedCallback() {
+      let extendedCounter = 0;
+      let clonedLastIndex = 0;
+
+      const gridEl = this.querySelector("ul") as HTMLUListElement;
+
+      const gridComputedStyle = window.getComputedStyle(gridEl);
+      const gridChildrenLength = gridEl.children.length;
+
+      const gridColumnCount = gridComputedStyle
+        .getPropertyValue("grid-template-columns")
+        .split(" ").length;
+
+      let extraItemCountForDoubleRow =
+        2 * gridColumnCount - (gridChildrenLength % gridColumnCount);
+
+      function extendGrid(count: number) {
+        for (let i = 0; i < count; i++) {
+          const cloneEl = gridEl.children[clonedLastIndex].cloneNode(
+            true
+          ) as HTMLElement;
+
+          gridEl?.append(cloneEl);
+          clonedLastIndex++;
+        }
+      }
+
+      extendGrid(extraItemCountForDoubleRow);
+      modifySequencedContent();
+
+      //inject top space for the very first row
+      const topElements = document.querySelectorAll(
+        `.infinite-grid li:nth-child(-n + ${gridColumnCount})`
+      );
+
+      topElements.forEach((el) => {
+        el.style.paddingTop = "128px";
+      });
+
+      window.addEventListener(
+        "scroll",
+        throttle(() => {
+          const scrolledTo = window.scrollY + window.innerHeight;
+          const threshold = 300;
+          const reachedBottom =
+            document.body.scrollHeight - threshold <= scrolledTo;
+          if (reachedBottom) {
+            extendGrid(gridColumnCount);
+            addObserver();
+            gridEl.style.backgroundColor = `var(--clr-surface-container-${(extendedCounter % 3) + 1})`;
+
+            extendedCounter++;
+            modifySequencedContent();
+          }
+        }, 50)
+      );
+      const observerOptions = {
+        threshold: [0.1, 0.2, 0.3, 0.7, 0.8, 0.9],
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.intersectionRatio > 0.7) {
+            entry.target.classList.add("in-view");
+          } else {
+            entry.target.classList.remove("in-view");
+          }
+        });
+      }, observerOptions);
+
+      const addObserver = () => {
+        const observeEls = document.querySelectorAll(
+          ".infinity-grid-intro-section"
+        );
+        observeEls.forEach((el) => {
+          observer.observe(el);
+        });
+      };
+      addObserver();
+
+      function modifySequencedContent() {
+        const els = document.querySelectorAll("[data-sequence]");
+        els.forEach((el, index) => {
+          [...el.children].forEach((el) => {
+            el.style.display = "none";
+          });
+          const el2 = el.querySelector(
+            `[data-sequence-item]:nth-child(${index + 1})`
+          );
+          if (el2) {
+            el2.classList.add("vis");
+            el2.style.display = "block";
+          }
+        });
+      }
+    }
+  }
+
+  customElements.define("infinite-grid", InfiniteGrid);
+</script>
+
+<style is:global>
+  .infinite-grid {
+    display: grid;
+    gap: 0px;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    transition: background-color 0.4s ease-in;
+    background-color: var(--clr-surface-container-1);
+  }
+  .infinity-grid-intro-section {
+    border-width: 1px;
+    border-style: solid;
+    border-image: linear-gradient(
+        to right,
+        rgba(255, 212, 212, 0),
+        rgba(255, 219, 219, 0)
+      )
+      1 100%;
+    transition: all 0.5s ease-in;
+  }
+  .infinity-grid-intro-section.in-view {
+    border-image: linear-gradient(
+        to bottom,
+        rgba(255, 221, 221, 0),
+        rgba(255, 219, 219, 0.764),
+        rgba(255, 221, 221, 0)
+      )
+      1 100%;
+  }
+  .infinite-grid > li {
+    background: var(--infinite-grid-bg);
+    height: calc((100vh - 112px) * 0.8);
+    border-radius: 2px;
+    padding: var(--s-md-0);
+    transition: all 0.5s ease-in;
+    position: relative;
+    overflow: hidden;
+  }
+
+  [data-sequence] > * {
+    display: none;
+  }
+</style>

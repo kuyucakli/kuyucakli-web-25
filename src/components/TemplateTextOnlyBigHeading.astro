@@ -1,0 +1,11 @@
+---
+const { data, id } = Astro.props;
+---
+
+<li class="flex-col-center p-h-md-1">
+  <h1 class="headlinesmall"><a href={"/posts/" + id}>{data.title}</a></h1>
+  <a
+    href={"/posts/" + data.category + "-" + id}
+    class="cover-link"
+    aria-label={data.title}></a>
+</li>

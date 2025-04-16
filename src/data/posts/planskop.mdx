@@ -1,0 +1,72 @@
+---
+title: "Planskop"
+excerpt: "A next.js project prototype with wasm + rust."
+poster: "../../assets/img/planskop-home.png"
+posterFitCss: "object-position:top"
+createdAt: "August 23 2024"
+updatedAt: "August 23 2024"
+published: true
+pinned: true
+tags: ["work"]
+category: "work"
+excerptTemplate: "full-cover-only"
+---
+
+import {Picture} from "astro:assets"
+import Cover from "../../assets/img/tilt-cover-artwork.png"
+
+## Planskop – A Minimal Habit Tracker Powered by WebAssembly
+
+- Role: Full-Stack Developer, UX Designer
+- Technologies: Next.js, Rust, WebAssembly (WASM), TypeScript
+
+### Overview
+
+Planskop is a minimalist habit-tracking web app designed to help users build and maintain positive routines through a clean interface and fast performance. It’s a personal project that allowed me to explore advanced frontend performance optimization with WebAssembly, while also applying my background in UX/UI design and full-stack development.
+
+### Goals
+
+- Build a fast, responsive, and offline-capable habit tracker.
+- Practice integrating Rust with Next.js via WebAssembly.
+- Design a clear and distraction-free user interface that encourages consistency.
+- Ensure accessibility and cross-device compatibility.
+
+### Key Features
+-	📅 Recurring Habits: Supports flexible daily, weekly, or custom schedules.
+-	⚙️ Rust-powered Logic: Core habit calculations and date rule parsing (RRULE) are handled by a Rust module compiled to WASM.
+-	🧠 Smart Time Logic: Accurate date and time handling using Rust’s chrono crate, including timezone support.
+-	🧪 Local-first UX: User data is stored locally in the browser, with plans for optional cloud sync.
+-	🎨 Clean UI: Built with TailwindCSS, designed for minimal distractions and optimal usability.
+
+### Why Rust and WebAssembly?
+
+One of my goals was to learn Rust in a real-world context. Habit tracking requires precision in dealing with timezones, recurrence rules, and logic that benefits from performance. I used Rust to:
+- Parse and calculate recurring habit schedules (like iCal-style RRULEs).
+- Safely handle date-time manipulation.
+- Compile to WebAssembly and seamlessly run in the browser alongside my Next.js frontend.
+
+### UX & Design Process
+
+As an experienced UX instructor, I took this opportunity to go deep into usability:
+- Created user flows and low-fi wireframes to simplify interaction.
+- Prioritized keyboard navigation and accessibility from the start.
+- Performed manual and automated accessibility testing.
+- Iterated on the design through self-testing and feedback loops.
+
+
+
+### What I Learned
+- Gained deep experience integrating Rust into a modern JS frontend via WASM.
+- Strengthened my understanding of date-time management across locales.
+- Reinforced my design thinking by wearing both developer and designer hats.
+- Learned to balance minimalism with functionality through multiple iterations.
+
+
+{/* 
+<Picture 
+src={Cover} 
+alt="Pinball(Tilt) Game" 
+formats={["avif", "webp"]}
+widths={[240, 540, 720, Cover.width]}
+  sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${Cover.width}px`}
+/> */}

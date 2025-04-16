@@ -1,0 +1,87 @@
+---
+import Dialog from "./Dialog.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+const { collectionName = "drawingImages", category } = Astro.props;
+
+const images = await getCollection(collectionName, (i) => {
+  if (category) {
+    return i.data.category == category;
+  }
+  return i;
+});
+---
+
+<section>
+  <ul class="grid-test image-grid">
+    {
+      images.map((image, i) => (
+        <li>
+          <figure class="thumb-sm-0">
+            <a href={`/images/${image.id}`}>
+              <Image
+                src={image.data.file}
+                alt="bodrum gündoğan deniz atı sitesi"
+                width={80}
+                class="cover"
+                data-dialog-slide-index={i}
+              />
+            </a>
+          </figure>
+        </li>
+      ))
+    }
+  </ul>
+  <Dialog>
+    <ul>
+      {
+        images.map((image, i) => (
+          <li>
+            <figure class="thumb-sm-0">
+              <Image
+                src={image.data.file}
+                alt={image.data.altText}
+                data-dialog-slide-index={i}
+                widths={[240, 540, 720]}
+                sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px`}
+              />
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+    <nav class="dialog-slide-nav">
+      <ul>
+        {
+          images.map((image, i) => (
+            <li>
+              <figure class="thumb-sm-0">
+                <Image
+                  src={image.data.file}
+                  alt="bodrum gündoğan deniz atı sitesi"
+                  data-dialog-slide-index={i}
+                  width={80}
+                  class="cover"
+                />
+              </figure>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </Dialog>
+</section>
+
+<script>
+  const navEl = document.querySelector("nav.dialog-slide-nav");
+
+  // Listen for the event.
+  document.addEventListener(
+    "open-dialog",
+    (e) => {
+      console.log(e.detail, "ho");
+    },
+    false
+  );
+</script>

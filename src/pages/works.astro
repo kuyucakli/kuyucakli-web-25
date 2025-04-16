@@ -1,0 +1,41 @@
+---
+import InfiniteGrid from "../components/InfiniteGrid.astro";
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import TemplateTextOnlyBigHeading from "../components/TemplateTextOnlyBigHeading.astro";
+import TemplateFullCoverOnly from "../components/TemplateFullCoverOnly.astro";
+import TemplateComplete from "../components/TemplateComplete.astro";
+import { sortByPostDate } from "../utils";
+
+const posts = await getCollection(
+  "posts",
+  (p) =>
+    p.data.published &&
+    p.data.tags
+      .join(", ")
+      .toLowerCase()
+      .search(/(^|, )work(,|$)/) > -1
+);
+---
+
+<Layout title="Frontend Developer Burak Kuyucaklı">
+  <InfiniteGrid>
+    <slot>
+      <li class="infinity-grid-intro-section">
+        <h1 class="displaylarge">Works</h1>
+      </li>
+
+      {
+        sortByPostDate(posts).map((d) => {
+          if (d.data.excerptTemplate == "text-only-big-heading") {
+            return <TemplateTextOnlyBigHeading id={d.id} data={d.data} />;
+          }
+          if (d.data.excerptTemplate == "full-cover-only") {
+            return <TemplateFullCoverOnly id={d.id} data={d.data} />;
+          }
+          return <TemplateComplete id={d.id} data={d.data} />;
+        })
+      }
+    </slot>
+  </InfiniteGrid>
+</Layout>
