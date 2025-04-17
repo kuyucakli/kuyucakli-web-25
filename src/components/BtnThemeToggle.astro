@@ -42,7 +42,7 @@
 </script>
 
 <style>
-  label[for="btn-toggle-theme"] {
+  /* label[for="btn-toggle-theme"] {
     position: relative;
     line-height: 18px;
 
@@ -80,5 +80,45 @@
       width: 100%;
       transform: translateX(50%);
     }
+  } */
+
+  label[for="btn-toggle-theme"] {
+    position: relative;
+    line-height: 18px;
+  }
+
+  label[for="btn-toggle-theme"] input {
+    opacity: 0;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  label[for="btn-toggle-theme"] .icon-contrast {
+    display: block;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--clr-on-surface);
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  label[for="btn-toggle-theme"] .icon-contrast > .sliding-door {
+    display: block;
+    width: 50%;
+    height: 100%;
+    background-color: blue;
+    transition:
+      width 0.4s ease-in-out,
+      transform 0.2s ease-in;
+  }
+
+  label[for="btn-toggle-theme"] input:checked + .icon-contrast > .sliding-door {
+    width: 100%;
+    transform: translateX(50%);
   }
 </style>
