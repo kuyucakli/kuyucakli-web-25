@@ -15,7 +15,7 @@ const currentPath = Astro.url.pathname;
     <li>
       <a
         href="/works"
-        aria-current={currentPath === "/works" ||
+        aria-current={currentPath.includes("/works") ||
         currentPath.includes("/posts/work")
           ? true
           : false}>Work</a
@@ -24,7 +24,7 @@ const currentPath = Astro.url.pathname;
     <li>
       <a
         href="/blog"
-        aria-current={currentPath === "/blog" ||
+        aria-current={currentPath.includes("/blog") ||
         currentPath.includes("/posts/blog") ||
         currentPath.includes("images")
           ? true
