@@ -150,7 +150,7 @@ const { className }: Props = Astro.props;
     background: var(--infinite-grid-bg);
     height: calc((100vh - 112px) * 0.8);
     border-radius: 2px;
-    padding: var(--s-md-0);
+    padding: clamp(var(--s-sm-0), 5vw, var(--s-md-0));
     transition: all 0.5s ease-in;
     position: relative;
     overflow: hidden;

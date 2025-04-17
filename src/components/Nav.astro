@@ -60,7 +60,7 @@ const currentPath = Astro.url.pathname;
   }
   .nav-main ul {
     justify-content: right;
-    gap: var(--s-lg-2);
+    gap: clamp(var(--s-sm-2), 5vw, var(--s-lg-2));
   }
   .nav-main > ul > li {
     text-align: right;
