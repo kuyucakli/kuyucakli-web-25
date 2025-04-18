@@ -1,4 +1,5 @@
 ---
+import BtnBack from "./BtnBack.astro";
 import { IconBackArrow } from "./Icons";
 const { nextItem, prevItem, category } = Astro.props;
 let prevHref, nextHref;
@@ -13,14 +14,7 @@ if (category) {
 ---
 
 <nav class="flex-row-center" id="nav-directional">
-  <a
-    href="/"
-    class="headlinemedium flex-vertical-center"
-    style="margin-left:-24px;"
-  >
-    <IconBackArrow fill="var(--clr-on-surface)" width={128} height={128} />
-    Back
-  </a>
+  <BtnBack />
 
   {prevItem && <a href={prevHref}>Prev</a>}
   {nextItem && <a href={nextHref}>Next</a>}
@@ -31,10 +25,10 @@ if (category) {
     width: 100%;
     max-width: 640px;
     position: fixed;
-    bottom: 0;
+    bottom: var(--s-sm-2);
     left: 50%;
     transform: translateX(-50%);
-
+    z-index: 999;
     align-items: center;
     justify-content: start !important;
     gap: var(--s-sm-2);

@@ -151,7 +151,9 @@
   main.post-detail {
     padding-top: var(--s-lg-2);
     padding-bottom: var(--s-xl-2);
-    max-width: 640px;
+    max-width: calc(640px + clamp(var(--s-sm-0), 5vw, var(--s-md-0)));
+    padding-left: clamp(var(--s-sm-0), 5vw, var(--s-md-0));
+    padding-right: clamp(var(--s-sm-0), 5vw, var(--s-md-0));
     margin-left: auto;
     margin-right: auto;
   }

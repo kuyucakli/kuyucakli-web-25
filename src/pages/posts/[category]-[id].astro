@@ -1,9 +1,10 @@
 ---
-import { IconBackArrow, IconOpenInNew } from "../../components/Icons";
+import { IconOpenInNew } from "../../components/Icons";
 import NavDirectional from "../../components/NavDirectional.astro";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
 import { sortByPostDate } from "../../utils";
+import BtnBack from "../../components/BtnBack.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -24,14 +25,7 @@ const { Content } = await render(post);
 ---
 
 <Layout className="post-detail" title={post.data.title}>
-  <a
-    href="/"
-    class="headlinemedium flex-vertical-center"
-    style="margin-left:-24px;"
-  >
-    <IconBackArrow fill="var(--clr-on-surface)" width={128} height={128} />
-    Back
-  </a>
+  <BtnBack />
   <header class="m-v-md-0">
     <h1 class="displaylarge">
       {post.data.title}
