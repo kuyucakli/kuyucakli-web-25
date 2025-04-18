@@ -1,0 +1,10 @@
+---
+import { IconBackArrow } from "./Icons";
+
+const { url = "/" } = Astro.props;
+---
+
+<a href={url} class="titlemedium flex-vertical-center">
+  <IconBackArrow fill="var(--clr-on-surface)" />
+  Back
+</a>
