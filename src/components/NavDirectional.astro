@@ -32,29 +32,29 @@ if (category) {
     align-items: center;
     justify-content: start !important;
     gap: var(--s-sm-2);
-    visibility: hidden;
+    visibility: visible;
   }
 </style>
 
 <script>
-  import { debounce } from "../utils";
-  document.addEventListener("astro:after-swap", init);
+  // import { debounce } from "../utils";
+  // document.addEventListener("astro:after-swap", init);
 
-  init();
+  // init();
 
-  function init() {
-    const navDirectionalEl = document.querySelector("#nav-directional");
+  // function init() {
+  //   const navDirectionalEl = document.querySelector("#nav-directional");
 
-    if (!navDirectionalEl) return;
-    window.addEventListener(
-      "scroll",
-      debounce(() => {
-        if (window.scrollY > 100) {
-          navDirectionalEl.style.visibility = "visible";
-        } else {
-          navDirectionalEl.style.visibility = "hidden";
-        }
-      }, 20)
-    );
-  }
+  //   if (!navDirectionalEl) return;
+  //   window.addEventListener(
+  //     "scroll",
+  //     debounce(() => {
+  //       if (window.scrollY > 100) {
+  //         navDirectionalEl.style.visibility = "visible";
+  //       } else {
+  //         navDirectionalEl.style.visibility = "hidden";
+  //       }
+  //     }, 20)
+  //   );
+  // }
 </script>
