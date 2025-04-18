@@ -25,7 +25,9 @@ const { Content } = await render(image);
 <Layout className="post-detail" title={image.data.altText}>
   <BtnBack url="/posts/blog-drawings" />
 
-  <Image src={image.data.file} alt={image.data.altText} />
+  <a href={image.data.file.src} target="_blank">
+    <Image src={image.data.file} alt={image.data.altText} />
+  </a>
   <header class="m-v-md-0">
     <h1 class="displaylarge">{image.data.altText}</h1>
     <p class="bodymedium">
