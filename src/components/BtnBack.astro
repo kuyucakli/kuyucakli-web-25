@@ -4,7 +4,18 @@ import { IconBackArrow } from "./Icons";
 const { url = "/" } = Astro.props;
 ---
 
-<a href={url} class="titlemedium flex-vertical-center">
+<a href={url} id="btn-back" class="titlemedium flex-vertical-center">
   <IconBackArrow fill="var(--clr-on-surface)" />
   Back
 </a>
+
+<script>
+  document.addEventListener("astro:after-swap", init);
+  console.log(document.title);
+  function init() {
+    document.getElementById("btn-back")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      history.back();
+    });
+  }
+</script>
