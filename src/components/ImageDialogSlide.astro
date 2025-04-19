@@ -14,7 +14,7 @@ const images = await getCollection(collectionName, (i) => {
 ---
 
 <section>
-  <ul class="grid-test image-grid">
+  <ul class="grid-1 image-grid">
     {
       images.map((image, i) => (
         <li>
@@ -23,7 +23,7 @@ const images = await getCollection(collectionName, (i) => {
               <Image
                 src={image.data.file}
                 alt="bodrum gündoğan deniz atı sitesi"
-                width={80}
+                width={100}
                 class="cover"
                 data-dialog-slide-index={i}
               />

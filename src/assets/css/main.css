@@ -529,7 +529,7 @@
   }
 
   .thumb-sm-0 {
-    width: 56px;
+    width: 100%;
     aspect-ratio: 1;
     overflow: hidden;
     border-radius: 2px;
@@ -546,11 +546,11 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .grid-test {
+  .grid-1 {
     display: grid;
-    grid-template-columns: repeat(6, max-content);
+    grid-template-columns: repeat(auto-fit, 64px);
     justify-items: start;
-    gap: 6px;
+    gap: var(--s-sm-0);
   }
 }
 
