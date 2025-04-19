@@ -529,7 +529,7 @@
   }
 
   .thumb-sm-0 {
-    width: 100%;
+    width: 64px;
     aspect-ratio: 1;
     overflow: hidden;
     border-radius: 2px;
