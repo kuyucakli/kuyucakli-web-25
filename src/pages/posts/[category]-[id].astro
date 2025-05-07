@@ -4,20 +4,26 @@ import NavDirectional from "../../components/NavDirectional.astro";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
 import { sortByPostDate } from "../../utils";
-import BtnBack from "../../components/BtnBack.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
-  return sortByPostDate(posts).map((post, i) => ({
-    params: { id: post.id, category: post.data.category },
-    props: {
-      post,
-      prevItem:
-        posts[i - 1]?.data.category == post.data.category ? posts[i - 1] : null,
-      nextItem:
-        posts[i + 1]?.data.category == post.data.category ? posts[i + 1] : null,
-    },
-  }));
+
+  return sortByPostDate(posts).map((post, i) => {
+    console.table(post.data.title + " " + post.data.category + " " + i);
+
+    return {
+      params: { id: post.id, category: post.data.category },
+      props: {
+        post,
+        prevItem: posts.find(
+          (p) => p.data.category == post.data.category && p.id < post.id
+        ),
+        nextItem: posts.find(
+          (p) => p.data.category == post.data.category && p.id > post.id
+        ),
+      },
+    };
+  });
 }
 
 const { post, prevItem, nextItem } = Astro.props;

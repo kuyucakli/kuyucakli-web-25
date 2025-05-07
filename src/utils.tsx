@@ -38,8 +38,9 @@ function sortByPostDate(list: CollectionEntry<"drawingImages" | "posts">[], type
     if (type == "descending") {
         return list.sort((a, b) => new Date(b.data.createdAt).valueOf() - new Date(a.data.createdAt).valueOf());
     }
-
 }
+
+
 
 
 
