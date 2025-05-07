@@ -6,6 +6,7 @@ import TemplateTextOnlyBigHeading from "../components/TemplateTextOnlyBigHeading
 import TemplateFullCoverOnly from "../components/TemplateFullCoverOnly.astro";
 import TemplateComplete from "../components/TemplateComplete.astro";
 import { sortByPostDate } from "../utils";
+import TemplateTextOnCover from "../components/TemplateTextOnCover.astro";
 
 const posts = await getCollection(
   "posts",
@@ -32,6 +33,9 @@ const posts = await getCollection(
           }
           if (d.data.excerptTemplate == "full-cover-only") {
             return <TemplateFullCoverOnly id={d.id} data={d.data} />;
+          }
+          if (d.data.excerptTemplate == "text-on-cover") {
+            return <TemplateTextOnCover id={d.id} data={d.data} />;
           }
           return <TemplateComplete id={d.id} data={d.data} />;
         })
