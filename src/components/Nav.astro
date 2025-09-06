@@ -7,20 +7,11 @@ const currentPath = Astro.url.pathname;
 <nav class="nav-main">
   <Logo />
 
-  <ul class="flex-row-center labellarge">
+  <ul class="flex-row-center titlemedium">
     <li>
-      <a href="/" aria-current={currentPath === "/" ? true : false}>Pinned</a>
+      <a href="/" aria-current={currentPath === "/" ? true : false}>Home</a>
     </li>
 
-    <li>
-      <a
-        href="/works"
-        aria-current={currentPath.includes("/works") ||
-        currentPath.includes("/posts/work")
-          ? true
-          : false}>Work</a
-      >
-    </li>
     <li>
       <a
         href="/blog"
@@ -31,6 +22,27 @@ const currentPath = Astro.url.pathname;
           : false}>Blog</a
       >
     </li>
+
+    <li>
+      <a
+        href="https://www.github.com/kuyucakli"
+        aria-current={currentPath.includes("/works") ||
+        currentPath.includes("/posts/work")
+          ? true
+          : false}>Github</a
+      >
+    </li>
+
+    <!-- <li>
+      <a
+        href="/works"
+        aria-current={currentPath.includes("/works") ||
+        currentPath.includes("/posts/work")
+          ? true
+          : false}>Work</a
+      >
+    </li> -->
+
     <!-- <li>
       <a href="/all" aria-current={currentPath === "/all" ? true : false}>All</a
       >

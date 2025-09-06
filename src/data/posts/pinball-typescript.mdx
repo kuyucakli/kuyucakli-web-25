@@ -1,93 +1,94 @@
 ---
 title: "Pinball Game"
-excerpt: "A minimalistic typescript pinball game with light visuals and smooth, skill-based gameplay."
+excerpt: "Typescript pinball game."
 poster: "../../assets/img/tilt-cover-artwork.png"
+videoPoster: "https://res.cloudinary.com/derfbfm9n/video/upload/v1756995071/pinaball-game-intro-clip_d6vhky.mov"
 createdAt: "January 27 2024"
 updatedAt: "January 27 2024"
 published: true
 pinned: true
 tags: ["work"]
 category: "work"
-excerptTemplate: "full-cover-only"
+excerptTemplate: "video-cover"
 link: "https://pinball.kuyucakli.com/"
 ---
 
-import {Picture} from "astro:assets"
+import { Picture } from "astro:assets";
 
-import Cover from "../../assets/img/tilt-cover-artwork.png"
-
-
+import Cover from "../../assets/img/tilt-cover-artwork.png";
 
 # Pinball Prototype – A Physics-Based Browser Game
 
 - Role: Game Developer, UX Designer
 - Technologies: TypeScript, Canvas/WebGL, Physics Engine (Planck.js), HTML/CSS
 
-
-
 ## Overview
 
 This browser-based pinball prototype was my personal deep dive into real-time interaction design, physics simulation, and game feel. Inspired by classic pinball mechanics, I wanted to challenge myself with collision detection, timing, user feedback, and smooth rendering—all in a lightweight, browser-native environment.
 
+## Screenshots & Demo
 
-
-## Screenshots & Demo 
-<iframe class="border-type-1 m-v-md-2" style="border:none" src="https://pinball.kuyucakli.com" width="100%" height="600"></iframe>
+<iframe
+  class="border-type-1 m-v-md-2"
+  style="border:none"
+  src="https://pinball.kuyucakli.com"
+  width="100%"
+  height="600"
+></iframe>
 
 ## Goals
--	Build a working physics-based pinball game using only web technologies.
--	Learn how to implement 2D physics, flipper mechanics, and collision responses.
--	Create a retro-inspired visual and audio experience.
--	Explore game UX, especially around controls and feedback.
+
+- Build a working physics-based pinball game using only web technologies.
+- Learn how to implement 2D physics, flipper mechanics, and collision responses.
+- Create a retro-inspired visual and audio experience.
+- Explore game UX, especially around controls and feedback.
 
 ⸻
 
 ## Features
--	🌀 Interactive Flippers: Smooth, reactive control using keyboard or touchscreen input.
--	🧲 Realistic Ball Physics: Implemented using [Planck.js] or custom force logic, including friction, gravity, and rebounds.
--	🎯 Scoring System: Points awarded for targets hit and combo chains.
--	🌈 Retro Aesthetic: Pixel-inspired visuals and simple game loop for a nostalgic feel.
--	🔄 Restartable Loop: Quick reset flow for instant replayability.
+
+- Interactive Flippers: Smooth, reactive control using keyboard or touchscreen input.
+- Realistic Ball Physics: Implemented using [Planck.js] or custom force logic, including friction, gravity, and rebounds.
+- Scoring System: Points awarded for targets hit and combo chains.
+- Retro Aesthetic: Nostalgic feel.
+- Restartable Loop: Quick reset flow for instant replayability.
 
 ⸻
 
 ## Design Process
 
 Even though this was a technical challenge, I approached it with a UX mindset:
--	Prioritized control responsiveness and player feedback—key in pinball.
--	Made early sketches of table layouts and player flows.
--	Tuned flipper angles and ball bounces over many iterations for game feel.
--	Created a clean, uncluttered layout with vibrant color cues.
 
-
+- Prioritized control responsiveness and player feedback—key in pinball.
+- Made early sketches of table layouts and player flows.
+- Tuned flipper angles and ball bounces over many iterations for game feel.
+- Created a clean, uncluttered layout with vibrant color cues.
 
 ## Challenges
--	Getting the ball and flippers to interact with just the right amount of bounce and force.
--	Balancing performance with physics calculations in the browser.
--	Designing a game interface that felt retro yet responsive and modern.
 
+- Getting the ball and flippers to interact with just the right amount of bounce and force.
+- Balancing performance with physics calculations in the browser.
+- Designing a game interface that felt retro yet responsive and modern.
 
 ## What I Learned
--	Deeper understanding of game loops, animation frames, and input handling.
--	Experience tweaking physics parameters to match desired behavior.
--	How small UX tweaks (like sound timing or visual feedback) dramatically affect game feel.
--	Reinforced the idea that even small games benefit from intentional design.
+
+- Deeper understanding of game loops, animation frames, and input handling.
+- Experience tweaking physics parameters to match desired behavior.
+- How small UX tweaks (like sound timing or visual feedback) dramatically affect game feel.
+- Reinforced the idea that even small games benefit from intentional design.
 
 ## Next Steps
--	Add more levels.
--	Explore porting it to WebAssembly for performance experiments.
--	Release as an open-source project or tutorial series on real-time browser games.
 
+- Add more levels.
+- Explore porting it to WebAssembly for performance experiments.
+- Release as an open-source project or tutorial series on real-time browser games.
 
+{
 
-
-
-{/* 
-<Picture 
-src={Cover} 
-alt="Pinball(Tilt) Game" 
-formats={["avif", "webp"]}
-widths={[240, 540, 720, Cover.width]}
+<Picture
+  src={Cover}
+  alt="Pinball(Tilt) Game"
+  formats={["avif", "webp"]}
+  widths={[240, 540, 720, Cover.width]}
   sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${Cover.width}px`}
-/> */}
-
+/> }

@@ -1,0 +1,133 @@
+---
+import { Picture } from "astro:assets";
+
+const { data } = Astro.props;
+---
+
+<div class="sticky-horizontal">
+  <div class="wrapper-content">
+    {
+      data.reverse().map((d, index: number) => {
+        if (index > 1) return null;
+
+        const { data, id } = d;
+        if (data.videoPoster) {
+          return (
+            <section>
+              <div class="info-container ">
+                <h1 class="displaylarge m-v-sm-0">
+                  <a href={"/posts/" + data.category + "-" + id}>
+                    {data?.title}
+                  </a>
+                </h1>
+                <p>{data.excerpt}</p>
+              </div>
+              <div class="preview-container">
+                <video height="100%" autoplay muted loop>
+                  <source src={data.videoPoster} />
+                </video>
+              </div>
+            </section>
+          );
+        }
+        return (
+          <section>
+            <div class="info-container">
+              <h1 class="displaylarge m-v-sm-0">
+                <a href={"/posts/" + data.category + "-" + id}>{data?.title}</a>
+              </h1>
+              <p>{data.excerpt}</p>
+            </div>
+            <div class="preview-container">
+              {data.poster && (
+                <Picture
+                  src={data.poster}
+                  alt="Pinball(Tilt) Game"
+                  layout="constrained"
+                  formats={["avif", "webp"]}
+                  widths={[240, 540, 720, data.poster.width]}
+                  sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${data.poster.width}px`}
+                  style={{ width: "700px" }}
+                />
+              )}
+            </div>
+          </section>
+        );
+      })
+    }
+  </div>
+</div>
+<div></div>
+
+<style>
+  .sticky-horizontal {
+    width: 100dvw;
+    height: 500dvh;
+  }
+  .wrapper-content {
+    width: 200vmax;
+    height: 100dvh;
+    position: sticky;
+    top: 0;
+    overflow: visible;
+    transition: transform 0.1s;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .wrapper-content > section {
+    flex: 1 1 0;
+
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+  }
+
+  .info-container {
+    padding: 32px;
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .preview-container {
+    flex: 2 1 0;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const stickyHorizontalEl = document.querySelector(
+      ".sticky-horizontal"
+    ) as HTMLDivElement;
+    const wrapperEl = document.querySelector(
+      ".wrapper-content"
+    ) as HTMLDivElement;
+    let ticking = false;
+
+    const updateProgress = () => {
+      const rect = stickyHorizontalEl.getBoundingClientRect();
+      const totalHeight = stickyHorizontalEl.offsetHeight - window.innerHeight;
+      const progress = Math.min(Math.max(-rect.top / totalHeight, 0), 1);
+
+      // stickyHorizontalEl.querySelector<HTMLDivElement>(".top-left")!.textContent =
+      //   `${Math.floor(progress * 100)}%`;
+      wrapperEl.style.transform = `translateX(-${Math.floor(progress * 100)}%)`;
+      console.log(progress * 100);
+      ticking = false;
+    };
+
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(updateProgress);
+        ticking = true;
+      }
+    });
+  });
+</script>

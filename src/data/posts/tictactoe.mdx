@@ -3,45 +3,50 @@ title: "Tictactoe"
 excerpt: "Revisited the classic game with tanstack router, canvas element... "
 poster: "../../assets/img/tictactoe.png"
 posterFitCss: "object-position:center"
-createdAt: "Feb 23 2025"
-updatedAt: "Feb 23 2025"
+createdAt: "Feb 23 2023"
+updatedAt: "Feb 23 2023"
 published: true
-pinned: true
+pinned: false
 tags: ["work"]
 category: "work"
 excerptTemplate: "text-on-cover"
 link: "https://3d-tic-tac-toe-seven.vercel.app/"
 ---
 
-import {Picture} from "astro:assets"
-import Cover from "../../assets/img/tictactoe.png"
-import { IconGithub } from "../../components/Icons"
-import video from "../../assets/video/tictactoe-intro.mov"
+import { Picture } from "astro:assets";
+import Cover from "../../assets/img/tictactoe.png";
+import { IconGithub } from "../../components/Icons";
+import video from "../../assets/video/tictactoe-intro.mov";
 
-
-<video  class="m-v-sm-2" controls width="100%" autoplay loop muted playsinline>
+<video class="m-v-sm-2" controls width="100%" autoplay loop muted playsinline>
   <source src={video} type="video/mp4" />
   Your browser does not support the video tag.
 </video>
 
 <p>
-<a href="https://github.com/kuyucakli/3d-tic-tac-toe"  class="labelsmall" target="_blank">
-  <IconGithub fill="var(--clr-on-surface)"/>
-</a>
+  <a
+    href="https://github.com/kuyucakli/3d-tic-tac-toe"
+    class="labelsmall"
+    target="_blank"
+  >
+    <IconGithub fill="var(--clr-on-surface)" />
+  </a>
 </p>
 
-###  🎮 About This Project
+### 🎮 About This Project
 
 This is a modern, responsive take on the classic Tic-Tac-Toe game — built from scratch with a focus on clean architecture, smooth user experience, and engaging interactions.
 
 ### 🛠 Tech Stack
-	- React + TypeScript: Built using the Vite React-TS template for lightning-fast development and modern tooling.
-	- TanStack Router: Handles seamless routing without the bloat — making the app feel snappy and modular.
-	- Figma: UI and UX were designed in Figma, prioritizing clarity, accessibility, and fun.
-	- ElevenLabs: Audio feedback is powered by AI-generated voice clips using ElevenLabs.io, adding personality and polish to the gameplay.
+
+    - React + TypeScript: Built using the Vite React-TS template for lightning-fast development and modern tooling.
+    - TanStack Router: Handles seamless routing without the bloat — making the app feel snappy and modular.
+    - Figma: UI and UX were designed in Figma, prioritizing clarity, accessibility, and fun.
+    - ElevenLabs: Audio feedback is powered by AI-generated voice clips using ElevenLabs.io, adding personality and polish to the gameplay.
 
 ### ✨ Features
-	- Playful yet minimalistic design
-	- Voice feedback for key interactions (start, win, draw, etc.)
-	- Mobile-friendly layout
-	- Clean codebase for easy customization
+
+    - Playful yet minimalistic design
+    - Voice feedback for key interactions (start, win, draw, etc.)
+    - Mobile-friendly layout
+    - Clean codebase for easy customization

@@ -4,12 +4,14 @@ import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
 import InfiniteGrid from "../components/InfiniteGrid.astro";
-
+import StickyHorizontalSection from "../components/StickyHorizontalSection.astro";
 import TemplateTextOnlyBigHeading from "../components/TemplateTextOnlyBigHeading.astro";
 import TemplateFullCoverOnly from "../components/TemplateFullCoverOnly.astro";
 import TemplateComplete from "../components/TemplateComplete.astro";
 import TemplateTextOnCover from "../components/TemplateTextOnCover.astro";
 import { sortByPostDate } from "../utils";
+import TemplateVideoCover from "../components/TemplateVideoCover.astro";
+import SectionTextIntro from "../components/SectionTextIntro.astro";
 
 const workPosts = await getCollection(
   "posts",
@@ -22,91 +24,6 @@ const blogPosts = await getCollection(
 ---
 
 <Layout title="Frontend Developer">
-  <InfiniteGrid>
-    <slot>
-      <li data-sequence>
-        <p class="headlinelarge" data-sequence-item>
-          Hi, I’m Burak Kuyucaklı, Frontend Developer & UX Enthusiast from
-          Istanbul. This is where I share my work, ideas, and the things I’m
-          learning along the way.
-        </p>
-        <p class="headlinelarge" data-sequence-item>
-          My background in both development and UX helps me bridge the gap
-          between how things work and how they feel to real people.
-        </p>
-
-        <p class="headlinelarge" data-sequence-item>
-          My <a
-            href="https://github.com/kuyucakli"
-            target="_blank"
-            class="txt-underline">github</a
-          > and <a
-            class="txt-underline"
-            href="https://www.linkedin.com/in/burak-kuyucakl%C4%B1/"
-            target="_blank">linkedin</a
-          > account.
-        </p>
-
-        <p class="headlinelarge" data-sequence-item>
-          These days, I’m exploring new technologies like WebAssembly, Rust, and
-          machine learning — always looking for new ways to improve how we build
-          for the web.
-        </p>
-        <p class="headlinelarge" data-sequence-item>
-          You’ve officially reached the end of the Burak buffer.
-        </p>
-        <p class="headlinelarge" data-sequence-item>
-          “Still scrolling? Okay, here’s a random thought: semicolons are just
-          tiny punctuation overachievers.”
-        </p>
-        <p class="headlinelarge" data-sequence-item>
-          Keep scrolling if you enjoy existential dread.
-        </p>
-        <p class="headlinelarge" data-sequence-item>
-          You’ve unlocked developer mode. Congratulations. Nothing happens.
-        </p>
-        <p class="headlinelarge" data-sequence-item>
-          That’s all folks. Anything beyond this point is just bits and dreams.
-        </p>
-      </li>
-
-      <li class="infinity-grid-intro-section flex-col-center p-h-md-1">
-        <h1 class="displaylarge">Pinned Works</h1>
-      </li>
-
-      {
-        sortByPostDate(workPosts).map((d) => {
-          if (d.data.excerptTemplate == "text-only-big-heading") {
-            return <TemplateTextOnlyBigHeading id={d.id} data={d.data} />;
-          }
-          if (d.data.excerptTemplate == "full-cover-only") {
-            return <TemplateFullCoverOnly id={d.id} data={d.data} />;
-          }
-          if (d.data.excerptTemplate == "text-on-cover") {
-            return <TemplateTextOnCover id={d.id} data={d.data} />;
-          }
-          return <TemplateComplete id={d.id} data={d.data} />;
-        })
-      }
-
-      <li class="infinity-grid-intro-section flex-col-center p-h-md-1">
-        <h1 class="displaylarge">Pinned Blog Posts</h1>
-      </li>
-
-      {
-        sortByPostDate(blogPosts).map((d) => {
-          if (d.data.excerptTemplate == "text-only-big-heading") {
-            return <TemplateTextOnlyBigHeading id={d.id} data={d.data} />;
-          }
-          if (d.data.excerptTemplate == "full-cover-only") {
-            return <TemplateFullCoverOnly id={d.id} data={d.data} />;
-          }
-          if (d.data.excerptTemplate == "text-on-cover") {
-            return <TemplateTextOnCover id={d.id} data={d.data} />;
-          }
-          return <TemplateComplete id={d.id} data={d.data} />;
-        })
-      }
-    </slot>
-  </InfiniteGrid>
+  <SectionTextIntro />
+  <StickyHorizontalSection data={sortByPostDate(workPosts)} />
 </Layout>

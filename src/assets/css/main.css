@@ -137,6 +137,7 @@
     overflow: hidden;
     transition: width 0.4s;
     width: 64px;
+    filter: invert(1);
   }
 
   #root > header.compact > .logo {
@@ -259,8 +260,8 @@
     --clr-on-surface-container-2: #c3c6ce;
     --clr-accent-1: pink;
 
-    --clr-surface-container-1: #305752;
-    --clr-surface-container-2: #395151;
+    --clr-surface-container-1: #262827;
+    --clr-surface-container-2: #454a4a;
     --clr-surface-container-3: #675552;
     --clr-surface-container-4: #4d4b3b;
 
@@ -276,6 +277,10 @@
       rgb(31, 29, 34) 0%,
       rgba(31, 29, 34, 0) 40%
     );
+
+    #root > header > .logo {
+      filter: invert(0);
+    }
   }
 
   /* @media (prefers-color-scheme: dark) {

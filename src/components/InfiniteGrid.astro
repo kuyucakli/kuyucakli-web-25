@@ -49,9 +49,9 @@ const { className }: Props = Astro.props;
       modifySequencedContent();
 
       //inject top space for the very first row
-      const topElements = document.querySelectorAll(
-        `.infinite-grid li:nth-child(-n + ${gridColumnCount})`
-      );
+      const topElements = document.querySelectorAll<HTMLLIElement>(
+        `.infinite-grid li:nth-child(-n + ${gridColumnCount})` 
+      ) ;
 
       topElements.forEach((el) => {
         el.style.paddingTop = "128px";
@@ -98,7 +98,7 @@ const { className }: Props = Astro.props;
       addObserver();
 
       function modifySequencedContent() {
-        const els = document.querySelectorAll("[data-sequence]");
+        const els = document.querySelectorAll<HTMLLIElement>("[data-sequence]");
         els.forEach((el, index) => {
           [...el.children].forEach((el) => {
             el.style.display = "none";

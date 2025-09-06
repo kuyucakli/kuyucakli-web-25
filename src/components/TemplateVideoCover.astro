@@ -1,0 +1,23 @@
+---
+const { data, id } = Astro.props;
+---
+
+<>
+  <h1 class="headlinesmall m-v-sm-0">
+    <a href={"/posts/" + data.category + "-" + id}>{data?.title}</a>
+  </h1>
+  <p>{data.excerpt}</p>
+  {
+    data.videoPoster ? (
+      <video width="100%" height="100%" autoplay muted loop>
+        <source src={data.videoPoster} />
+      </video>
+    ) : null
+  }
+  <a
+    href={"/posts/" + data.category + "-" + id}
+    class="cover-link"
+    aria-label={data.title}></a>
+</>
+
+<style></style>
