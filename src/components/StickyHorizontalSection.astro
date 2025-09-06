@@ -113,10 +113,7 @@ const { data } = Astro.props;
     const totalHeight = stickyHorizontalEl.offsetHeight - window.innerHeight;
     const progress = Math.min(Math.max(-rect.top / totalHeight, 0), 1);
 
-    // stickyHorizontalEl.querySelector<HTMLDivElement>(".top-left")!.textContent =
-    //   `${Math.floor(progress * 100)}%`;
     wrapperEl.style.transform = `translateX(-${Math.floor(progress * 100)}%)`;
-    console.log(progress * 100);
     ticking = false;
   };
 
