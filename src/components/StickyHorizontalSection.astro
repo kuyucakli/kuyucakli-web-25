@@ -23,7 +23,7 @@ const { data } = Astro.props;
                 <p>{data.excerpt}</p>
               </div>
               <div class="preview-container">
-                <video height="100%" autoplay muted loop>
+                <video autoplay muted loop>
                   <source src={data.videoPoster} />
                 </video>
               </div>
@@ -57,7 +57,6 @@ const { data } = Astro.props;
     }
   </div>
 </div>
-<div></div>
 
 <style>
   .sticky-horizontal {
@@ -69,7 +68,7 @@ const { data } = Astro.props;
     height: 100dvh;
     position: sticky;
     top: 0;
-    overflow: visible;
+
     transition: transform 0.1s;
     display: flex;
     align-items: stretch;
@@ -77,7 +76,6 @@ const { data } = Astro.props;
 
   .wrapper-content > section {
     flex: 1 1 0;
-
     display: flex;
     align-items: stretch;
     justify-content: space-between;
