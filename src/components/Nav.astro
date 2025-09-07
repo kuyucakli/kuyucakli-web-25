@@ -55,7 +55,7 @@ const currentPath = Astro.url.pathname;
     border-radius: 32px;
     align-items: center;
     display: flex;
-    padding: var(--s-sm-0) var(--s-md-0);
+    padding: 0 0 0 var(--s-sm-0);
     transition: all 0.6s ease-in-out;
   }
   [class="compact"] > .nav-main {
@@ -87,5 +87,11 @@ const currentPath = Astro.url.pathname;
 
   .nav-main a[aria-current="true"] {
     color: var(--clr-accent-1);
+  }
+
+  @media (width >= 640px) {
+    .nav-main {
+      padding: var(--s-sm-0) var(--s-md-0);
+    }
   }
 </style>
