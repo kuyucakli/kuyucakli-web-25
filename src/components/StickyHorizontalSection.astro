@@ -23,7 +23,14 @@ const { data } = Astro.props;
                 <p>{data.excerpt}</p>
               </div>
               <div class="preview-container">
-                <video height="100%" autoplay muted loop>
+                <video
+                  height="100%"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="auto"
+                >
                   <source src={data.videoPoster} />
                 </video>
               </div>
