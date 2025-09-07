@@ -73,7 +73,7 @@ const { data } = Astro.props;
     contain: layout;
   }
   .wrapper-content {
-    width: 200vmax;
+    width: 250vmax;
     height: 100dvh;
     position: sticky;
     top: 0;
@@ -90,7 +90,7 @@ const { data } = Astro.props;
   }
 
   .info-container {
-    padding: 32px;
+    padding: 56px;
     flex: 1 1 0;
     display: flex;
     flex-direction: column;
@@ -98,9 +98,14 @@ const { data } = Astro.props;
     align-items: center;
   }
 
+  .info-container > p {
+    max-width: 300px;
+  }
+
   .preview-container {
     flex: 2 1 0;
-    background-color: black;
+    background: #141414;
+
     display: flex;
     justify-content: center;
     align-items: center;
