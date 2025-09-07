@@ -15,7 +15,7 @@ const { data } = Astro.props;
           return (
             <section>
               <div class="info-container ">
-                <h1 class="headlinelarge m-v-sm-0">
+                <h1 class="headlinemedium txt-underline m-v-sm-0">
                   <a href={"/posts/" + data.category + "-" + id}>
                     {data?.title}
                   </a>
@@ -40,7 +40,7 @@ const { data } = Astro.props;
         return (
           <section>
             <div class="info-container">
-              <h1 class="headlinelarge m-v-sm-0">
+              <h1 class="headlinemedium txt-underline m-v-sm-0">
                 <a href={"/posts/" + data.category + "-" + id}>{data?.title}</a>
               </h1>
               <p>{data.excerpt}</p>
@@ -92,6 +92,7 @@ const { data } = Astro.props;
   .info-container {
     padding: 56px;
     flex: 1 1 0;
+    order: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -103,12 +104,39 @@ const { data } = Astro.props;
   }
 
   .preview-container {
-    flex: 2 1 0;
+    flex: 0 1 90vw;
+    order: 0;
     background: #141414;
-
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  @media (width >= 640px) {
+    .wrapper-content {
+      width: 200vmax;
+    }
+    .info-container {
+      padding: 56px;
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .info-container > p {
+      max-width: 300px;
+    }
+
+    .preview-container {
+      flex: 2 1 0;
+      background: #141414;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 </style>
 

@@ -44,6 +44,15 @@ if (category) {
     justify-content: end;
     gap: var(--s-md-2);
   }
+
+  @media (width>=768px) {
+    nav {
+      width: 100%;
+      max-width: none;
+      bottom: unset;
+      top: 50%;
+    }
+  }
 </style>
 
 <script>

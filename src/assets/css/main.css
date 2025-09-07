@@ -478,16 +478,16 @@
     padding-right: 40px !important;
   }
 
-  .p-t-24{
-    padding-top:24px;
+  .p-t-24 {
+    padding-top: 24px;
   }
 
   .p-56 {
     padding: 56px;
   }
 
-  .p-b-88{
-    padding-bottom:88px;
+  .p-b-88 {
+    padding-bottom: 88px;
   }
 
   .txt-center {
@@ -498,7 +498,7 @@
   }
 
   .txt-underline {
-    text-decoration: wavy underline var(--clr-on-surface-container-2) 6px;
+    text-decoration: wavy underline var(--clr-on-surface-container-2) 2px;
   }
   .flex-row-center {
     display: flex;

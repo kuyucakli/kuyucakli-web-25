@@ -5,9 +5,21 @@ const { url = "/" } = Astro.props;
 ---
 
 <a href={url} id="btn-back" class="titlemedium flex-vertical-center">
-  <IconBackArrow fill="var(--clr-on-surface)" />
-  Back
+  <span><IconBackArrow fill="var(--clr-inverse-on-surface)" /></span>
+  <!-- Back -->
 </a>
+
+<style>
+  a span {
+    background-color: var(--clr-on-surface-container-2);
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+</style>
 
 <script>
   document.addEventListener("astro:after-swap", init);
