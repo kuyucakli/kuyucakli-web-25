@@ -15,7 +15,7 @@ const { data } = Astro.props;
           return (
             <section>
               <div class="info-container ">
-                <h1 class="displaylarge m-v-sm-0">
+                <h1 class="headlinelarge m-v-sm-0">
                   <a href={"/posts/" + data.category + "-" + id}>
                     {data?.title}
                   </a>
@@ -33,7 +33,7 @@ const { data } = Astro.props;
         return (
           <section>
             <div class="info-container">
-              <h1 class="displaylarge m-v-sm-0">
+              <h1 class="headlinelarge m-v-sm-0">
                 <a href={"/posts/" + data.category + "-" + id}>{data?.title}</a>
               </h1>
               <p>{data.excerpt}</p>
@@ -70,7 +70,7 @@ const { data } = Astro.props;
     height: 100dvh;
     position: sticky;
     top: 0;
-    transition: transform 0.1s;
+    transition: transform 0.1s linear;
     display: flex;
     align-items: stretch;
   }
@@ -101,27 +101,29 @@ const { data } = Astro.props;
 </style>
 
 <script>
-  const stickyHorizontalEl = document.querySelector(
-    ".sticky-horizontal"
-  ) as HTMLDivElement;
-  const wrapperEl = document.querySelector(
-    ".wrapper-content"
-  ) as HTMLDivElement;
-  let ticking = false;
+  document.addEventListener("astro:page-load", () => {
+    const stickyHorizontalEl = document.querySelector(
+      ".sticky-horizontal"
+    ) as HTMLDivElement;
+    const wrapperEl = document.querySelector(
+      ".wrapper-content"
+    ) as HTMLDivElement;
+    let ticking = false;
 
-  const updateProgress = () => {
-    const rect = stickyHorizontalEl.getBoundingClientRect();
-    const totalHeight = stickyHorizontalEl.offsetHeight - window.innerHeight;
-    const progress = Math.min(Math.max(-rect.top / totalHeight, 0), 1);
+    const updateProgress = () => {
+      const rect = stickyHorizontalEl.getBoundingClientRect();
+      const totalHeight = stickyHorizontalEl.offsetHeight - window.innerHeight;
+      const progress = Math.min(Math.max(-rect.top / totalHeight, 0), 1);
 
-    wrapperEl.style.transform = `translateX(-${Math.floor(progress * 100)}%)`;
-    ticking = false;
-  };
+      wrapperEl.style.transform = `translateX(-${Math.floor(progress * 100)}%)`;
+      ticking = false;
+    };
 
-  window.addEventListener("scroll", () => {
-    if (!ticking) {
-      requestAnimationFrame(updateProgress);
-      ticking = true;
-    }
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(updateProgress);
+        ticking = true;
+      }
+    });
   });
 </script>

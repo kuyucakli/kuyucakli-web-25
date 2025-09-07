@@ -3,15 +3,12 @@ import Layout from "../layouts/Layout.astro";
 
 import { getCollection } from "astro:content";
 
-import InfiniteGrid from "../components/InfiniteGrid.astro";
 import StickyHorizontalSection from "../components/StickyHorizontalSection.astro";
-import TemplateTextOnlyBigHeading from "../components/TemplateTextOnlyBigHeading.astro";
-import TemplateFullCoverOnly from "../components/TemplateFullCoverOnly.astro";
-import TemplateComplete from "../components/TemplateComplete.astro";
-import TemplateTextOnCover from "../components/TemplateTextOnCover.astro";
+
 import { sortByPostDate } from "../utils";
-import TemplateVideoCover from "../components/TemplateVideoCover.astro";
+
 import SectionTextIntro from "../components/SectionTextIntro.astro";
+import SectionHomeOutro from "../components/SectionHomeOutro.astro";
 
 const workPosts = await getCollection(
   "posts",
@@ -25,5 +22,9 @@ const blogPosts = await getCollection(
 
 <Layout title="Frontend Developer">
   <SectionTextIntro />
+  <div>
+    <h1 class="displaylarge p-t-24 p-b-88 txt-center">My feautured works</h1>
+  </div>
   <StickyHorizontalSection data={sortByPostDate(workPosts)} />
+  <SectionHomeOutro />
 </Layout>
