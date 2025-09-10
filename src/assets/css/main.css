@@ -251,7 +251,7 @@
 
   /* dark theme */
   :root:has(input:checked) {
-    --clr-surface: hsl(162, 8%, 16%);
+    --clr-surface: hsl(160, 4%, 14%);
     --clr-on-surface: #c3c6ce;
     --clr-on-surface-fixed: #c3c6ce;
     --clr-primary-on-surface: #fff761;
@@ -486,6 +486,10 @@
     padding: 56px;
   }
 
+  .p-80 {
+    padding: 80px;
+  }
+
   .p-b-88 {
     padding-bottom: 88px;
   }
@@ -523,6 +527,10 @@
 
   .max-w-400 {
     max-width: 400px;
+  }
+
+  .max-w-600 {
+    max-width: 600px;
   }
 
   .cover {

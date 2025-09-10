@@ -1,8 +1,80 @@
-<section></section>
+<section class="proxy-section"></section>
+<section class="p-80 section-outro">
+  <div class="dot">
+    <h1 class="displaylarge txt-center">More on me</h1>
+  </div>
+  <p class="bodylarge m-auto max-w-600 flex-col-center">
+    More works by me on <strong
+      ><a href="https://github.com/kuyucakli">github</a></strong
+    > Get in contact on
+    <strong
+      ><a href="https://www.linkedin.com/in/burak-kuyucakl%C4%B1/">linkedin</a
+      ></strong
+    >
+    My sketches on my <strong><a href="/posts/blog-drawings">blog</a></strong>
+  </p>
+</section>
 
 <style>
-  section {
-    height: 100dvh;
-    background-color: rgb(0, 0, 0);
+  .dot {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    position: absolute;
+    top: -50vmax;
+    left: 50%;
+  }
+  .proxy-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    transition: height 0.3s linear;
+    background-color: yellow;
+  }
+  .section-outro {
+    height: 50vmax;
+    position: relative;
+    background-color: yellow;
+    border: 10px solid yellow;
+  }
+  .section-outro > p {
+    color: black;
   }
 </style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const r = document.querySelector(":root") as HTMLElement;
+    const proxySectionEl = document.querySelector(
+      ".proxy-section"
+    ) as HTMLElement;
+    // const dotEl = document.querySelector(".dot");
+    const sectionEl = document.querySelector(".section-outro");
+
+    if (r && sectionEl) {
+      const obs = new IntersectionObserver(
+        (entries: IntersectionObserverEntry[]) => {
+          for (const entry of entries) {
+            let elem = entry.target;
+
+            const floor = Math.floor(entry.intersectionRatio * 100);
+            console.log(entry.intersectionRatio, floor);
+            r.style.setProperty("--clr-surface", "#111");
+            proxySectionEl.style.height = `${floor}%`;
+          }
+        },
+        {
+          threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+        }
+      );
+      // obs.observe(dotEl);
+      obs.observe(sectionEl);
+    }
+  });
+</script>
