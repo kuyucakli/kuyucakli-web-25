@@ -6,7 +6,7 @@ import DepthLetters from "./DepthLetters.astro";
 <div id="sticky-home-intro-container" style="height:200dvmax; ">
   <section
     style="display:flex; align-content:center; flex-direction:colum; justify-content:center;  flex-wrap:wrap; width:100dvw; height:100dvh; background:radial-gradient(#433e3e 0%, var(--clr-surface) 70%); position:sticky; top:0; left:0;
-    overflow-x:hidden;"
+    overflow-x:hidden; background-attachment: fixed;"
   >
     <DepthLetters
       text="'frontback'"
@@ -19,12 +19,15 @@ import DepthLetters from "./DepthLetters.astro";
       style="width:100%;  padding:24px;  background: radial-gradient(#d0d0d0 0%, #fff7f5 70%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  z-index:9;   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  z-index:9; 
+  opacity:0.7;   
   "
       class="bodylarge"
     >
-      <p style="max-width:480px; margin:0 auto;  ">
+      <p
+        style="max-width:480px; margin:0 auto;  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; "
+      >
         I'm Burak Kuyucaklı from Istanbul, a frontend developer who enjoys
         making things work smoothly for people through code. While frontend is
         my main focus, I’m deeply interested in backend development. I have my
@@ -47,7 +50,7 @@ import DepthLetters from "./DepthLetters.astro";
   registerElement(stickyContainer!, (progress) => {
     console.log(progress);
     const scale = 1 + progress * 1.5; // scale from 1 -> 1.5
-    const opacity = 0.8 - progress;
+    const opacity = 0.7 - progress;
     introHomeTextEl!.style.transform = `scale(${scale})`;
     introHomeTextEl!.style.opacity = `${opacity}`;
   });
