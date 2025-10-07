@@ -1,5 +1,10 @@
 ---
 import { Picture } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  data: CollectionEntry<"posts">[];
+};
 
 const { data } = Astro.props;
 ---
@@ -73,7 +78,7 @@ const { data } = Astro.props;
     contain: layout;
   }
   .wrapper-content {
-    width: 250vmax;
+    width: 200vmax;
     height: 100dvh;
     position: sticky;
     top: 0;
@@ -106,7 +111,7 @@ const { data } = Astro.props;
   .preview-container {
     flex: 0 1 90vw;
     order: 0;
-    background: #141414;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -131,8 +136,6 @@ const { data } = Astro.props;
 
     .preview-container {
       flex: 2 1 0;
-      background: #141414;
-
       display: flex;
       justify-content: center;
       align-items: center;
@@ -148,22 +151,23 @@ const { data } = Astro.props;
     const wrapperEl = document.querySelector(
       ".wrapper-content"
     ) as HTMLDivElement;
-    let ticking = false;
 
-    const updateProgress = () => {
+    let scrollY = window.scrollY || window.pageYOffset;
+
+    window.addEventListener("scroll", () => {
+      scrollY = window.scrollY || window.pageYOffset;
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+
       const rect = stickyHorizontalEl.getBoundingClientRect();
       const totalHeight = stickyHorizontalEl.offsetHeight - window.innerHeight;
       const progress = Math.min(Math.max(-rect.top / totalHeight, 0), 1);
 
       wrapperEl.style.transform = `translateX(-${Math.floor(progress * 100)}%)`;
-      ticking = false;
-    };
+    }
 
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        requestAnimationFrame(updateProgress);
-        ticking = true;
-      }
-    });
+    animate();
   });
 </script>

@@ -1,0 +1,26 @@
+---
+const { text, letterBiggerZindex, zIndex } = Astro.props;
+const letters = text.split("");
+---
+
+{
+  letters.map((l: string, index: number) => {
+    if (letterBiggerZindex.includes(index)) {
+      return <span style={`z-index:${zIndex}; filter: blur(1.8px)`}>{l}</span>;
+    }
+    return <span class="">{l}</span>;
+  })
+}
+
+<style>
+  span {
+    font-size: 112px;
+    opacity: 1;
+    background: radial-gradient(#d0d0d0 0%, #fff7f5 70%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    filter: blur(2.8px);
+    font-family: "Kirang Haerang";
+  }
+</style>

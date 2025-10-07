@@ -1,14 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
 import { getCollection } from "astro:content";
-
 import StickyHorizontalSection from "../components/StickyHorizontalSection.astro";
-
 import { sortByPostDate } from "../utils";
-
-import SectionTextIntro from "../components/SectionTextIntro.astro";
 import SectionHomeOutro from "../components/SectionHomeOutro.astro";
+import SectionHomeIntro from "../components/SectionHomeIntro.astro";
 
 const workPosts = await getCollection(
   "posts",
@@ -21,10 +17,17 @@ const blogPosts = await getCollection(
 ---
 
 <Layout title="Frontend Developer">
-  <SectionTextIntro />
+  <SectionHomeIntro />
   <div>
-    <h1 class="displaymedium p-t-24 p-b-88 txt-center">My feautured works</h1>
+    <h1 class="displaymedium p-t-56 p-b-88 txt-center">My feautured works</h1>
   </div>
   <StickyHorizontalSection data={sortByPostDate(workPosts)} />
+  <!-- <SectionHomeOutro /> -->
   <SectionHomeOutro />
 </Layout>
+
+<style>
+  body {
+    overflow-x: hidden;
+  }
+</style>
