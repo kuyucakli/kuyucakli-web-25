@@ -16,18 +16,17 @@ const { data } = Astro.props;
         if (index > 1) return null;
 
         const { data, id } = d;
-        if (data.videoPoster) {
-          return (
-            <section>
-              <div class="info-container ">
-                <h1 class="headlinemedium txt-underline m-v-sm-0">
-                  <a href={"/posts/" + data.category + "-" + id}>
-                    {data?.title}
-                  </a>
-                </h1>
-                <p>{data.excerpt}</p>
-              </div>
-              <div class="preview-container">
+
+        return (
+          <section>
+            <div class="info-container">
+              <h1 class="headlinemedium txt-underline m-v-sm-0">
+                <a href={"/posts/" + data.category + "-" + id}>{data?.title}</a>
+              </h1>
+              <p>{data.excerpt}</p>
+            </div>
+            <div class="preview-container">
+              {data.videoPoster ? (
                 <video
                   height="100%"
                   autoplay
@@ -38,29 +37,19 @@ const { data } = Astro.props;
                 >
                   <source src={data.videoPoster} />
                 </video>
-              </div>
-            </section>
-          );
-        }
-        return (
-          <section>
-            <div class="info-container">
-              <h1 class="headlinemedium txt-underline m-v-sm-0">
-                <a href={"/posts/" + data.category + "-" + id}>{data?.title}</a>
-              </h1>
-              <p>{data.excerpt}</p>
-            </div>
-            <div class="preview-container">
-              {data.poster && (
-                <Picture
-                  src={data.poster}
-                  alt="Pinball(Tilt) Game"
-                  layout="constrained"
-                  formats={["avif", "webp"]}
-                  widths={[240, 540, 720, data.poster.width]}
-                  sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${data.poster.width}px`}
-                  style={{ width: "700px" }}
-                />
+              ) : (
+                data.poster && (
+                  <div style="width:200px; height:200px; background-color:blue;"></div>
+                  <Picture
+                    src={data.poster}
+                    alt="Pinball(Tilt) Game"
+                    layout="constrained"
+                    formats={["avif", "webp"]}
+                    widths={[240, 540, 720, data.poster.width]}
+                    sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${data.poster.width}px`}
+                    style={{ width: "700px" }}
+                  />
+                )
               )}
             </div>
           </section>
@@ -74,7 +63,6 @@ const { data } = Astro.props;
   .sticky-horizontal {
     width: 100dvw;
     height: 500dvh;
-
     contain: layout;
   }
   .wrapper-content {
