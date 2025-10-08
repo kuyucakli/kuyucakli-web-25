@@ -39,7 +39,7 @@ const { data } = Astro.props;
                 </video>
               ) : (
                 data.poster && (
-                  <div style="width:200px; height:200px; background-color:rgb(0, 255, 106);"></div>
+                  <div style="width:200px; height:200px; background-color:blue;"></div>
                   <Picture
                     src={data.poster}
                     alt="Pinball(Tilt) Game"
@@ -47,7 +47,7 @@ const { data } = Astro.props;
                     formats={["avif", "webp"]}
                     widths={[240, 540, 720, data.poster.width]}
                     sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${data.poster.width}px`}
-                    style={{ width: "700px" }}
+                    
                   />
                 )
               )}
@@ -76,7 +76,7 @@ const { data } = Astro.props;
   }
 
   .wrapper-content > section {
-    flex: 1 0 100vmax;
+    flex: 1 0 0;
     display: flex;
     align-items: stretch;
     justify-content: space-between;
@@ -84,7 +84,7 @@ const { data } = Astro.props;
 
   .info-container {
     padding: 56px;
-    flex: 1 1 0;
+    flex: 1 0 0;
     order: 1;
     display: flex;
     flex-direction: column;
@@ -97,18 +97,18 @@ const { data } = Astro.props;
   }
 
   .preview-container {
-    flex: 2 1 0;
+    flex: 2 0 0;
     order: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: rgb(53, 49, 50);
+    min-width: 300px;
   }
 
   @media (width >= 640px) {
-    .wrapper-content {
-      width: 200vmax;
-    }
+   
     .info-container {
       padding: 56px;
       flex: 1 1 0;
