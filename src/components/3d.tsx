@@ -4,11 +4,13 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { useSmoothCamera } from "../hooks/useSmoothCamera";
 import { getElementProgress } from "../utils/scroll";
 import { lerp } from "three/src/math/MathUtils.js";
+import { createRollingMotion, createRollingMotionByPos } from "../utils/3d";
 
 export default function ThreeScene() {
   const mountRef = useRef<HTMLDivElement>(null);
 
   const rollingMotion = createRollingMotion(0.5, 0.5, 1);
+  const rollingMotionWithScroll = createRollingMotionByPos(0.5);
 
   // call hook at top level
   const getCameraTransform = useSmoothCamera();
@@ -71,9 +73,9 @@ export default function ThreeScene() {
         ) as THREE.Mesh | null;
 
         const surface = sceneModel.getObjectByName("Cube");
-        bigBall!!.castShadow = true;
-        surface!!.receiveShadow = true;
-        surface!!.material = new THREE.ShadowMaterial({ opacity: 0.6 });
+        bigBall!.castShadow = true;
+        surface!.receiveShadow = true;
+        surface!.material = new THREE.ShadowMaterial({ opacity: 0.6 });
 
         renderer.render(scene, camera);
         let clock = new THREE.Clock();
@@ -87,10 +89,6 @@ export default function ThreeScene() {
             action.clampWhenFinished = false;
             action.play();
           }
-          console.log(bigBall.morphTargetDictionary, "morphTargetDictionary");
-          console.log(bigBall.morphTargetInfluences, "morphTargetInfluences");
-          console.log(bigBall.geometry.morphAttributes.position); // should be an array of BufferAttributes
-          console.log(bigBall.morphTargetInfluences); // should be [0] initially
 
           //change texture
           const material = bigBall.material as THREE.MeshStandardMaterial; // reference to its existing material
@@ -108,33 +106,48 @@ export default function ThreeScene() {
         }
 
         function animate() {
+          if (!bigBall) return;
           requestAnimationFrame(animate);
-          // Example: orbit around Y axis
+
           const t = clock.getElapsedTime();
           const delta = clock.getDelta();
           const { position, lookAt } = getCameraTransform(t);
 
-          const progress = getElementProgress(stickyHomeIntroEl);
+          const progress = getElementProgress(stickyHomeIntroEl!);
+
+          const target =
+            progress >= 0.5
+              ? new THREE.Vector3(0, lerp(0, 5, progress), 0.01) // scroll-controlled target
+              : position; // time-controlled target
+
+          camera.position.lerp(target, 0.1); // smooth 10% toward target per frame
+
+          // Optionally update lookAt smoothly too:
+          const lookAtTarget = new THREE.Vector3(0, 0, 0); // or blend with your `lookAt`
+          camera.lookAt(lookAtTarget);
 
           if (progress >= 0.5 && progress <= 1) {
-            //camera.position.y = lerp(1, 3, progress);
+            //camera.position.y = lerp(1, 3, camera.position.y);
             sun.position.x = lerp(-5, 5, progress);
             sun.position.y = lerp(5, 10, progress);
+            const { position: ballPos, rotation } = rollingMotionWithScroll(
+              bigBall.position.x + progress * 0.05,
+              bigBall.position.y
+            );
+
+            bigBall.position.copy(ballPos);
+            bigBall.rotation.z += rotation.z;
           } else {
-            camera.position.set(position.x, position.y, position.z);
-            camera.lookAt(lookAt.x, lookAt.y, lookAt.z);
-            camera.lookAt(0, 0, 0);
-            if (bigBall) {
-              const { position: ballPos, rotation } = rollingMotion(
-                t,
-                bigBall.position.y
-              );
+            //camera.position.set(position.x, position.y, position.z);
+            //camera.lookAt(lookAt.x, lookAt.y, lookAt.z);
+            //camera.lookAt(0, 0, 0);
+            const { position: ballPos, rotation } = rollingMotion(
+              t,
+              bigBall.position.y
+            );
 
-              bigBall.position.copy(ballPos);
-              bigBall.rotation.z += rotation.z; // accumulate rotation
-
-              // advance animation
-            }
+            bigBall.position.copy(ballPos);
+            bigBall.rotation.z += rotation.z;
           }
           if (mixer && clip) {
             const totalFrames = clip.tracks[0].times.length;
@@ -174,23 +187,4 @@ export default function ThreeScene() {
       />
     </>
   );
-}
-
-export function createRollingMotion(radius = 0.5, amplitude = 0.5, speed = 1) {
-  let lastX = 0;
-
-  return (elapsedTime: number, currentY: number) => {
-    const x = Math.sin(elapsedTime * speed) * amplitude;
-    const dx = x - lastX;
-    lastX = x;
-
-    const rotationZ = -(dx / radius);
-    //const y = Math.abs(Math.cos(elapsedTime * speed * 2)) * 0.05; // subtle bounce
-
-    return {
-      //position: new THREE.Vector3(x, y, 0),
-      position: new THREE.Vector3(x, currentY, 0), // Y fixed at 0
-      rotation: new THREE.Euler(0, 0, rotationZ, "XYZ"),
-    };
-  };
 }

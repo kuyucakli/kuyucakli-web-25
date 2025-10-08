@@ -16,7 +16,7 @@ import DepthLetters from "./DepthLetters.astro";
 
     <div
       id="intro-home-text"
-      style="width:100%;  padding:24px;  background: radial-gradient(#d0d0d0 0%, #fff7f5 70%);
+      style="width:100%;  padding:0 24px;  background: radial-gradient(#d0d0d0 0%, #fff7f5 70%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   z-index:9; 
@@ -48,8 +48,7 @@ import DepthLetters from "./DepthLetters.astro";
   const introHomeTextEl = document.getElementById("intro-home-text");
 
   registerElement(stickyContainer!, (progress) => {
-    console.log(progress);
-    const scale = 1 + progress * 1.5; // scale from 1 -> 1.5
+    const scale = 1 + progress * 1.5;
     const opacity = 0.7 - progress;
     introHomeTextEl!.style.transform = `scale(${scale})`;
     introHomeTextEl!.style.opacity = `${opacity}`;

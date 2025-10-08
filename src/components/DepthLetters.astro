@@ -6,9 +6,16 @@ const letters = text.split("");
 {
   letters.map((l: string, index: number) => {
     if (letterBiggerZindex.includes(index)) {
-      return <span style={`z-index:${zIndex}; filter: blur(1.8px)`}>{l}</span>;
+      return (
+        <span
+          class="depth-letter"
+          style={`z-index:${zIndex}; filter: blur(1.8px)`}
+        >
+          {l}
+        </span>
+      );
     }
-    return <span class="">{l}</span>;
+    return <span class="depth-letter">{l}</span>;
   })
 }
 
@@ -22,5 +29,6 @@ const letters = text.split("");
     position: relative;
     filter: blur(2.8px);
     font-family: "Kirang Haerang";
+    transition: all;
   }
 </style>
