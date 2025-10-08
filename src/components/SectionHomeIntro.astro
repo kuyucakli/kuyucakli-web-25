@@ -21,6 +21,7 @@ import DepthLetters from "./DepthLetters.astro";
   -webkit-text-fill-color: transparent;
   z-index:9; 
   opacity:0.7;   
+  
   "
       class="bodylarge"
     >
@@ -48,9 +49,10 @@ import DepthLetters from "./DepthLetters.astro";
   const introHomeTextEl = document.getElementById("intro-home-text");
 
   registerElement(stickyContainer!, (progress) => {
-    const scale = 1 + progress * 1.5;
-    const opacity = 0.7 - progress;
-    introHomeTextEl!.style.transform = `scale(${scale})`;
+    const scale = 1 + progress * 1.2;
+    const opacity = 0.7 - progress * 0.6;
+    introHomeTextEl!.style.transform = `translateY(24px) scale(${scale})`;
+    introHomeTextEl!.style.filter = `blur(${progress * 0.5}px)`;
     introHomeTextEl!.style.opacity = `${opacity}`;
   });
 </script>
