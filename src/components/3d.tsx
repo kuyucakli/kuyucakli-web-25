@@ -201,7 +201,7 @@ export default function ThreeScene() {
             filter: "blur(3.8px)",
             zIndex: 10000,
             opacity: "0.8",
-            animation: "fade 0.4s alternate infinite",
+            animation: "fade 0.2s alternate infinite",
           }}
         >
           <style>
