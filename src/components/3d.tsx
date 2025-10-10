@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { useSmoothCamera } from "../hooks/useSmoothCamera";
@@ -7,6 +7,7 @@ import { lerp } from "three/src/math/MathUtils.js";
 import { createRollingMotion, createRollingMotionByPos } from "../utils/3d";
 
 export default function ThreeScene() {
+  const [glbLoaded, setGlbLoaded] = useState(false);
   const mountRef = useRef<HTMLDivElement>(null);
 
   const rollingMotion = createRollingMotion(0.5, 0.5, 1);
@@ -67,6 +68,7 @@ export default function ThreeScene() {
     loader.load(
       "https://res.cloudinary.com/derfbfm9n/image/upload/v1759840414/intro-home-section_mio37d.glb",
       (gltf) => {
+        setGlbLoaded(true);
         const sceneModel = scene.add(gltf.scene);
         const bigBall = sceneModel.getObjectByName(
           "BigBall"
@@ -185,6 +187,34 @@ export default function ThreeScene() {
           filter: "blur(1.2px)",
         }}
       />
+      {!glbLoaded && (
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "200px",
+            height: "200px",
+            background: "blue",
+            borderRadius: "50%",
+            filter: "blur(1.2px)",
+            zIndex: 10000,
+            opacity: "0.5",
+            animation: "fade 0.4s alternate infinite",
+          }}
+        >
+          <style>
+            {`
+    @keyframes fade {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  `}
+          </style>
+        </div>
+      )}
     </>
   );
 }
