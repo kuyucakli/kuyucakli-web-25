@@ -198,18 +198,18 @@ export default function ThreeScene() {
             height: "200px",
             background: "blue",
             borderRadius: "50%",
-            filter: "blur(1.2px)",
+            filter: "blur(3.8px)",
             zIndex: 10000,
-            opacity: "0.5",
+            opacity: "0.8",
             animation: "fade 0.4s alternate infinite",
           }}
         >
           <style>
             {`
     @keyframes fade {
-      0% { opacity: 0; }
-      50% { opacity: 1; }
-      100% { opacity: 0; }
+      0% { background:white; }
+      50% { background:#869997; }
+      100% { background:#5cbfb8 }
     }
   `}
           </style>
