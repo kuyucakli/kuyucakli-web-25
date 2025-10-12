@@ -20,12 +20,8 @@ const posts = await getCollection(
 ---
 
 <Layout title="Frontend Developer Burak Kuyucaklı">
-  <InfiniteGrid>
-    <slot>
-      <li class="infinity-grid-intro-section">
-        <h1 class="displaylarge">Blog</h1>
-      </li>
-
+  <div>
+    <ul>
       {
         sortByPostDate(posts).map((d) => {
           if (d.data.excerptTemplate == "text-only-big-heading") {
@@ -40,6 +36,15 @@ const posts = await getCollection(
           return <TemplateComplete id={d.id} data={d.data} />;
         })
       }
-    </slot>
-  </InfiniteGrid>
+    </ul>
+  </div>
 </Layout>
+
+<style>
+  ul {
+    display: grid;
+    padding: 100px 24px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 48px;
+  }
+</style>

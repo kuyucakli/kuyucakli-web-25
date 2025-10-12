@@ -1,8 +1,8 @@
-<section class="proxy-section"></section>
-<section class="p-80 section-outro">
-  <div class="dot">
-    <h1 class="displaylarge txt-center">More on me</h1>
-  </div>
+---
+const { className } = Astro.props;
+---
+
+<section class={`p-80 section-outro ${className}`}>
   <p class="bodylarge m-auto max-w-600 flex-col-center">
     More works by me on <strong
       ><a href="https://github.com/kuyucakli">github</a></strong
@@ -16,28 +16,8 @@
 </section>
 
 <style>
-  .dot {
-    width: 40px;
-    height: 40px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100%;
-    position: absolute;
-    top: -50vmax;
-    left: 50%;
-  }
-  .proxy-section {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0;
-    transition: height 0.3s linear;
-  }
-  .section-outro {
+  /* .section-outro {
     height: 50vmax;
     position: relative;
-  }
+  } */
 </style>

@@ -1,6 +1,7 @@
 ---
 import { Picture } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
+import SectionHomeOutro from "./SectionHomeOutro.astro";
 
 type Props = {
   data: CollectionEntry<"posts">[];
@@ -8,6 +9,8 @@ type Props = {
 
 const { data } = Astro.props;
 ---
+
+<h1 id="home-sticky-title" class="displaymedium">Feautured works</h1>
 
 <div class="sticky-horizontal">
   <div class="wrapper-content">
@@ -18,71 +21,116 @@ const { data } = Astro.props;
         const { data, id } = d;
 
         return (
-          <section>
-            <div class="info-container">
-              <h1 class="headlinemedium txt-underline m-v-sm-0">
-                <a href={"/posts/" + data.category + "-" + id}>{data?.title}</a>
-              </h1>
-              <p>{data.excerpt}</p>
-            </div>
-            <div class="preview-container">
-              {data.videoPoster ? (
-                <video
-                  height="100%"
-                  autoplay
-                  muted
-                  loop
-                  playsinline
-                  preload="auto"
-                >
-                  <source src={data.videoPoster} />
-                </video>
-              ) : (
-                data.poster && (
-                  <Picture
-                    src={data.poster}
-                    alt="Pinball(Tilt) Game"
-                    layout="constrained"
-                    formats={["avif", "webp"]}
-                    widths={[240, 540, 720, data.poster.width]}
-                    sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${data.poster.width}px`}
-                  />
-                )
-              )}
+          <section class="list-item-container">
+            <div>
+              <div class="preview-container">
+                {data.videoPoster ? (
+                  <video
+                    height="500px"
+                    controls
+                    muted
+                    loop
+                    playsinline
+                    preload="auto"
+                    style="border:1px solid gray; border-radius:12px"
+                  >
+                    <source src={data.videoPoster} />
+                  </video>
+                ) : (
+                  data.poster && (
+                    <Picture
+                      src={data.poster}
+                      alt="Pinball(Tilt) Game"
+                      layout="constrained"
+                      formats={["avif", "webp"]}
+                      widths={[240, 540, 720, data.poster.width]}
+                      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${data.poster.width}px`}
+                    />
+                  )
+                )}
+              </div>
+              <div class="info-container">
+                <h1 class="headlinemedium txt-underline m-v-sm-0">
+                  <a href={"/posts/" + data.category + "-" + id}>
+                    {data?.title}
+                  </a>
+                </h1>
+                <p>{data.excerpt} </p>
+              </div>
             </div>
           </section>
         );
       })
     }
+    <section id="section-more-self" class={`list-item-container`}>
+      <p class="bodylarge m-auto max-w-600 flex-col-center">
+        More works by me on <strong
+          ><a href="https://github.com/kuyucakli" style="color:aquamarine"
+            >github</a
+          ></strong
+        > Get in contact on
+        <strong
+          ><a
+            href="https://www.linkedin.com/in/burak-kuyucakl%C4%B1/"
+            style="color:rgb(180, 195, 72)">linkedin</a
+          ></strong
+        >
+        My sketches on my <strong
+          ><a href="/posts/blog-drawings" style="color:orange">blog</a></strong
+        >
+      </p>
+    </section>
   </div>
 </div>
 
 <style>
+  video {
+    width: 100%;
+  }
+  #home-sticky-title {
+    opacity: 0;
+    position: fixed;
+    top: 64px;
+    left: 32px;
+    transition: all 0.8s ease-in-out;
+    transform: translateY(40px);
+  }
+  #home-sticky-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   .sticky-horizontal {
     width: 100dvw;
-    height: 500dvh;
+    height: 300dvw;
     contain: layout;
+
+    --title-height: 124px;
   }
   .wrapper-content {
-    width: 200vmax;
-    height: 100dvh;
+    width: 300dvw;
+    height: calc(100dvh - var(--title-height));
     position: sticky;
-    top: 0;
+    top: var(--title-height);
     transition: transform 0.1s linear;
     display: flex;
     align-items: stretch;
+    will-change: transform;
+    transform: translateZ(0); /* trigger GPU acceleration */
   }
 
-  .wrapper-content > section {
+  .wrapper-content > .list-item-container {
     flex: 1 0 0;
     display: flex;
+    flex-direction: column;
     align-items: stretch;
-    justify-content: space-between;
+    justify-content: center;
+    overflow: hidden;
+    padding: 8px 12px;
   }
 
   .info-container {
-    padding: 56px;
-    flex: 1 0 0;
+    flex: 0 0 50px;
     order: 1;
     display: flex;
     flex-direction: column;
@@ -95,41 +143,39 @@ const { data } = Astro.props;
   }
 
   .preview-container {
-    flex: 2 0 0;
+    flex: 1 0 0;
     order: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     min-width: 300px;
   }
 
-  @media (width >= 640px) {
-    .info-container {
-      padding: 56px;
-      flex: 1 1 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
+  /* @media (width >= 640px) {
     .info-container > p {
       max-width: 300px;
     }
-
-    .preview-container {
-      flex: 2 1 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+  } */
+  @media screen and (width >= 768px) {
+    #home-sticky-title {
+      top: 88px;
+      left: 56px;
     }
   }
 </style>
 
 <script>
   document.addEventListener("astro:page-load", () => {
+    const titleEl = document.getElementById("home-sticky-title");
+    const sectionMoreSelfEl = document.getElementById(
+      "section-more-self"
+    ) as HTMLDivElement;
+    const observer = new IntersectionObserver(handleIntersection, {
+      rootMargin: "100px",
+      threshold: [0.0, 0.1, 0.2, 0.3],
+    });
+
     const stickyHorizontalEl = document.querySelector(
       ".sticky-horizontal"
     ) as HTMLDivElement;
@@ -137,20 +183,54 @@ const { data } = Astro.props;
       ".wrapper-content"
     ) as HTMLDivElement;
 
+    function registerObservedEls() {
+      observer.observe(stickyHorizontalEl);
+      observer.observe(sectionMoreSelfEl);
+    }
+
+    function handleIntersection(entries: IntersectionObserverEntry[]) {
+      entries.forEach((entry) => {
+        const { target } = entry;
+
+        if (
+          entry.intersectionRatio > 0 &&
+          !target.classList.contains("visible")
+        ) {
+          titleEl!.classList.add("visible");
+        } else {
+          titleEl!.classList.remove("visible");
+        }
+      });
+    }
+
+    registerObservedEls();
+
     let scrollY = window.scrollY || window.pageYOffset;
 
     window.addEventListener("scroll", () => {
       scrollY = window.scrollY || window.pageYOffset;
     });
 
+    let currentProgress = 0;
+
     function animate() {
-      requestAnimationFrame(animate);
-
-      const rect = stickyHorizontalEl.getBoundingClientRect();
+      const rectTop = stickyHorizontalEl.offsetTop;
       const totalHeight = stickyHorizontalEl.offsetHeight - window.innerHeight;
-      const progress = Math.min(Math.max(-rect.top / totalHeight, 0), 1);
 
-      wrapperEl.style.transform = `translateX(-${Math.floor(progress * 100)}%)`;
+      const maxTranslateX = wrapperEl.scrollWidth - window.innerWidth;
+
+      const targetProgress = Math.min(
+        Math.max((scrollY - rectTop) / totalHeight, 0),
+        1
+      );
+
+      // Linear interpolation for smoothing
+      currentProgress += (targetProgress - currentProgress) * 0.1;
+
+      const translateX = -currentProgress * maxTranslateX;
+      wrapperEl.style.transform = `translateX(${translateX}px)`;
+
+      requestAnimationFrame(animate);
     }
 
     animate();

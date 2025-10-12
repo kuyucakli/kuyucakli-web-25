@@ -1,5 +1,5 @@
 ---
-const { text, letterBiggerZindex, zIndex } = Astro.props;
+const { text, letterBiggerZindex, zIndex, class: className } = Astro.props;
 const letters = text.split("");
 ---
 
@@ -29,6 +29,6 @@ const letters = text.split("");
     position: relative;
     filter: blur(2.8px);
     font-family: "Kirang Haerang";
-    transition: all;
+    transition: all 1s ease-out;
   }
 </style>

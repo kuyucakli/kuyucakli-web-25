@@ -3,8 +3,9 @@ import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import StickyHorizontalSection from "../components/StickyHorizontalSection.astro";
 import { sortByPostDate } from "../utils";
-import SectionHomeOutro from "../components/SectionHomeOutro.astro";
+
 import SectionHomeIntro from "../components/SectionHomeIntro.astro";
+import SectionHomeOutro from "../components/SectionHomeOutro.astro";
 
 const workPosts = await getCollection(
   "posts",
@@ -18,12 +19,8 @@ const blogPosts = await getCollection(
 
 <Layout title="Frontend Developer">
   <SectionHomeIntro />
-  <div>
-    <h1 class="displaymedium p-t-56 p-b-88 txt-center">My feautured works</h1>
-  </div>
+
   <StickyHorizontalSection data={sortByPostDate(workPosts)} />
-  <!-- <SectionHomeOutro /> -->
-  <SectionHomeOutro />
 </Layout>
 
 <style>
