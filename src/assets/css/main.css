@@ -534,8 +534,17 @@
   }
 
   .txt-underline {
-    text-decoration: wavy underline var(--clr-on-surface-container-2) 2px;
+    text-decoration: solid underline rgb(47, 255, 130) 2px;
+    text-underline-offset: 6px;
   }
+
+  @supports (text-decoration: wavy underline rgb(47, 255, 130) 2px) {
+    .txt-underline {
+      text-decoration: wavy underline rgb(47, 255, 130) 2px;
+      text-underline-offset: 6px;
+    }
+  }
+
   .flex-row-center {
     display: flex;
     justify-content: center;
