@@ -100,7 +100,8 @@ export default function ThreeScene() {
           material.needsUpdate = true;
 
           let currentIndex = 0;
-          const interval = setInterval(() => {
+
+          setInterval(() => {
             currentIndex = (currentIndex + 1) % textures.length;
             material.map = textures[currentIndex];
             material.needsUpdate = true;
@@ -112,8 +113,8 @@ export default function ThreeScene() {
           requestAnimationFrame(animate);
 
           const t = clock.getElapsedTime();
-          const delta = clock.getDelta();
-          const { position, lookAt } = getCameraTransform(t);
+
+          const { position } = getCameraTransform(t);
 
           const progress = getElementProgress(stickyHomeIntroEl!);
 
@@ -162,7 +163,7 @@ export default function ThreeScene() {
           renderer.render(scene, camera);
         }
 
-        animate();
+        //animate();
       }
     );
 

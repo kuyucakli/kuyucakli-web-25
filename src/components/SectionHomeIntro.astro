@@ -56,9 +56,9 @@ import DepthLetters from "./DepthLetters.astro";
       introHomeTextEl!.style.transform = `translateY(24px) scale(${scale})`;
       introHomeTextEl!.style.filter = `blur(${progress * 0.5}px)`;
       introHomeTextEl!.style.opacity = `${opacity}`;
-      wrapperDepthLettersEls.forEach((el) => {
-        el!.style.opacity = `${1 - progress * 1.1}`;
-        el!.style.transform = `translateY(-${progress * 25}px)`;
+      (wrapperDepthLettersEls as NodeListOf<HTMLElement>).forEach((el) => {
+        el.style.opacity = `${1 - progress * 1.1}`;
+        el.style.transform = `translateY(-${progress * 25}px)`;
       });
     });
   });
