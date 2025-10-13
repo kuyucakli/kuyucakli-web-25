@@ -451,6 +451,9 @@
   .m-b-24 {
     margin-bottom: 24px;
   }
+  .m-t-16 {
+    margin-bottom: 16px;
+  }
   .m-v-xs {
     margin-top: 4px;
     margin-bottom: 4px;
@@ -490,6 +493,10 @@
   .p-h-md-1 {
     padding-left: 40px !important;
     padding-right: 40px !important;
+  }
+
+  .p-t-16 {
+    padding-top: 16px;
   }
 
   .p-t-24 {

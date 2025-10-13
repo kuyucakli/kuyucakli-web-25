@@ -50,7 +50,7 @@ const { data } = Astro.props;
                   )
                 )}
               </div>
-              <div class="info-container">
+              <div class="info-container p-t-16">
                 <h1 class="headlinemedium txt-underline m-v-sm-0">
                   <a href={"/posts/" + data.category + "-" + id}>
                     {data?.title}
@@ -132,7 +132,7 @@ const { data } = Astro.props;
   }
 
   .info-container > p {
-    max-width: 300px;
+    max-width: 500px;
   }
 
   .preview-container {
