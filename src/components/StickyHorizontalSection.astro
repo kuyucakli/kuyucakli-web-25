@@ -86,14 +86,19 @@ const { data } = Astro.props;
 <style>
   video {
     width: 100%;
+    max-height: 50dvh;
+  }
+  #section-more-self {
+    margin: 180px 0 280px;
   }
   #home-sticky-title {
-    opacity: 0;
+    /* opacity: 0;
     position: fixed;
     top: 64px;
     left: 32px;
     transition: all 0.8s ease-in-out;
-    transform: translateY(40px);
+    transform: translateY(40px); */
+    margin: 28px 16px 40px 16px;
   }
   #home-sticky-title.visible {
     opacity: 1;
@@ -101,31 +106,18 @@ const { data } = Astro.props;
   }
 
   .sticky-horizontal {
-    width: 100dvw;
-    height: 300dvw;
     contain: layout;
-
     --title-height: 124px;
   }
+
   .wrapper-content {
-    width: 300dvw;
-    height: calc(100dvh - var(--title-height));
-    position: sticky;
-    top: var(--title-height);
     transition: transform 0.1s linear;
     display: flex;
-    align-items: stretch;
-    will-change: transform;
-    transform: translateZ(0); /* trigger GPU acceleration */
+    flex-direction: column;
+    gap: 80px;
   }
 
   .wrapper-content > .list-item-container {
-    flex: 1 0 0;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    overflow: hidden;
     padding: 8px 12px;
   }
 
@@ -159,8 +151,44 @@ const { data } = Astro.props;
   } */
   @media screen and (width >= 768px) {
     #home-sticky-title {
+      margin: 0;
+      opacity: 0;
+      position: fixed;
+
+      transition: all 0.8s ease-in-out;
+      transform: translateY(40px);
       top: 88px;
       left: 56px;
+    }
+
+    .sticky-horizontal {
+      width: 100dvw;
+      height: 300dvw;
+      contain: layout;
+      --title-height: 124px;
+    }
+    .wrapper-content {
+      width: 300dvw;
+      height: calc(100dvh - var(--title-height));
+      position: sticky;
+      top: var(--title-height);
+      transition: transform 0.1s linear;
+      flex-direction: row;
+      align-items: stretch;
+      will-change: transform;
+      transform: translateZ(0); /* trigger GPU acceleration */
+    }
+    .wrapper-content > .list-item-container {
+      flex: 1 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      overflow: hidden;
+      padding: 8px 12px;
+    }
+    #section-more-self {
+      margin: 0;
     }
   }
 </style>
@@ -171,10 +199,7 @@ const { data } = Astro.props;
     const sectionMoreSelfEl = document.getElementById(
       "section-more-self"
     ) as HTMLDivElement;
-    const observer = new IntersectionObserver(handleIntersection, {
-      rootMargin: "100px",
-      threshold: [0.0, 0.1, 0.2, 0.3],
-    });
+    let observer: IntersectionObserver;
 
     const stickyHorizontalEl = document.querySelector(
       ".sticky-horizontal"
@@ -183,9 +208,17 @@ const { data } = Astro.props;
       ".wrapper-content"
     ) as HTMLDivElement;
 
+    function createObserver() {
+      observer = new IntersectionObserver(handleIntersection, {
+        rootMargin: "100px",
+        threshold: [0.0, 0.1, 0.2, 0.3],
+      });
+    }
+
     function registerObservedEls() {
+      if (!observer) throw "No observer";
       observer.observe(stickyHorizontalEl);
-      observer.observe(sectionMoreSelfEl);
+      // observer.observe(sectionMoreSelfEl);
     }
 
     function handleIntersection(entries: IntersectionObserverEntry[]) {
@@ -203,13 +236,16 @@ const { data } = Astro.props;
       });
     }
 
-    registerObservedEls();
+    if (window.innerWidth >= 768) {
+      createObserver();
+      registerObservedEls();
+
+      window.addEventListener("scroll", () => {
+        scrollY = window.scrollY || window.pageYOffset;
+      });
+    }
 
     let scrollY = window.scrollY || window.pageYOffset;
-
-    window.addEventListener("scroll", () => {
-      scrollY = window.scrollY || window.pageYOffset;
-    });
 
     let currentProgress = 0;
 
