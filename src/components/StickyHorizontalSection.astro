@@ -209,6 +209,10 @@ const { data } = Astro.props;
       ".wrapper-content"
     ) as HTMLDivElement;
 
+    let scrollY = window.scrollY || window.pageYOffset;
+
+    let currentProgress = 0;
+
     function createObserver() {
       observer = new IntersectionObserver(handleIntersection, {
         rootMargin: "100px",
@@ -247,10 +251,6 @@ const { data } = Astro.props;
 
       animate();
     }
-
-    let scrollY = window.scrollY || window.pageYOffset;
-
-    let currentProgress = 0;
 
     function animate() {
       const rectTop = stickyHorizontalEl.offsetTop;
