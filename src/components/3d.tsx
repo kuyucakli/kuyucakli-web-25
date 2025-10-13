@@ -182,7 +182,7 @@ export default function ThreeScene() {
         ref={mountRef}
         style={{
           width: "100dvw",
-          height: "100dvh",
+          height: "100vh",
           position: "fixed",
           top: "0",
           left: "0",
