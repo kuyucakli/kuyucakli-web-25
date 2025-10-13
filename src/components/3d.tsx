@@ -184,6 +184,8 @@ export default function ThreeScene() {
           width: "100dvw",
           height: "100dvh",
           position: "fixed",
+          top: "0",
+          left: "0",
           zIndex: 10,
           filter: "blur(1.2px)",
         }}
