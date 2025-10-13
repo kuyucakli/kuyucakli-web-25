@@ -40,26 +40,26 @@ import DepthLetters from "./DepthLetters.astro";
 </div>
 
 <script>
-  import { initScrollTracker, registerElement } from "../../src/utils/scroll";
-  document.addEventListener("astro:page-load", () => {
-    initScrollTracker();
+  // import { initScrollTracker, registerElement } from "../../src/utils/scroll";
+  // document.addEventListener("astro:page-load", () => {
+  //   initScrollTracker();
 
-    const wrapperDepthLettersEls = document.querySelectorAll(".depth-letter");
-    const stickyContainer = document.getElementById(
-      "sticky-home-intro-container"
-    );
-    const introHomeTextEl = document.getElementById("intro-home-text");
+  //   const wrapperDepthLettersEls = document.querySelectorAll(".depth-letter");
+  //   const stickyContainer = document.getElementById(
+  //     "sticky-home-intro-container"
+  //   );
+  //   const introHomeTextEl = document.getElementById("intro-home-text");
 
-    registerElement(stickyContainer!, (progress) => {
-      // const scale = 1 + progress * 1.2;
-      // const opacity = 0.7 - progress * 0.6;
-      // introHomeTextEl!.style.transform = `translateY(24px) scale(${scale})`;
-      // introHomeTextEl!.style.filter = `blur(${progress * 0.5}px)`;
-      // introHomeTextEl!.style.opacity = `${opacity}`;
-      // (wrapperDepthLettersEls as NodeListOf<HTMLElement>).forEach((el) => {
-      //   el.style.opacity = `${1 - progress * 1.1}`;
-      //   el.style.transform = `translateY(-${progress * 25}px)`;
-      // });
-    });
-  });
+  //   registerElement(stickyContainer!, (progress) => {
+  //     const scale = 1 + progress * 1.2;
+  //     const opacity = 0.7 - progress * 0.6;
+  //     introHomeTextEl!.style.transform = `translateY(24px) scale(${scale})`;
+  //     introHomeTextEl!.style.filter = `blur(${progress * 0.5}px)`;
+  //     introHomeTextEl!.style.opacity = `${opacity}`;
+  //     (wrapperDepthLettersEls as NodeListOf<HTMLElement>).forEach((el) => {
+  //       el.style.opacity = `${1 - progress * 1.1}`;
+  //       el.style.transform = `translateY(-${progress * 25}px)`;
+  //     });
+  //   });
+  // });
 </script>
