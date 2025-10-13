@@ -4,11 +4,23 @@ import { Picture } from "astro:assets";
 const { data, id } = Astro.props;
 ---
 
-<li>
-  <h1 class="headlinesmall m-v-sm-0">
-    <a href={"/posts/" + data.category + "-" + id}>{data?.title}</a>
-  </h1>
-  <p>{data?.excerpt}</p>
+<li class="relative">
+  <div class="container-text">
+    <h1 class="headlinesmall m-b-8">
+      <a href={"/posts/" + data.category + "-" + id}>{data?.title}</a>
+    </h1>
+    <p class="m-b-16 bodysmall">
+      {
+        data.createdAt.toLocaleDateString("en-us", {
+          weekday: "long",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      }
+    </p>
+    <p>{data?.excerpt}</p>
+  </div>
   {
     data?.poster ? (
       <Picture
@@ -28,6 +40,9 @@ const { data, id } = Astro.props;
 </li>
 
 <style>
+  .container-text {
+    padding: 16px;
+  }
   picture {
     display: block;
     text-align: center;

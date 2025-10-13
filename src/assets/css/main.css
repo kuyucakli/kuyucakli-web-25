@@ -46,6 +46,11 @@
     height: auto;
   }
 
+  [aria-disabled="true"] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   /* kirang-haerang-latin-400-normal */
   @font-face {
     font-family: "Kirang Haerang";
@@ -437,6 +442,15 @@
     margin-left: auto;
     margin-right: auto;
   }
+  .m-b-8 {
+    margin-bottom: 8px;
+  }
+  .m-b-16 {
+    margin-bottom: 16px;
+  }
+  .m-b-24 {
+    margin-bottom: 24px;
+  }
   .m-v-xs {
     margin-top: 4px;
     margin-bottom: 4px;
@@ -568,6 +582,9 @@
     aspect-ratio: 1;
     overflow: hidden;
     border-radius: 2px;
+  }
+  .relative {
+    position: relative;
   }
   .radial {
     border-radius: 50%;

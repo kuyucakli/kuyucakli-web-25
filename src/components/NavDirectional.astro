@@ -16,8 +16,20 @@ if (category) {
 <nav id="nav-directional">
   <BtnBack />
   <div>
-    {prevItem && <a href={prevHref}>Prev</a>}
-    {nextItem && <a href={nextHref}>Next</a>}
+    {
+      (
+        <a href={prevHref} aria-disabled={!prevItem}>
+          Prev
+        </a>
+      )
+    }
+    {
+      (
+        <a href={nextHref} aria-disabled={!nextItem}>
+          Next
+        </a>
+      )
+    }
   </div>
 </nav>
 

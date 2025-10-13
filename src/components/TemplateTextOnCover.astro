@@ -4,12 +4,22 @@ import { Picture } from "astro:assets";
 const { data, id } = Astro.props;
 ---
 
-<li>
-  <div class="">
-    <div style="mix-blend-mode: difference;">
-      <h1 class="headlinesmall">
+<li class="relative">
+  <div>
+    <div style="mix-blend-mode: difference;" class="container-text">
+      <h1 class="headlinesmall m-b-8">
         {data.title}
       </h1>
+      <p class="m-b-16 bodysmall">
+        {
+          data.createdAt.toLocaleDateString("en-us", {
+            weekday: "long",
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })
+        }
+      </p>
       <p>
         {data.excerpt}
       </p>
@@ -33,6 +43,9 @@ const { data, id } = Astro.props;
 </li>
 
 <style>
+  .container-text {
+    padding: 16px;
+  }
   div {
     position: relative;
     width: 100%;
