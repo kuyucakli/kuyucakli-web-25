@@ -59,17 +59,19 @@ const { title, description, noIndex, className } = Astro.props;
   import { throttle, debounce } from "../utils";
   let headerEl = document.querySelector("#root>header");
 
-  window.addEventListener(
-    "scroll",
-    debounce(() => {
-      const scrollY = window.scrollY;
-      headerEl = document.querySelector("#root>header");
+  if (window.innerWidth >= 768) {
+    window.addEventListener(
+      "scroll",
+      debounce(() => {
+        const scrollY = window.scrollY;
+        headerEl = document.querySelector("#root>header");
 
-      if (scrollY > 50) {
-        headerEl?.classList.add("compact");
-      } else {
-        headerEl?.classList.remove("compact");
-      }
-    }, 50)
-  );
+        if (scrollY > 50) {
+          headerEl?.classList.add("compact");
+        } else {
+          headerEl?.classList.remove("compact");
+        }
+      }, 50)
+    );
+  }
 </script>
