@@ -163,7 +163,7 @@ export default function ThreeScene() {
           renderer.render(scene, camera);
         }
 
-        //animate();
+        animate();
       }
     );
 
