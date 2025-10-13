@@ -8,9 +8,9 @@ const { data, id } = Astro.props;
   </h1>
   <p>{data.excerpt}</p>
   {
-    data.videoPoster ? (
+    data.videoContentUrl ? (
       <video width="100%" height="100%" autoplay muted loop>
-        <source src={data.videoPoster} />
+        <source src={data.videoContentUrl} />
       </video>
     ) : null
   }

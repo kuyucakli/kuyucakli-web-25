@@ -24,7 +24,7 @@ const { data } = Astro.props;
           <section class="list-item-container">
             <div>
               <div class="preview-container">
-                {data.videoPoster ? (
+                {data.videoContentUrl ? (
                   <video
                     height="500px"
                     controls
@@ -33,8 +33,9 @@ const { data } = Astro.props;
                     playsinline
                     preload="auto"
                     style="border:1px solid gray; border-radius:12px"
+                    poster={data.videoPosterUrl}
                   >
-                    <source src={data.videoPoster} />
+                    <source src={data.videoContentUrl} />
                   </video>
                 ) : (
                   data.poster && (
@@ -243,6 +244,8 @@ const { data } = Astro.props;
       window.addEventListener("scroll", () => {
         scrollY = window.scrollY || window.pageYOffset;
       });
+
+      animate();
     }
 
     let scrollY = window.scrollY || window.pageYOffset;
@@ -268,7 +271,5 @@ const { data } = Astro.props;
 
       requestAnimationFrame(animate);
     }
-
-    animate();
   });
 </script>
