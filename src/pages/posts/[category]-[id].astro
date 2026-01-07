@@ -31,16 +31,9 @@ const { Content } = await render(post);
 ---
 
 <Layout className="post-detail" title={post.data.title}>
-  <header class="m-v-md-0">
+  <header class="m-v-md-0" style="margin-top:80px; margin-bottom:80px">
     <h1 class="displaylarge">
       {post.data.title}
-      {
-        post.data.link && (
-          <a href={post.data.link} target="_blank">
-            <IconOpenInNew fill="var(--clr-on-surface)" />
-          </a>
-        )
-      }
     </h1>
     <p class="bodymedium">
       {
@@ -50,6 +43,18 @@ const { Content } = await render(post);
           month: "short",
           day: "numeric",
         })
+      }
+      {
+        post.data.link && (
+          <a
+            href={post.data.link}
+            target="_blank"
+            style="display:flex; align-items:center; gap:4px;"
+          >
+            <span class="bodysmall">visit</span>
+            <IconOpenInNew fill="var(--clr-on-surface)" />
+          </a>
+        )
       }
     </p>
   </header>

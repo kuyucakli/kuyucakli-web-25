@@ -60,7 +60,6 @@ const currentPath = Astro.url.pathname;
     transition: all 0.6s ease-in-out;
   }
   [class="compact"] > .nav-main {
-    background-color: rgba(0, 0, 0, 0.75);
     flex: 0 1 auto;
   }
 
@@ -86,8 +85,12 @@ const currentPath = Astro.url.pathname;
     transition: width 0.4s;
   }
 
+  .nav-main a {
+    font-size: 18px;
+  }
+
   .nav-main a[aria-current="true"] {
-    color: var(--clr-accent-1);
+    color: #868686;
   }
 
   @media (width >= 640px) {

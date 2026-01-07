@@ -3,13 +3,16 @@ import ThreeScene from "./3d";
 import DepthLetters from "./DepthLetters.astro";
 ---
 
-<div id="sticky-home-intro-container" style="height:180vmax; ">
+<div
+  id="sticky-home-intro-container"
+  style="height:180vmax; pointer-events: none;"
+>
   <section
-    style="display:flex; align-content:center; flex-direction:colum; justify-content:center;  flex-wrap:wrap; width:100vw; height:100vh; background:radial-gradient(#433e3e 0%, var(--clr-surface) 70%); position:sticky; top:0; left:0;
+    style="display:flex; align-content:center; flex-direction:colum; justify-content:center;  flex-wrap:wrap; width:100vw; height:100vh; top:0; left:0;
     overflow-x:hidden; background-attachment: fixed;"
   >
     <DepthLetters
-      text="'frontback'"
+      text="frontback"
       letterBiggerZindex={[2, 4, 6, 8]}
       zIndex="11"
     />
@@ -18,21 +21,31 @@ import DepthLetters from "./DepthLetters.astro";
       id="intro-home-text"
       style="width:100%;  padding:0 24px;  background: radial-gradient(#d0d0d0 0%, #fff7f5 70%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  
   z-index:9; 
   opacity:0.7;   
   
   "
-      class="bodylarge"
+      class="titlemedium"
     >
       <p
         style="max-width:500px; margin:0 auto;  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; "
       >
-        I'm Burak Kuyucaklı from Istanbul, a frontend developer who enjoys
-        making things work smoothly for people through code. While frontend is
-        my main focus, I’m deeply interested in backend development. I have my
-        paper, pen and brushes while thinking on ux-ui.
+        I'm Burak Kuyucaklı from Istanbul, a <span
+          style="color:rgb(144, 255, 203)!important;  border-radius:6px"
+          >creative frontend developer</span
+        > who enjoys making things work <span
+          style="color:rgb(255, 242, 0)!important;  border-radius:6px"
+          >smoothly
+        </span>for people through <span
+          style="color:rgb(255, 156, 162)!important;  border-radius:6px"
+          >code</span
+        >.. While frontend is my main focus, I’m deeply interested in backend
+        development. I have my <span
+          style="color:rgb(79, 161, 255)!important;  border-radius:6px"
+          >paper, pen and brushes</span
+        > while thinking on ux-ui.
       </p>
     </div>
     <ThreeScene client:load />
@@ -51,13 +64,13 @@ import DepthLetters from "./DepthLetters.astro";
     const introHomeTextEl = document.getElementById("intro-home-text");
 
     registerElement(stickyContainer!, (progress) => {
-      const scale = 1 + progress * 1.2;
+      const scale = 1 + progress * 2.8;
       const opacity = 0.7 - progress * 0.6;
-      introHomeTextEl!.style.transform = `translateY(24px) scale(${scale})`;
-      introHomeTextEl!.style.filter = `blur(${progress * 0.5}px)`;
+      introHomeTextEl!.style.transform = `translateY(${124}px) scale(${scale})`;
+      introHomeTextEl!.style.filter = `blur(${progress * 6.5}px)`;
       introHomeTextEl!.style.opacity = `${opacity}`;
       (wrapperDepthLettersEls as NodeListOf<HTMLElement>).forEach((el) => {
-        el.style.opacity = `${1 - progress * 1.1}`;
+        el.style.opacity = `${1 - progress * 24.1}`;
         el.style.transform = `translateY(-${progress * 25}px)`;
       });
     });

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { useSmoothCamera } from "../hooks/useSmoothCamera";
 import { getElementProgress } from "../utils/scroll";
 import { lerp } from "three/src/math/MathUtils.js";
@@ -94,8 +94,9 @@ export default function ThreeScene() {
 
           //change texture
           const material = bigBall.material as THREE.MeshStandardMaterial; // reference to its existing material
-          material.metalness = 0.8;
-          material.roughness = 0.2;
+          material.metalness = 0.1;
+          material.roughness = 0.5;
+
           material.map = textures[0];
           material.needsUpdate = true;
 
@@ -197,9 +198,9 @@ export default function ThreeScene() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "200px",
-            height: "200px",
-            background: "blue",
+            width: "300px",
+            height: "300px",
+            border: "10px solid red",
             borderRadius: "50%",
             filter: "blur(3.8px)",
             zIndex: 10000,
@@ -210,9 +211,9 @@ export default function ThreeScene() {
           <style>
             {`
     @keyframes fade {
-      0% { background:white; }
-      50% { background:#869997; }
-      100% { background:#5cbfb8 }
+      0% { border-color:white; }
+      50% { border-color:black; border-width:0px; }
+      100% { border-color:green }
     }
   `}
           </style>

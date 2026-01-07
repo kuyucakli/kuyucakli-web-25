@@ -1,13 +1,13 @@
 ---
 import { Picture } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import SectionHomeOutro from "./SectionHomeOutro.astro";
 
 type Props = {
   data: CollectionEntry<"posts">[];
 };
 
 const { data } = Astro.props;
+const postMaxCount = 3;
 ---
 
 <h1 id="home-sticky-title" class="displaymedium">Feautured works</h1>
@@ -15,8 +15,8 @@ const { data } = Astro.props;
 <div class="sticky-horizontal">
   <div class="wrapper-content">
     {
-      data.reverse().map((d, index: number) => {
-        if (index > 1) return null;
+      data.map((d, index: number) => {
+        if (index > postMaxCount - 1) return null;
 
         const { data, id } = d;
 
@@ -99,7 +99,7 @@ const { data } = Astro.props;
     left: 32px;
     transition: all 0.8s ease-in-out;
     transform: translateY(40px); */
-    margin: 28px 16px 40px 16px;
+    margin: 28px 16px 40px;
   }
   #home-sticky-title.visible {
     opacity: 1;
@@ -155,21 +155,20 @@ const { data } = Astro.props;
       margin: 0;
       opacity: 0;
       position: fixed;
-
       transition: all 0.8s ease-in-out;
       transform: translateY(40px);
-      top: 88px;
-      left: 56px;
+      top: 96px;
+      left: 32px;
     }
 
     .sticky-horizontal {
       width: 100dvw;
-      height: 300dvw;
+      height: 400dvw;
       contain: layout;
       --title-height: 124px;
     }
     .wrapper-content {
-      width: 300dvw;
+      width: 400dvw;
       height: calc(100dvh - var(--title-height));
       position: sticky;
       top: var(--title-height);
