@@ -66,7 +66,7 @@ import DepthLetters from "./DepthLetters.astro";
     registerElement(stickyContainer!, (progress) => {
       const scale = 1 + progress * 2.8;
       const opacity = 0.7 - progress * 0.6;
-      introHomeTextEl!.style.transform = `translateY(${124}px) scale(${scale})`;
+      introHomeTextEl!.style.transform = `translateY(${68}px) scale(${scale})`;
       introHomeTextEl!.style.filter = `blur(${progress * 6.5}px)`;
       introHomeTextEl!.style.opacity = `${opacity}`;
       (wrapperDepthLettersEls as NodeListOf<HTMLElement>).forEach((el) => {
