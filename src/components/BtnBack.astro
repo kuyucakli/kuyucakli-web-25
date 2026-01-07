@@ -5,13 +5,12 @@ const { url = "/" } = Astro.props;
 ---
 
 <a href={url} id="btn-back" class="titlemedium flex-vertical-center">
-  <span><IconBackArrow fill="var(--clr-inverse-on-surface)" /></span>
+  <span><IconBackArrow fill="var(--clr-on-surface)" width={24} /></span>
   <!-- Back -->
 </a>
 
 <style>
   a span {
-    background-color: var(--clr-on-surface-container-2);
     display: inline-flex;
     width: 40px;
     height: 40px;
@@ -23,7 +22,7 @@ const { url = "/" } = Astro.props;
 
 <script>
   document.addEventListener("astro:after-swap", init);
-  console.log(document.title);
+
   function init() {
     document.getElementById("btn-back")?.addEventListener("click", (e) => {
       e.preventDefault();
