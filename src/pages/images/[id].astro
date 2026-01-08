@@ -1,10 +1,8 @@
 ---
 import { Image } from "astro:assets";
-import { IconBackArrow } from "../../components/Icons";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
 import NavDirectional from "../../components/NavDirectional.astro";
-import BtnBack from "../../components/BtnBack.astro";
 
 export async function getStaticPaths() {
   const images = await getCollection("drawingImages");
@@ -24,11 +22,14 @@ const { Content } = await render(image);
 
 <Layout className="post-detail" title={image.data.altText}>
   <a href={image.data.file.src} target="_blank">
-    <Image src={image.data.file} alt={image.data.altText} />
+    <Image
+      src={image.data.file}
+      alt={image.data.altText}
+      style="margin-top:64px"
+    />
   </a>
   <header class="m-v-md-0">
-    <h1 class="displaylarge">{image.data.altText}</h1>
-    <p class="bodymedium">
+    <p class="bodysmall">
       {
         image.data.createdAt.toLocaleDateString("en-us", {
           weekday: "long",
@@ -40,12 +41,12 @@ const { Content } = await render(image);
     </p>
   </header>
 
-  <h2>
+  <h4 class="bodymedium">
     {image.data.excerpt}
-  </h2>
+  </h4>
 
-  <p>
-    {image.data.description}
+  <p class="bodysmall">
+    {image.data.category}
   </p>
 
   <Content />

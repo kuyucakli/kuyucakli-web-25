@@ -6,4 +6,3 @@ description: "Aykut Kuyucaklı in Altınova 2020"
 category: "watercolor"
 createdAt: "Tuesday, August 27 1979"
 ---
-
