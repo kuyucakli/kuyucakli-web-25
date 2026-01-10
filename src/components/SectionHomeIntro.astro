@@ -11,7 +11,10 @@ import DepthLetters from "./DepthLetters.astro";
     style="display:flex; align-content:center; flex-direction:colum; justify-content:center;  flex-wrap:wrap; width:100vw; height:100vh; top:0; left:0;
     overflow-x:hidden; background-attachment: fixed; "
   >
-    <div style=" height:300px;">
+    <div
+      id="depth-letters-layer"
+      style="position:fixed; top:calc( 50% - 150px )"
+    >
       <DepthLetters
         text="frontback"
         letterBiggerZindex={[2, 4, 6, 8]}
@@ -23,7 +26,7 @@ import DepthLetters from "./DepthLetters.astro";
       id="intro-home-text"
       style="width:100%;  padding:0 24px;  background: radial-gradient(#d0d0d0 0%, #fff7f5 70%);
   -webkit-background-clip: text;
-  transition:all 0.6s linear;
+ 
   z-index:9; 
   opacity:0.7;   
   position:fixed;
@@ -59,49 +62,92 @@ import DepthLetters from "./DepthLetters.astro";
 
 <script>
   import { initScrollTracker, registerElement } from "../../src/utils/scroll";
+
   document.addEventListener("astro:page-load", () => {
     initScrollTracker();
 
-    const wrapperDepthLettersEls = document.querySelectorAll(".depth-letter");
     const stickyContainer = document.getElementById(
       "sticky-home-intro-container"
     );
     const introHomeTextEl = document.getElementById("intro-home-text");
+    const depthLayerEl = document.getElementById("depth-letters-layer");
 
-    let smoothBlurProgress = 0;
+    const depthLetters = document.querySelectorAll(".depth-letter");
 
+    /* -------------------------
+       Responsive limits
+    -------------------------- */
     const vw = Math.max(
       document.documentElement.clientWidth,
       window.innerWidth || 0
     );
-    const vh = Math.max(
-      document.documentElement.clientHeight,
-      window.innerHeight || 0
-    );
+
     const maxScale = vw < 480 ? 2.1 : vw < 768 ? 2.4 : vw < 1024 ? 2.7 : 3.1;
 
-    registerElement(stickyContainer!, (progress) => {
-      const blurLag = 0.01;
-      smoothBlurProgress += (progress - smoothBlurProgress) * blurLag;
+    /* -------------------------
+       Smoothed state
+    -------------------------- */
+    let y = 0;
+    let scale = 1;
+    let blur = 0;
+    let opacity = 0.7;
+    let depthY = 0;
+    let depthOpacity = 1;
 
-      // raw scale
-      const rawScale = 1 + progress * 2.8;
+    /* -------------------------
+       Tunables
+    -------------------------- */
+    const POSITION_LAG = 0.08;
+    const SCALE_LAG = 0.01;
+    const BLUR_LAG = 0.05;
+    const OPACITY_LAG = 0.01;
+    const DEPTH_LAG = 0.1;
+    const DEPTH_OPACITY_LAG = 0.12;
 
-      // clamp scale
-      const scale = Math.min(rawScale, maxScale);
+    const SCALE_START = 0.4;
 
-      const opacity = 0.7 - progress * 0.68;
+    registerElement(stickyContainer, (progress) => {
+      /* ---------- Targets ---------- */
+      const targetY = -progress * 400;
 
-      introHomeTextEl!.style.transform = `translateY(-${progress * 600}px) scale( ${progress > 0.3 ? scale : 1})`;
+      const scaleProgress =
+        progress < SCALE_START
+          ? 0
+          : (progress - SCALE_START) / (1 - SCALE_START);
 
-      introHomeTextEl!.style.filter = `blur(${smoothBlurProgress}px)`;
+      const rawScale = 1 + scaleProgress * 2.8;
+      const targetScale = Math.min(rawScale, maxScale);
 
-      introHomeTextEl!.style.opacity = `${opacity}`;
+      const targetBlur = progress * 1.5;
+      const targetOpacity = 0.7 - progress * 0.68;
 
-      (wrapperDepthLettersEls as NodeListOf<HTMLElement>).forEach((el) => {
+      /* ---------- Smooth ---------- */
+      y += (targetY - y) * POSITION_LAG;
+      scale += (targetScale - scale) * SCALE_LAG;
+      blur += (targetBlur - blur) * BLUR_LAG;
+      opacity += (targetOpacity - opacity) * OPACITY_LAG;
+
+      /* ---------- Apply ---------- */
+      introHomeTextEl.style.transform = `translateY(${y}px) scale(${scale})`;
+      introHomeTextEl.style.filter = `blur(${blur}px)`;
+      introHomeTextEl.style.opacity = opacity;
+
+      depthLetters.forEach((el) => {
         el.style.opacity = `${1 - progress}`;
         el.style.transform = `translateY(-${progress * 25}px)`;
       });
+
+      /* ---------- Depth layer targets ---------- */
+      const depthTargetY = -progress * 25;
+      const depthTargetOpacity = 1 - progress;
+
+      /* ---------- Smooth ---------- */
+      depthY += (depthTargetY - depthY) * DEPTH_LAG;
+      depthOpacity += (depthTargetOpacity - depthOpacity) * DEPTH_OPACITY_LAG;
+
+      /* ---------- Apply ---------- */
+      depthLayerEl.style.transform = `translateY(${depthY}px)`;
+      depthLayerEl.style.opacity = depthOpacity;
     });
   });
 </script>
