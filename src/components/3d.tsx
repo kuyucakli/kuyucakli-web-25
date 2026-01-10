@@ -297,8 +297,8 @@ function updateCameraWithScroll(params: {
 }) {
   const { camera, basePosition, progress, ballPosition } = params;
 
-  const lerpFactor = 0.01;
-  const followMode = progress >= 0.5;
+  const lerpFactor = 0.04;
+  const followMode = progress >= 0.6;
 
   // Smoothly transition between modes
   if (followMode && transitionProgress < 1) {
@@ -324,7 +324,7 @@ function updateCameraWithScroll(params: {
   );
 
   const height = lerp(3, 6, progress);
-  const distance = lerp(6, 12, progress);
+  const distance = lerp(6, 142, progress);
   const followOffset = new THREE.Vector3(0, height, distance);
   const followPosition = ballPosition.clone().add(followOffset);
 
