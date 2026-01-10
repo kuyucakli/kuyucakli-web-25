@@ -21,9 +21,12 @@ import DepthLetters from "./DepthLetters.astro";
       id="intro-home-text"
       style="width:100%;  padding:0 24px;  background: radial-gradient(#d0d0d0 0%, #fff7f5 70%);
   -webkit-background-clip: text;
-  
+  transition:all 0.8s;
   z-index:9; 
   opacity:0.7;   
+  position:fixed;
+  bottom:32px;
+  left:0;
   
   "
       class="titlemedium"
@@ -32,19 +35,19 @@ import DepthLetters from "./DepthLetters.astro";
         style="max-width:500px; margin:0 auto;  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; "
       >
-        I'm Burak Kuyucaklı from Istanbul, a <span
-          style="color:rgb(144, 255, 203)!important;  border-radius:6px"
-          >creative frontend developer</span
-        > who enjoys making things work <span
+        I'm Burak Kuyucaklı from Istanbul, a <strong
+          style="color:rgb(144, 255, 203)!important;  border-radius:6px; "
+          >creative frontend developer and designer</strong
+        > who enjoys making things work <strong
           style="color:rgb(255, 242, 0)!important;  border-radius:6px"
           >smoothly
-        </span>for people through <span
+        </strong>for people through <strong
           style="color:rgb(255, 156, 162)!important;  border-radius:6px"
-          >code</span
+          >code</strong
         >.. While frontend is my main focus, I’m deeply interested in backend
-        development. I have my <span
+        development. I have my <strong
           style="color:rgb(79, 161, 255)!important;  border-radius:6px"
-          >paper, pen and brushes</span
+          >paper, pen and brushes</strong
         > while thinking on ux-ui.
       </p>
     </div>
@@ -63,12 +66,36 @@ import DepthLetters from "./DepthLetters.astro";
     );
     const introHomeTextEl = document.getElementById("intro-home-text");
 
+    let smoothBlurProgress = 0;
+
+    const vw = Math.max(
+      document.documentElement.clientWidth,
+      window.innerWidth || 0
+    );
+    const vh = Math.max(
+      document.documentElement.clientHeight,
+      window.innerHeight || 0
+    );
+    const maxScale = vw < 480 ? 2.1 : vw < 768 ? 2.4 : vw < 1024 ? 2.7 : 3.1;
+
     registerElement(stickyContainer!, (progress) => {
-      const scale = 1 + progress * 2.8;
+      const blurLag = 0.01;
+      smoothBlurProgress += (progress - smoothBlurProgress) * blurLag;
+
+      // raw scale
+      const rawScale = 1 + progress * 2.8;
+
+      // clamp scale
+      const scale = Math.min(rawScale, maxScale);
+
       const opacity = 0.7 - progress * 0.6;
-      introHomeTextEl!.style.transform = `translateY(${68}px) scale(${scale})`;
-      introHomeTextEl!.style.filter = `blur(${progress * 6.5}px)`;
+
+      introHomeTextEl!.style.transform = `translateY(-${progress * 600}px) scale( ${progress > 0.3 ? scale : 1})`;
+
+      introHomeTextEl!.style.filter = `blur(${smoothBlurProgress * 6.5}px)`;
+
       introHomeTextEl!.style.opacity = `${opacity}`;
+
       (wrapperDepthLettersEls as NodeListOf<HTMLElement>).forEach((el) => {
         el.style.opacity = `${1 - progress * 24.1}`;
         el.style.transform = `translateY(-${progress * 25}px)`;
