@@ -13,7 +13,7 @@ import DepthLetters from "./DepthLetters.astro";
   >
     <div
       id="depth-letters-layer"
-      style="position:fixed; top:calc( 50% - 150px )"
+      style="position:fixed; top:calc( 50% - 80px )"
     >
       <DepthLetters
         text="frontback"
@@ -68,11 +68,17 @@ import DepthLetters from "./DepthLetters.astro";
 
     const stickyContainer = document.getElementById(
       "sticky-home-intro-container"
-    );
-    const introHomeTextEl = document.getElementById("intro-home-text");
-    const depthLayerEl = document.getElementById("depth-letters-layer");
+    ) as HTMLDivElement;
+    const introHomeTextEl = document.getElementById(
+      "intro-home-text"
+    ) as HTMLDivElement;
+    const depthLayerEl = document.getElementById(
+      "depth-letters-layer"
+    ) as HTMLDivElement;
 
-    const depthLetters = document.querySelectorAll(".depth-letter");
+    const depthLetters = document.querySelectorAll(
+      ".depth-letter"
+    ) as NodeListOf<HTMLDivElement>;
 
     /* -------------------------
        Responsive limits
@@ -130,7 +136,7 @@ import DepthLetters from "./DepthLetters.astro";
       /* ---------- Apply ---------- */
       introHomeTextEl.style.transform = `translateY(${y}px) scale(${scale})`;
       introHomeTextEl.style.filter = `blur(${blur}px)`;
-      introHomeTextEl.style.opacity = opacity;
+      introHomeTextEl.style.opacity = `${opacity}`;
 
       depthLetters.forEach((el) => {
         el.style.opacity = `${1 - progress}`;
@@ -138,7 +144,7 @@ import DepthLetters from "./DepthLetters.astro";
       });
 
       /* ---------- Depth layer targets ---------- */
-      const depthTargetY = -progress * 25;
+      const depthTargetY = -progress * 180;
       const depthTargetOpacity = 1 - progress;
 
       /* ---------- Smooth ---------- */
@@ -147,7 +153,7 @@ import DepthLetters from "./DepthLetters.astro";
 
       /* ---------- Apply ---------- */
       depthLayerEl.style.transform = `translateY(${depthY}px)`;
-      depthLayerEl.style.opacity = depthOpacity;
+      depthLayerEl.style.opacity = `${depthOpacity}`;
     });
   });
 </script>
