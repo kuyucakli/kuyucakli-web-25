@@ -9,9 +9,19 @@ const currentPath = Astro.url.pathname;
 
   <ul class="flex-row-center titlemedium">
     <li>
-      <a href="/" aria-current={currentPath === "/" ? true : false}>Home</a>
+      <a href="/" aria-current={currentPath === "/" ? true : false}>About</a>
     </li>
 
+    <li>
+      <a
+        href="/works"
+        aria-current={currentPath.includes("/works") ||
+        currentPath.includes("/posts/work")
+          ? true
+          : false}
+        target="_blank">Works</a
+      >
+    </li>
     <li>
       <a
         href="/blog"
@@ -20,17 +30,6 @@ const currentPath = Astro.url.pathname;
         currentPath.includes("images")
           ? true
           : false}>Blog</a
-      >
-    </li>
-
-    <li>
-      <a
-        href="https://www.github.com/kuyucakli"
-        aria-current={currentPath.includes("/works") ||
-        currentPath.includes("/posts/work")
-          ? true
-          : false}
-        target="_blank">Github</a
       >
     </li>
 

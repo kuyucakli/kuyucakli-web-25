@@ -12,14 +12,12 @@ const { data, id } = Astro.props;
     <p class="m-b-16 bodysmall">
       {
         data.createdAt.toLocaleDateString("en-us", {
-          weekday: "long",
           year: "numeric",
           month: "short",
-          day: "numeric",
         })
       }
     </p>
-    <p>{data?.excerpt}</p>
+    <p class="excerpt-text">{data?.excerpt}</p>
   </div>
   {
     data?.poster ? (
@@ -40,6 +38,11 @@ const { data, id } = Astro.props;
 </li>
 
 <style>
+  .excerpt-text {
+    min-height: 48px;
+  }
+  p {
+  }
   .container-text {
     padding: 16px;
   }

@@ -7,6 +7,7 @@ import TemplateFullCoverOnly from "../components/TemplateFullCoverOnly.astro";
 import TemplateComplete from "../components/TemplateComplete.astro";
 import { sortByPostDate } from "../utils";
 import TemplateTextOnCover from "../components/TemplateTextOnCover.astro";
+import ListPageLayout from "../layouts/ListPageLayout.astro";
 
 const posts = await getCollection(
   "posts",
@@ -19,27 +20,21 @@ const posts = await getCollection(
 );
 ---
 
-<Layout title="Frontend Developer Burak Kuyucaklı">
-  <InfiniteGrid>
-    <slot>
-      <li class="infinity-grid-intro-section">
-        <h1 class="displaylarge">Works</h1>
-      </li>
-
-      {
-        sortByPostDate(posts).map((d) => {
-          if (d.data.excerptTemplate == "text-only-big-heading") {
-            return <TemplateTextOnlyBigHeading id={d.id} data={d.data} />;
-          }
-          if (d.data.excerptTemplate == "full-cover-only") {
-            return <TemplateFullCoverOnly id={d.id} data={d.data} />;
-          }
-          if (d.data.excerptTemplate == "text-on-cover") {
-            return <TemplateTextOnCover id={d.id} data={d.data} />;
-          }
-          return <TemplateComplete id={d.id} data={d.data} />;
-        })
-      }
-    </slot>
-  </InfiniteGrid>
+<Layout title="Creative Frontend Developer Burak Kuyucaklı">
+  <ListPageLayout>
+    {
+      sortByPostDate(posts).map((d) => {
+        if (d.data.excerptTemplate == "text-only-big-heading") {
+          return <TemplateTextOnlyBigHeading id={d.id} data={d.data} />;
+        }
+        if (d.data.excerptTemplate == "full-cover-only") {
+          return <TemplateFullCoverOnly id={d.id} data={d.data} />;
+        }
+        if (d.data.excerptTemplate == "text-on-cover") {
+          return <TemplateTextOnCover id={d.id} data={d.data} />;
+        }
+        return <TemplateComplete id={d.id} data={d.data} />;
+      })
+    }
+  </ListPageLayout>
 </Layout>

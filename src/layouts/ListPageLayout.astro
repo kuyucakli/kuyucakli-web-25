@@ -1,0 +1,17 @@
+<div id="list-page-layout">
+  <ul>
+    <slot />
+  </ul>
+</div>
+
+<style>
+  #list-page-layout {
+    padding: 124px 24px 268px;
+  }
+  #list-page-layout > ul {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 48px;
+  }
+</style>
