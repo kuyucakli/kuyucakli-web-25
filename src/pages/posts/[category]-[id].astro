@@ -1,5 +1,5 @@
 ---
-import { IconOpenInNew } from "../../components/Icons";
+import { IconLink } from "../../components/Icons";
 import NavDirectional from "../../components/NavDirectional.astro";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
@@ -9,8 +9,6 @@ export async function getStaticPaths() {
   const posts = await getCollection("posts");
 
   return sortByPostDate(posts).map((post, i) => {
-    console.table(post.data.title + " " + post.data.category + " " + i);
-
     return {
       params: { id: post.id, category: post.data.category },
       props: {
@@ -49,10 +47,10 @@ const { Content } = await render(post);
           <a
             href={post.data.link}
             target="_blank"
-            style="display:flex; align-items:center; gap:4px;"
+            style="display:flex; align-items:center; gap:8px; margin-top:16px; color:#91bfb8"
           >
-            <span class="bodysmall">visit</span>
-            <IconOpenInNew fill="var(--clr-on-surface)" />
+            <IconLink fill="#91bfb8" />
+            <span class="bodysmall">View work</span>
           </a>
         )
       }
