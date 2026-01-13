@@ -30,7 +30,7 @@ import DepthLetters from "./DepthLetters.astro";
   z-index:9; 
   opacity:0.7;   
   position:fixed;
-  top:calc( 50dvh + 64px );
+   transform:translateY( calc( 50dvh + 40px ) )
   left:0;
   
   "
@@ -135,12 +135,12 @@ import DepthLetters from "./DepthLetters.astro";
       opacity += (targetOpacity - opacity) * OPACITY_LAG;
 
       /* ---------- Apply ---------- */
-      introHomeTextEl.style.transform = `translateY(${y}px) scale(${scale})`;
+      introHomeTextEl.style.transform = `translateY(${y + vh / 2 + 40}px) scale(${scale})`;
       introHomeTextEl.style.filter = `blur(${blur}px)`;
       introHomeTextEl.style.opacity = `${opacity}`;
 
       /* ---------- Depth layer targets ---------- */
-      const depthTargetY = -progress * 180;
+      const depthTargetY = -progress * 380;
       const depthTargetOpacity = 1 - progress;
 
       /* ---------- Smooth ---------- */
