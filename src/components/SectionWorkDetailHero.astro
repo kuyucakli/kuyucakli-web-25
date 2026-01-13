@@ -37,11 +37,11 @@ const {
 
   <div id="content" style={`color:${txtColor}`}>
     <Image src={titleTextImage} alt={titleTextAlt} id="not-mobile-title" />
-    <p>
+    <p id="excerpt">
       <strong>{excerpt}</strong>
     </p>
 
-    <ul>
+    <ul id="list">
       <li>Platform: {platform}</li>
       <li>Project Type: {projectType}</li>
       <li>Role: {role}</li>
@@ -63,6 +63,13 @@ const {
 </div>
 
 <style>
+  #excerpt {
+    line-height: 24px;
+    font-size: 1.1rem;
+  }
+  #list {
+    line-height: 24px;
+  }
   #not-mobile-title {
     display: none;
   }
