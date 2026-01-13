@@ -13,7 +13,7 @@ import DepthLetters from "./DepthLetters.astro";
   >
     <div
       id="depth-letters-layer"
-      style="position:fixed; top:calc( 50% - 80px )"
+      style="position:fixed; top:calc( 50% - 80px ); left:50%;"
     >
       <DepthLetters
         text="frontback"
@@ -30,7 +30,7 @@ import DepthLetters from "./DepthLetters.astro";
   z-index:9; 
   opacity:0.7;   
   position:fixed;
-  bottom:0;
+  bottom:64px;
   left:0;
   
   "
@@ -105,7 +105,7 @@ import DepthLetters from "./DepthLetters.astro";
     -------------------------- */
     const POSITION_LAG = 0.08;
     const SCALE_LAG = 0.01;
-    const BLUR_LAG = 0.05;
+    const BLUR_LAG = 0.02;
     const OPACITY_LAG = 0.01;
     const DEPTH_LAG = 0.1;
     const DEPTH_OPACITY_LAG = 0.12;
@@ -152,7 +152,7 @@ import DepthLetters from "./DepthLetters.astro";
       depthOpacity += (depthTargetOpacity - depthOpacity) * DEPTH_OPACITY_LAG;
 
       /* ---------- Apply ---------- */
-      depthLayerEl.style.transform = `translateY(${depthY}px)`;
+      depthLayerEl.style.transform = `translateX(-50%) translateY(${depthY}px)`;
       depthLayerEl.style.opacity = `${depthOpacity}`;
     });
   });

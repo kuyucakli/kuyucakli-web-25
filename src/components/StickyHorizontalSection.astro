@@ -146,6 +146,14 @@ const postMaxCount = 3;
     min-width: 300px;
   }
 
+  .wrapper-content video {
+    opacity: 0;
+    transition: opacity 2s ease-in;
+  }
+  .wrapper-content video.is-visible {
+    opacity: 1;
+  }
+
   /* @media (width >= 640px) {
     .info-container > p {
       max-width: 300px;
@@ -182,6 +190,7 @@ const postMaxCount = 3;
       will-change: transform;
       transform: translateZ(0); /* trigger GPU acceleration */
     }
+
     .wrapper-content > .list-item-container {
       flex: 1 0 0;
       display: flex;
@@ -203,6 +212,7 @@ const postMaxCount = 3;
     const sectionMoreSelfEl = document.getElementById(
       "section-more-self"
     ) as HTMLDivElement;
+
     let observer: IntersectionObserver;
 
     const stickyHorizontalEl = document.querySelector(
@@ -211,6 +221,7 @@ const postMaxCount = 3;
     const wrapperEl = document.querySelector(
       ".wrapper-content"
     ) as HTMLDivElement;
+    const videos = wrapperEl.querySelectorAll("video");
 
     let scrollY = window.scrollY || window.pageYOffset;
 
@@ -243,6 +254,28 @@ const postMaxCount = 3;
         }
       });
     }
+
+    const videoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target as HTMLVideoElement;
+
+          if (entry.isIntersecting) {
+            video.classList.add("is-visible");
+          } else {
+            video.classList.remove("is-visible");
+          }
+        });
+      },
+      {
+        root: null, // viewport
+        threshold: 0.01,
+      }
+    );
+
+    videos.forEach((video) => {
+      videoObserver.observe(video);
+    });
 
     if (window.innerWidth >= 768) {
       createObserver();
