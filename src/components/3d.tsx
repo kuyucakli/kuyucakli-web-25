@@ -94,16 +94,16 @@ export default function ThreeScene() {
           progress,
         });
 
-        if (progress >= 0.5 && progress <= 1) {
+        if (progress >= 0.8 && progress <= 1) {
           sun.position.x = lerp(-5, 5, progress);
           sun.position.y = lerp(5, 10, progress);
-          const { position: ballPos, rotation } = rollingMotionWithScroll(
-            bigBall.position.x + progress * 0.05,
-            bigBall.position.y
-          );
+          // const { position: ballPos, rotation } = rollingMotionWithScroll(
+          //   bigBall.position.x + progress * 0.05,
+          //   bigBall.position.y
+          // );
 
-          bigBall.position.copy(ballPos);
-          bigBall.rotation.z += rotation.z;
+          // bigBall.position.copy(ballPos);
+          // bigBall.rotation.z += rotation.z;
         } else {
           const { position: ballPos, rotation } = rollingMotion(
             t,
