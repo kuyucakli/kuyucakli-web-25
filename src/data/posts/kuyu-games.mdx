@@ -12,22 +12,34 @@ tags: ["work"]
 category: "work"
 excerptTemplate: "video-cover"
 link: "https://kuyu-games-pwa.vercel.app/select-game"
+useTemplate: false
 ---
 
 import { Picture } from "astro:assets";
-
+import { Image } from "astro:assets";
+import { IconLink } from "../../components/Icons";
+import ButtonRounded from "../../components/ButtonRounded.astro";
 import Cover from "../../assets/img/kuyu-games-select-screen.png";
+import SectionWorkDetailHero from "../../components/SectionWorkDetailHero.astro";
+
 import TahterevallisCover from "../../assets/img/tahterevallis-game.png";
+import MobileScreen from "../../assets/img/portfolio/kuyu-games-mobile-home-screen.png";
+import TitleKuyuGames from "../../assets/img/portfolio/title-kuyu-games.png";
 
 {
 
-<Picture
-  src={Cover}
-  alt="Kuyu Games PWA"
-  formats={["avif", "webp"]}
-  widths={[240, 540, 720, Cover.width]}
-  sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${Cover.width}px`}
-/> }
+<>
+<SectionWorkDetailHero posterImage={MobileScreen} posterAlt="Kuyu Games PWA" titleTextImage={TitleKuyuGames} titleTextAlt="Kuyu Games PWA"  actionBtnUrl="https://kuyu-games-pwa.vercel.app/select-game" excerpt="Increasing short-session engagement by combining physics-driven interaction with a distraction-free mobile interface." platform="Mobile, web" projectType="Progressive web app" role="UX/UI designer + brand designer" industry="Gaming" tools="Figma, FigJam, Zoom, Notion"/>
+
+  <Picture
+    src={Cover}
+    alt="Kuyu Games PWA"
+    formats={["avif", "webp"]}
+    widths={[240, 540, 720, Cover.width]}
+    sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${Cover.width}px`}
+  />
+</>
+}
 
 - Role: Creative fullstack developer
 

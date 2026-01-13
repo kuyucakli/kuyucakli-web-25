@@ -8,17 +8,31 @@ import { sortByPostDate } from "../../utils";
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
 
-  return sortByPostDate(posts).map((post, i) => {
+  const postsByCategory: Record<string, typeof posts> = {};
+
+  for (const post of posts) {
+    const category = post.data.category;
+    postsByCategory[category] ??= [];
+    postsByCategory[category].push(post);
+  }
+
+  Object.keys(postsByCategory).forEach((category) => {
+    postsByCategory[category] = sortByPostDate(postsByCategory[category]);
+  });
+
+  return posts.map((post) => {
+    const categoryPosts = postsByCategory[post.data.category];
+    const index = categoryPosts.findIndex((p) => p.id === post.id);
+
     return {
-      params: { id: post.id, category: post.data.category },
+      params: {
+        id: post.id,
+        category: post.data.category,
+      },
       props: {
         post,
-        prevItem: posts.find(
-          (p) => p.data.category == post.data.category && p.id < post.id
-        ),
-        nextItem: posts.find(
-          (p) => p.data.category == post.data.category && p.id > post.id
-        ),
+        prevItem: categoryPosts[index - 1] ?? null,
+        nextItem: categoryPosts[index + 1] ?? null,
       },
     };
   });
@@ -28,34 +42,35 @@ const { post, prevItem, nextItem } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Layout className="post-detail" title={post.data.title}>
-  <header class="m-v-md-0" style="margin-top:80px; margin-bottom:80px">
-    <h1 class="displaylarge">
-      {post.data.title}
-    </h1>
-    <p class="bodymedium">
-      {
-        post.data.createdAt.toLocaleDateString("en-us", {
-          weekday: "long",
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })
-      }
-      {
-        post.data.link && (
-          <a
-            href={post.data.link}
-            target="_blank"
-            style="display:flex; align-items:center; gap:8px; margin-top:16px; color:#91bfb8"
-          >
-            <IconLink fill="#91bfb8" />
-            <span class="bodysmall">View work</span>
-          </a>
-        )
-      }
-    </p>
-  </header>
+<Layout
+  className={`${post.data.useTemplate ? "post-detail" : ""}`}
+  title={post.data.title}
+>
+  {
+    post.data.useTemplate && (
+      <header class="m-v-md-0" style="margin-top:80px; margin-bottom:80px;">
+        <h1 class="displaylarge">{post.data.title}</h1>
+        <p class="bodymedium">
+          {post.data.createdAt.toLocaleDateString("en-us", {
+            weekday: "long",
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
+          {post.data.link && (
+            <a
+              href={post.data.link}
+              target="_blank"
+              style="display:flex; align-items:center; gap:8px; margin-top:16px; color:#91bfb8"
+            >
+              <IconLink fill="#91bfb8" />
+              <span class="bodysmall">View work</span>
+            </a>
+          )}
+        </p>
+      </header>
+    )
+  }
 
   <Content />
 

@@ -4,19 +4,43 @@ excerpt: "Retro-inspired pinball game"
 poster: "../../assets/img/portfolio/pinball-mobile-game-screen.png"
 videoContentUrl: "https://res.cloudinary.com/derfbfm9n/video/upload/v1757185374/pinaball-game-intro-clip_d6vhky.mov"
 videoPosterUrl: "https://res.cloudinary.com/derfbfm9n/image/upload/v1760341972/1e184ed8-6e40-4aea-b59d-2b9329a7eb76.png"
-createdAt: "January 27 2024"
-updatedAt: "January 27 2024"
+createdAt: "Jan 27 2024"
+updatedAt: "Jan 27 2024"
 published: true
 pinned: true
 tags: ["work"]
 category: "work"
 excerptTemplate: "video-cover"
 link: "https://pinball.kuyucakli.com/"
+useTemplate: false
 ---
 
 import { Picture } from "astro:assets";
 
 import Cover from "../../assets/img/tilt-cover-artwork.png";
+import PosterPinball from "../../assets/img/portfolio/pinball-mobile-game-screen.png";
+import TitlePinball from "../../assets/img/portfolio/title-pinball.png";
+import SectionWorkDetailHero from "../../components/SectionWorkDetailHero.astro";
+
+{
+
+<>
+<SectionWorkDetailHero
+  posterImage={PosterPinball}
+  posterAlt="Kuyu Games PWA"
+  titleTextImage={TitlePinball}
+  titleTextAlt="Kuyu Games PWA"
+  actionBtnUrl="https://pinball.kuyucakli.com/"
+  excerpt="Increasing short-session engagement by combining physics-driven interaction with a distraction-free mobile interface."
+  platform="Mobile, web"
+  projectType="Progressive web app"
+  role="UX/UI designer + brand designer"
+  industry="Gaming"
+  tools="Figma, FigJam, Zoom, Notion"
+  bgColor="#A6A47B"
+  txtColor="#fff"
+  btnBgColor="#2466FF"
+/>
 
 # Pinball Prototype – A Physics-Based Browser Game
 
@@ -93,3 +117,6 @@ Even though this was a technical challenge, I approached it with a UX mindset:
   widths={[240, 540, 720, Cover.width]}
   sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${Cover.width}px`}
 /> }
+
+</>
+}

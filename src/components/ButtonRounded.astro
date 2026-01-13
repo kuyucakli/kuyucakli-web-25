@@ -1,0 +1,23 @@
+---
+const { color = "black", bgColor = "red", anchorId, url, icon } = Astro.props;
+---
+
+<a href={`${url}`} style={`background-color:${bgColor}`} target="_blank">
+  <slot name="icon" />
+  <span style={`color:${color}`}>
+    <slot />
+  </span>
+</a>
+
+<style>
+  a {
+    min-width: 200px;
+    max-width: 400px;
+    height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 60px;
+  }
+</style>

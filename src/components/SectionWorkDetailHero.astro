@@ -1,0 +1,138 @@
+---
+import Image from "astro/components/Image.astro";
+import Picture from "astro/components/Picture.astro";
+import ButtonRounded from "./ButtonRounded.astro";
+import { IconLink } from "./Icons";
+
+const {
+  posterImage,
+  titleTextImage,
+  posterAlt,
+  titleTextAlt,
+  actionBtnUrl,
+  excerpt,
+  platform,
+  projectType,
+  role,
+  industry,
+  tools,
+  bgColor = "#a5deff",
+  txtColor = "red",
+  btnBgColor = "yellow",
+  btnTxtColor = "black",
+} = Astro.props;
+---
+
+<div id="section-work-detail-hero" style={`background-color:${bgColor}`}>
+  <div id="poster">
+    <Image src={titleTextImage} alt={titleTextAlt} id="mobile-title" />
+    <Picture
+      src={posterImage}
+      alt={posterAlt}
+      formats={["avif", "webp"]}
+      widths={[240, 540, 720, posterImage.width]}
+      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${posterImage.width}px`}
+    />
+  </div>
+
+  <div id="content" style={`color:${txtColor}`}>
+    <Image src={titleTextImage} alt={titleTextAlt} id="not-mobile-title" />
+    <p>
+      <strong>{excerpt}</strong>
+    </p>
+
+    <ul>
+      <li>Platform: {platform}</li>
+      <li>Project Type: {projectType}</li>
+      <li>Role: {role}</li>
+      <li>Industry: {industry}</li>
+      <li>Tools: {tools}</li>
+    </ul>
+
+    <footer>
+      <ButtonRounded
+        url={actionBtnUrl}
+        bgColor={btnBgColor}
+        color={btnTxtColor}
+      >
+        <IconLink slot="icon" fill={btnTxtColor} />
+        View work
+      </ButtonRounded>
+    </footer>
+  </div>
+</div>
+
+<style>
+  #not-mobile-title {
+    display: none;
+  }
+
+  #section-work-detail-hero {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  #poster {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    padding-top: 80px;
+  }
+
+  #poster picture img {
+    height: 80vh;
+    width: auto;
+  }
+
+  #content :is(p, ul) {
+  }
+
+  #content p {
+    margin: 8px 0px 80px;
+  }
+  #content ul {
+    margin: 40px 0 24px;
+  }
+
+  #content footer {
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    #mobile-title {
+      display: none;
+    }
+    #not-mobile-title {
+      display: unset;
+    }
+    #section-work-detail-hero {
+      padding: 64px;
+      width: 100%;
+      height: 100dvh;
+      max-width: 100%;
+      overflow-x: hidden;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #poster {
+      padding-top: 0px;
+      flex: 1 1 0;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #content {
+      flex: 0.6 1 0;
+    }
+
+    #content footer {
+    }
+  }
+</style>

@@ -13,10 +13,34 @@ tags: ["work"]
 category: "work"
 excerptTemplate: "two-parts"
 link: "https://planskop.vercel.app/"
+useTemplate: false
 ---
 
 import { Picture } from "astro:assets";
 import Cover from "../../assets/img/tilt-cover-artwork.png";
+import PosterPlanskop from "../../assets/img/portfolio/planskop-plans-mobile-screen.png";
+import TitlePlaskop from "../../assets/img/portfolio/title-planskop.png";
+import SectionWorkDetailHero from "../../components/SectionWorkDetailHero.astro";
+
+{
+
+<>
+<SectionWorkDetailHero
+  posterImage={PosterPlanskop}
+  posterAlt="Kuyu Games PWA"
+  titleTextImage={TitlePlaskop}
+  titleTextAlt="Kuyu Games PWA"
+  actionBtnUrl="https://planskop.vercel.app/"
+  excerpt="Increasing short-session engagement by combining physics-driven interaction with a distraction-free mobile interface."
+  platform="Mobile, web"
+  projectType="Progressive web app"
+  role="UX/UI designer + brand designer"
+  industry="Gaming"
+  tools="Figma, FigJam, Zoom, Notion"
+  bgColor="#FF9B4A"
+  txtColor="#000"
+  btnBgColor="#0CFFF3"
+/>
 
 ## Planskop – A Minimal Habit Tracker Powered by WebAssembly
 
@@ -65,3 +89,6 @@ As an experienced UX instructor, I took this opportunity to go deep into usabili
 - Strengthened my understanding of date-time management across locales.
 - Reinforced my design thinking by wearing both developer and designer hats.
 - Learned to balance minimalism with functionality through multiple iterations.
+
+</>
+}

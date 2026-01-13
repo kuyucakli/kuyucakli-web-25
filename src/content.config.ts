@@ -15,6 +15,7 @@ const posts = defineCollection({
       updatedAt: z.coerce.date().optional(),
       published: z.boolean(),
       pinned: z.boolean(),
+      useTemplate: z.boolean().optional().default(true),
       category: z.enum(["blog", "work", "author", "home-intro"]),
       excerptTemplate: z
         .enum([
