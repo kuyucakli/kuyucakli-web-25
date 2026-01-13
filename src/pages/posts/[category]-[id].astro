@@ -13,6 +13,7 @@ export async function getStaticPaths() {
   for (const post of posts) {
     const category = post.data.category;
     postsByCategory[category] ??= [];
+    if (!post.data.published) continue;
     postsByCategory[category].push(post);
   }
 
