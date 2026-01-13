@@ -13,7 +13,7 @@ import DepthLetters from "./DepthLetters.astro";
   >
     <div
       id="depth-letters-layer"
-      style="position:fixed; top:calc( 50dvh - 80px ); padding-bottom:env(safe-area-inset-bottom)"
+      style="position:fixed; transform:translateY( calc( 50dvh - 80px ) )"
     >
       <DepthLetters
         text="frontback"
@@ -88,6 +88,11 @@ import DepthLetters from "./DepthLetters.astro";
       window.innerWidth || 0
     );
 
+    const vh = Math.max(
+      document.documentElement.clientHeight,
+      window.innerHeight || 0
+    );
+
     const maxScale = vw < 480 ? 2.1 : vw < 768 ? 2.4 : vw < 1024 ? 2.7 : 3.1;
 
     /* -------------------------
@@ -147,7 +152,7 @@ import DepthLetters from "./DepthLetters.astro";
       depthOpacity += (depthTargetOpacity - depthOpacity) * DEPTH_OPACITY_LAG;
 
       /* ---------- Apply ---------- */
-      depthLayerEl.style.transform = `translateY(${depthY}px)`;
+      depthLayerEl.style.transform = `translateY(${depthY - 80 + vh / 2}px)`;
       depthLayerEl.style.opacity = `${depthOpacity}`;
     });
   });
