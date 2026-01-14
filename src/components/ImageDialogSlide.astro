@@ -77,11 +77,5 @@ const images = await getCollection(collectionName, (i) => {
   const navEl = document.querySelector("nav.dialog-slide-nav");
 
   // Listen for the event.
-  document.addEventListener(
-    "open-dialog",
-    (e) => {
-      console.log(e.detail, "ho");
-    },
-    false
-  );
+  document.addEventListener("open-dialog", (e) => {}, false);
 </script>
