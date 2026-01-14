@@ -64,8 +64,6 @@ import DepthLetters from "./DepthLetters.astro";
   import { initScrollTracker, registerElement } from "../../src/utils/scroll";
 
   document.addEventListener("astro:page-load", () => {
-    initScrollTracker();
-
     const stickyContainer = document.getElementById(
       "sticky-home-intro-container"
     ) as HTMLDivElement;
@@ -75,6 +73,11 @@ import DepthLetters from "./DepthLetters.astro";
     const depthLayerEl = document.getElementById(
       "depth-letters-layer"
     ) as HTMLDivElement;
+    console.log("aaaa");
+
+    if (!introHomeTextEl) return;
+
+    initScrollTracker();
 
     /* -------------------------
        Responsive limits

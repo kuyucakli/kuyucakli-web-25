@@ -209,9 +209,6 @@ const postMaxCount = 3;
 <script>
   document.addEventListener("astro:page-load", () => {
     const titleEl = document.getElementById("home-sticky-title");
-    const sectionMoreSelfEl = document.getElementById(
-      "section-more-self"
-    ) as HTMLDivElement;
 
     let observer: IntersectionObserver;
 
@@ -221,6 +218,8 @@ const postMaxCount = 3;
     const wrapperEl = document.querySelector(
       ".wrapper-content"
     ) as HTMLDivElement;
+
+    if (!stickyHorizontalEl || !wrapperEl) return;
     const videos = wrapperEl.querySelectorAll("video");
 
     let scrollY = window.scrollY || window.pageYOffset;

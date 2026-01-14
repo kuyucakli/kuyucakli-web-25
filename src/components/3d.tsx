@@ -5,23 +5,28 @@ import { useSmoothCamera } from "../hooks/useSmoothCamera";
 import { getElementProgress } from "../utils/scroll";
 import { lerp } from "three/src/math/MathUtils.js";
 import { createRollingMotion, createRollingMotionByPos } from "../utils/3d";
-import { fade } from "astro/virtual-modules/transitions.js";
+
+let wasFollowing = false;
+const lookTarget = new THREE.Vector3();
+let transitionProgress = 0;
 
 export default function ThreeScene() {
   const [glbLoaded, setGlbLoaded] = useState(false);
   const mountRef = useRef<HTMLDivElement>(null);
 
-  const rollingMotion = createRollingMotion(0.5, 0.5, 1);
-  const rollingMotionWithScroll = createRollingMotionByPos(0.5);
-
   // call hook at top level
   const getCameraTransform = useSmoothCamera();
 
   useEffect(() => {
+    let isActive = true;
+    let rafId: number;
     const stickyHomeIntroEl = document.getElementById(
       "sticky-home-intro-container"
     );
     if (!stickyHomeIntroEl) return;
+
+    const rollingMotion = createRollingMotion(0.5, 0.5, 1);
+    const rollingMotionWithScroll = createRollingMotionByPos(0.5);
 
     const mount = mountRef.current;
 
@@ -70,8 +75,8 @@ export default function ThreeScene() {
       );
 
       function animate(animTime: number) {
-        if (!bigBall) return;
-        requestAnimationFrame(animate);
+        if (!isActive || !bigBall) return;
+        rafId = requestAnimationFrame(animate);
 
         //Continues texture change
         if (Math.min(490, animTime % 500) == 490) {
@@ -81,7 +86,6 @@ export default function ThreeScene() {
         const t = clock.getElapsedTime();
 
         const { position } = getCameraTransform(t);
-
         const progress = getElementProgress(stickyHomeIntroEl!);
 
         //fadeBall(material, progress);
@@ -125,6 +129,39 @@ export default function ThreeScene() {
     });
 
     return () => {
+      isActive = false;
+
+      if (rafId) cancelAnimationFrame(rafId);
+
+      wasFollowing = false;
+      transitionProgress = 0;
+      lookTarget.set(0, 0, 0);
+
+      if (mixer) {
+        mixer.stopAllAction();
+        mixer.uncacheRoot(mixer.getRoot());
+        mixer = null;
+      }
+
+      scene.traverse((obj) => {
+        if ((obj as THREE.Mesh).geometry) {
+          (obj as THREE.Mesh).geometry.dispose();
+        }
+
+        if ((obj as THREE.Mesh).material) {
+          const material = (obj as THREE.Mesh).material;
+          if (Array.isArray(material)) {
+            material.forEach((m) => m.dispose());
+          } else {
+            material.dispose();
+          }
+        }
+      });
+
+      textures.forEach((t) => t.dispose());
+
+      renderer.dispose();
+
       mount.removeChild(renderer.domElement);
     };
   }, []);
@@ -283,10 +320,6 @@ function fadeBall(material: THREE.MeshStandardMaterial, progress: number) {
     material.opacity = 1;
   }
 }
-
-let wasFollowing = false;
-const lookTarget = new THREE.Vector3();
-let transitionProgress = 0; // Track transition between modes
 
 function updateCameraWithScroll(params: {
   camera: THREE.PerspectiveCamera;

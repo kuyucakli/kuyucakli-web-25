@@ -10,10 +10,10 @@ const workPosts = await getCollection(
   "posts",
   (p) => p.data.published && p.data.pinned && p.data.category == "work"
 );
-const blogPosts = await getCollection(
-  "posts",
-  (p) => p.data.published && p.data.pinned && p.data.category == "blog"
-);
+// const blogPosts = await getCollection(
+//   "posts",
+//   (p) => p.data.published && p.data.pinned && p.data.category == "blog"
+// );
 ---
 
 <Layout title="Creative Frontend Developer">

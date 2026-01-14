@@ -13,6 +13,7 @@ const clamp = (v: number, a = 0, b = 1) => Math.min(Math.max(v, a), b);
  * and calls the registered callback with a 0..1 progress value.
  */
 export function initScrollTracker() {
+  console.log(started);
   if (started) return;
   started = true;
 
