@@ -3,14 +3,8 @@ import ThreeScene from "./3d";
 import DepthLetters from "./DepthLetters.astro";
 ---
 
-<div
-  id="sticky-home-intro-container"
-  style="height:180vmax; pointer-events: none;"
->
-  <section
-    style="display:flex; align-content:center; flex-direction:colum; justify-content:center;  flex-wrap:wrap; width:100vw; height:100dvh; top:0; left:0;
-    overflow-x:hidden; background-attachment: fixed; "
-  >
+<div id="sticky-home-intro-container">
+  <section id="sticky-home-intro-container-wrapper">
     <div
       id="depth-letters-layer"
       style="position:fixed; transform:translateY( calc( 50dvh - 80px ) )"
@@ -22,25 +16,12 @@ import DepthLetters from "./DepthLetters.astro";
       />
     </div>
 
-    <div
-      id="intro-home-text"
-      style="width:100%;  padding:0 24px;  background: radial-gradient(#d0d0d0 0%, #fff7f5 70%);
-  -webkit-background-clip: text;
- 
-  z-index:9; 
-  opacity:0.7;   
-  position:fixed;
-   transform:translateY( calc( 50dvh + 40px ) );
-  left:0;
-  
-  "
-      class="titlemedium"
-    >
+    <div id="intro-home-text" class="titlemedium">
       <p
         style="max-width:500px; margin:0 auto;  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; "
       >
-        I'm Burak Kuyucaklı from Istanbul, a <strong
+        I'm Burak Kuyucaklı, a <strong
           style="color:rgb(144, 255, 203)!important;  border-radius:6px; "
           >creative frontend developer and designer</strong
         > who enjoys making things work <strong
@@ -155,3 +136,34 @@ import DepthLetters from "./DepthLetters.astro";
     });
   });
 </script>
+
+<style>
+  #sticky-home-intro-container {
+    height: 180vmax;
+    pointer-events: none;
+  }
+  #sticky-home-intro-container-wrapper {
+    display: flex;
+    align-content: center;
+    flex-direction: colum;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 100dvh;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    background-attachment: fixed;
+  }
+  #intro-home-text {
+    width: 100%;
+    padding: 0 24px;
+    background: radial-gradient(#d0d0d0 0%, #fff7f5 70%);
+    -webkit-background-clip: text;
+    z-index: 9;
+    opacity: 0.7;
+    position: fixed;
+    transform: translateY(calc(50dvh + 40px));
+    left: 0;
+  }
+</style>
