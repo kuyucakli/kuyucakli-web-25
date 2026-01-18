@@ -23,15 +23,15 @@ import DepthLetters from "./DepthLetters.astro";
       >
         I'm Burak Kuyucaklı, a <strong
           style="color:rgb(144, 255, 203)!important;  border-radius:6px; "
-          >creative frontend developer and designer</strong
+          >creative frontend developer and ux-ui designer</strong
         > who enjoys making things work <strong
           style="color:rgb(255, 242, 0)!important;  border-radius:6px"
           >smoothly
         </strong>for people through <strong
           style="color:rgb(255, 156, 162)!important;  border-radius:6px"
-          >code</strong
-        >.. While frontend is my main focus, I’m deeply interested in backend
-        development. I have my <strong
+          >code and design</strong
+        >. While frontend is my primary focus, I’m deeply interested in backend
+        too. I have my <strong
           style="color:rgb(79, 161, 255)!important;  border-radius:6px"
           >paper, pen and brushes</strong
         > while thinking on ux-ui.
@@ -46,13 +46,13 @@ import DepthLetters from "./DepthLetters.astro";
 
   document.addEventListener("astro:page-load", () => {
     const stickyContainer = document.getElementById(
-      "sticky-home-intro-container"
+      "sticky-home-intro-container",
     ) as HTMLDivElement;
     const introHomeTextEl = document.getElementById(
-      "intro-home-text"
+      "intro-home-text",
     ) as HTMLDivElement;
     const depthLayerEl = document.getElementById(
-      "depth-letters-layer"
+      "depth-letters-layer",
     ) as HTMLDivElement;
 
     if (!introHomeTextEl) return;
@@ -64,12 +64,12 @@ import DepthLetters from "./DepthLetters.astro";
     -------------------------- */
     const vw = Math.max(
       document.documentElement.clientWidth,
-      window.innerWidth || 0
+      window.innerWidth || 0,
     );
 
     const vh = Math.max(
       document.documentElement.clientHeight,
-      window.innerHeight || 0
+      window.innerHeight || 0,
     );
 
     const maxScale = vw < 480 ? 2.1 : vw < 768 ? 2.4 : vw < 1024 ? 2.7 : 3.1;

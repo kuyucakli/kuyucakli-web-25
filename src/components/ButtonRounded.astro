@@ -1,8 +1,19 @@
 ---
-const { color = "black", bgColor = "red", anchorId, url, icon } = Astro.props;
+const {
+  color = "black",
+  bgColor = "red",
+  anchorId,
+  url,
+  icon,
+  style,
+} = Astro.props;
 ---
 
-<a href={`${url}`} style={`background-color:${bgColor}`} target="_blank">
+<a
+  href={`${url}`}
+  style={`background-color:${bgColor}; ${style}`}
+  target="_blank"
+>
   <slot name="icon" />
   <span style={`color:${color}`}>
     <slot />
@@ -11,8 +22,8 @@ const { color = "black", bgColor = "red", anchorId, url, icon } = Astro.props;
 
 <style>
   a {
-    min-width: 200px;
-    max-width: 400px;
+    width: clamp(200px, 100%, 400px);
+
     height: 84px;
     display: flex;
     align-items: center;
