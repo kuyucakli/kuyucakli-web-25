@@ -21,7 +21,7 @@ export default function ThreeScene() {
     let isActive = true;
     let rafId: number;
     const stickyHomeIntroEl = document.getElementById(
-      "sticky-home-intro-container"
+      "sticky-home-intro-container",
     );
     if (!stickyHomeIntroEl) return;
 
@@ -40,7 +40,7 @@ export default function ThreeScene() {
       45,
       mount.clientWidth / mount.clientHeight,
       0.1,
-      1000
+      1000,
     );
 
     const renderer = createRenderer(mount.clientWidth, mount.clientHeight);
@@ -71,7 +71,7 @@ export default function ThreeScene() {
       const material = createBallMaterial(bigBall, textures[0]);
       const continuesTextureChange = createTextureSwapAnimation(
         material,
-        textures
+        textures,
       );
 
       function animate(animTime: number) {
@@ -111,7 +111,7 @@ export default function ThreeScene() {
         } else {
           const { position: ballPos, rotation } = rollingMotion(
             t,
-            bigBall.position.y
+            bigBall.position.y,
           );
 
           bigBall.position.copy(ballPos);
@@ -187,22 +187,23 @@ export default function ThreeScene() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "300px",
-            height: "300px",
+            width: "220px",
+            height: "220px",
             border: "10px solid red",
+            backgroundColor: "yellow",
             borderRadius: "50%",
             filter: "blur(3.8px)",
             zIndex: 10000,
-            opacity: "0.8",
-            animation: "fade 0.2s alternate infinite",
+
+            animation: "fade 2.8s alternate infinite",
           }}
         >
           <style>
             {`
     @keyframes fade {
-      0% { border-color:white; }
-      50% { border-color:black; border-width:0px; }
-      100% { border-color:green }
+      0% { border-color:yellow; blur(3.8px); backgroundColor:yellow}
+      50% { border-color:orange; border-width:1px;  blur(12.8px); width:240px; height:240px}
+      100% { border-color:green blur(3.8px); backgroundColor:green}
     }
   `}
           </style>
@@ -214,7 +215,7 @@ export default function ThreeScene() {
 
 function createTextureSwapAnimation(
   material: THREE.MeshStandardMaterial,
-  textures: THREE.Texture[]
+  textures: THREE.Texture[],
 ) {
   let i = 0;
 
@@ -226,7 +227,7 @@ function createTextureSwapAnimation(
 
 function createBallDistortionClip(
   animations: THREE.AnimationClip[],
-  mixer: THREE.AnimationMixer
+  mixer: THREE.AnimationMixer,
 ) {
   const clip = animations.find((c) => c.name === "Sphere.001Action");
   if (!clip) throw new Error("No clip found");
@@ -289,10 +290,10 @@ function loadTextures() {
   // preload textures
   const textures = [
     loader.load(
-      "https://res.cloudinary.com/derfbfm9n/image/upload/v1759845551/Buttons_ewpnnp.png"
+      "https://res.cloudinary.com/derfbfm9n/image/upload/v1759845551/Buttons_ewpnnp.png",
     ),
     loader.load(
-      "https://res.cloudinary.com/derfbfm9n/image/upload/v1759847198/Symbols_koszhs.png"
+      "https://res.cloudinary.com/derfbfm9n/image/upload/v1759847198/Symbols_koszhs.png",
     ),
   ];
 
@@ -303,7 +304,7 @@ async function loadGLTFModel() {
   const loader = new GLTFLoader();
 
   const gltf = await loader.loadAsync(
-    "https://res.cloudinary.com/derfbfm9n/image/upload/v1759840414/intro-home-section_mio37d.glb"
+    "https://res.cloudinary.com/derfbfm9n/image/upload/v1759840414/intro-home-section_mio37d.glb",
   );
 
   return gltf;
@@ -353,7 +354,7 @@ function updateCameraWithScroll(params: {
   const cinematicPosition = new THREE.Vector3(
     basePosition.x,
     basePosition.y,
-    basePosition.z
+    basePosition.z,
   );
 
   const height = lerp(3, 6, progress);
@@ -365,7 +366,7 @@ function updateCameraWithScroll(params: {
   const targetPosition = new THREE.Vector3().lerpVectors(
     cinematicPosition,
     followPosition,
-    transitionProgress
+    transitionProgress,
   );
 
   camera.position.lerp(targetPosition, lerpFactor);
@@ -377,7 +378,7 @@ function updateCameraWithScroll(params: {
   lookTarget.lerpVectors(
     cinematicLookTarget,
     followLookTarget,
-    transitionProgress
+    transitionProgress,
   );
 
   camera.lookAt(lookTarget);
