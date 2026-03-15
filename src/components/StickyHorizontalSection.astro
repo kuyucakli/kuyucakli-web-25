@@ -28,7 +28,6 @@ const postMaxCount = 3;
                   <video
                     height="500px"
                     controls
-                    muted
                     loop
                     playsinline
                     preload="auto"
@@ -213,10 +212,10 @@ const postMaxCount = 3;
     let observer: IntersectionObserver;
 
     const stickyHorizontalEl = document.querySelector(
-      ".sticky-horizontal"
+      ".sticky-horizontal",
     ) as HTMLDivElement;
     const wrapperEl = document.querySelector(
-      ".wrapper-content"
+      ".wrapper-content",
     ) as HTMLDivElement;
 
     if (!stickyHorizontalEl || !wrapperEl) return;
@@ -269,7 +268,7 @@ const postMaxCount = 3;
       {
         root: null, // viewport
         threshold: 0.01,
-      }
+      },
     );
 
     videos.forEach((video) => {
@@ -295,7 +294,7 @@ const postMaxCount = 3;
 
       const targetProgress = Math.min(
         Math.max((scrollY - rectTop) / totalHeight, 0),
-        1
+        1,
       );
 
       // Linear interpolation for smoothing
