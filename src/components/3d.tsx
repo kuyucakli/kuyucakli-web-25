@@ -47,7 +47,7 @@ export default function ThreeScene() {
 
     mount.appendChild(renderer.domElement);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 4.8);
     const sun = createSun();
     scene.add(sun);
     scene.add(ambientLight);
@@ -257,11 +257,11 @@ function createBall(sceneModel: THREE.Scene) {
 
 function createBallMaterial(obj: THREE.Mesh, initialTexture: THREE.Texture) {
   const material = obj.material as THREE.MeshStandardMaterial; // reference to its existing material
-  material.emissive = new THREE.Color(0xffbdf9);
+  material.emissive = new THREE.Color(0xbdd3ff);
   // Control the brightness of the emission
   material.emissiveIntensity = 0.1;
-  material.metalness = 0.1;
-  material.roughness = 0.08;
+  material.metalness = 0.7;
+  material.roughness = 0.5;
   material.transparent = true;
   material.map = initialTexture;
   material.needsUpdate = true;
@@ -270,7 +270,7 @@ function createBallMaterial(obj: THREE.Mesh, initialTexture: THREE.Texture) {
 }
 
 function createSun() {
-  const sun = new THREE.DirectionalLight(0xffffff, 2);
+  const sun = new THREE.DirectionalLight(0xffb9f1, 2);
   sun.castShadow = true;
   sun.shadow.radius = 4;
   sun.shadow.mapSize.set(2048, 2048);
