@@ -9,7 +9,7 @@ const currentPath = Astro.url.pathname;
 
   <ul class="flex-row-center titlemedium">
     <li>
-      <a href="/" aria-current={currentPath === "/" ? true : false}>About</a>
+      <a href="/" aria-current={currentPath === "/" ? true : false}>ABOUT</a>
     </li>
 
     <li>
@@ -18,7 +18,7 @@ const currentPath = Astro.url.pathname;
         aria-current={currentPath.includes("/works") ||
         currentPath.includes("/posts/work")
           ? true
-          : false}>Works</a
+          : false}>WORKS</a
       >
     </li>
     <li>
@@ -28,7 +28,7 @@ const currentPath = Astro.url.pathname;
         currentPath.includes("/posts/blog") ||
         currentPath.includes("images")
           ? true
-          : false}>Blog</a
+          : false}>SKETCHES</a
       >
     </li>
 
@@ -85,10 +85,10 @@ const currentPath = Astro.url.pathname;
 
   .nav-main a {
     font-size: 18px;
+    font-weight: 500;
   }
 
   .nav-main a[aria-current="true"] {
-    color: #868686;
   }
 
   @media (width >= 640px) {

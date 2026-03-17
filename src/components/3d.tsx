@@ -243,7 +243,7 @@ function createBallDistortionClip(
 function createSurfacePlane(sceneModel: THREE.Scene) {
   const surface = sceneModel.getObjectByName("Cube");
   surface!.receiveShadow = true;
-  surface!.material = new THREE.ShadowMaterial({ opacity: 0.6 });
+  surface!.material = new THREE.ShadowMaterial({ opacity: 0.35 });
 
   return surface;
 }
@@ -257,8 +257,11 @@ function createBall(sceneModel: THREE.Scene) {
 
 function createBallMaterial(obj: THREE.Mesh, initialTexture: THREE.Texture) {
   const material = obj.material as THREE.MeshStandardMaterial; // reference to its existing material
+  material.emissive = new THREE.Color(0xffbdf9);
+  // Control the brightness of the emission
+  material.emissiveIntensity = 0.1;
   material.metalness = 0.1;
-  material.roughness = 0.5;
+  material.roughness = 0.08;
   material.transparent = true;
   material.map = initialTexture;
   material.needsUpdate = true;

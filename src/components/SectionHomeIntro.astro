@@ -9,26 +9,23 @@ import DepthLetters from "./DepthLetters.astro";
       id="depth-letters-layer"
       style="position:fixed; transform:translateY( calc( 50dvh - 80px ) )"
     >
-      <DepthLetters text="self" letterBiggerZindex={[2, 4, 6, 8]} zIndex="11" />
+      <DepthLetters text="Hi!" letterBiggerZindex={[2, 4, 6, 8]} zIndex="11" />
     </div>
 
-    <div id="intro-home-text" class="titlemedium txt-center">
+    <div
+      id="intro-home-text"
+      class="titlelarge txt-center"
+      style="color:rgb(144, 161, 160)!important;  border-radius:6px; "
+    >
       <p
         style="max-width:500px; margin:0 auto;  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; "
       >
         I'm Burak Kuyucaklı, a <strong
-          style="color:rgb(144, 255, 203)!important;  border-radius:6px; "
           >UX/UI designer and creative frontend developer
-        </strong> who enjoys making things work <strong
-          style="color:rgb(255, 242, 0)!important;  border-radius:6px"
-          >smoothly
-        </strong>for people through <strong
-          style="color:rgb(255, 156, 162)!important;  border-radius:6px"
-          >design and code
-        </strong>. While frontend is my primary focus, I’m deeply interested in
-        backend too. I have my <strong
-          style="color:rgb(79, 161, 255)!important;  border-radius:6px"
+        </strong> who enjoys making things work <strong>smoothly </strong>for
+        people through <strong>design and code </strong>. While frontend is my
+        primary focus, I’m deeply interested in backend too. I have my <strong
           >paper, pen and brushes</strong
         > while thinking on ux-ui.
       </p>
@@ -127,7 +124,7 @@ import DepthLetters from "./DepthLetters.astro";
       depthOpacity += (depthTargetOpacity - depthOpacity) * DEPTH_OPACITY_LAG;
 
       /* ---------- Apply ---------- */
-      depthLayerEl.style.transform = `translateY(${depthY - 80 + vh / 2}px)`;
+      depthLayerEl.style.transform = `translateY(${depthY - 120 + vh / 2}px)`;
       depthLayerEl.style.opacity = `${depthOpacity}`;
     });
   });
