@@ -262,9 +262,10 @@ function createBall(sceneModel: THREE.Scene) {
 
 function createBallMaterial(obj: THREE.Mesh, initialTexture: THREE.Texture) {
   const material = obj.material as THREE.MeshStandardMaterial; // reference to its existing material
-
-  material.metalness = 0.55;
-  material.roughness = 0.08;
+  material.emissive = new THREE.Color(0xaa33ff);
+  material.emissiveIntensity = 0.05;
+  material.metalness = 0.75;
+  material.roughness = 0.3;
   material.transparent = true;
   material.map = initialTexture;
   material.needsUpdate = true;
@@ -273,7 +274,7 @@ function createBallMaterial(obj: THREE.Mesh, initialTexture: THREE.Texture) {
 }
 
 function createSun() {
-  const sun = new THREE.DirectionalLight(0xffffff, 1);
+  const sun = new THREE.DirectionalLight(0xff4400, 4);
   sun.castShadow = true;
   sun.shadow.radius = 4;
   sun.shadow.mapSize.set(2048, 2048);
