@@ -337,14 +337,14 @@ function updateCameraWithScroll(params: {
 }) {
   const { camera, basePosition, progress, ballPosition } = params;
 
-  const lerpFactor = 0.04;
-  const followMode = progress >= 0.6;
+  const lerpFactor = 0.01;
+  const followMode = progress >= 0.9;
 
   // Smoothly transition between modes
   if (followMode && transitionProgress < 1) {
-    transitionProgress = Math.min(1, transitionProgress + 0.02); // Adjust speed here
+    transitionProgress = Math.min(1, transitionProgress + 0.01); // Adjust speed here
   } else if (!followMode && transitionProgress > 0) {
-    transitionProgress = Math.max(0, transitionProgress - 0.02);
+    transitionProgress = Math.max(0, transitionProgress - 0.005);
   }
 
   // Detect transition INTO follow mode
