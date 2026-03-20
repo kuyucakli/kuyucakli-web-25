@@ -111,10 +111,11 @@ const postMaxCount = 3;
   }
 
   #mustache-nav {
-    width: 500px;
+    width: 94%;
+    max-width: 500px;
     height: 64px;
     position: fixed;
-    bottom: 12px;
+    bottom: 0px;
     left: 50%;
     transform: translate(-50%, -10%) scale(0.8, 0.2);
     border: 1px dotted black;
@@ -216,6 +217,10 @@ const postMaxCount = 3;
   @media screen and (width >= 768px) {
     video {
       width: 75%;
+    }
+
+    #mustache-nav {
+      bottom: 12px;
     }
 
     .sticky-horizontal {
