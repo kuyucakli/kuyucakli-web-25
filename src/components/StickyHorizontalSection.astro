@@ -10,7 +10,24 @@ const { data } = Astro.props;
 const postMaxCount = 3;
 ---
 
-<h1 id="home-sticky-title" class="displaymedium">Featured works</h1>
+<nav id="mustache-nav">
+  <ul>
+    {
+      data.map((d, index: number) => (
+        <li class={`${index === 0 ? "active" : ""}`}>
+          <p class="labellarge">
+            <a
+              href={"/posts/" + d.data.category + "-" + d.id}
+              class="txt-underline"
+            >
+              {d.data.title}
+            </a>
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
 
 <div class="sticky-horizontal">
   <div class="wrapper-content">
@@ -92,23 +109,57 @@ const postMaxCount = 3;
   #section-more-self {
     margin: 180px 0 280px;
   }
-  #home-sticky-title {
-    /* opacity: 0;
+
+  #mustache-nav {
+    width: 500px;
+    height: 64px;
     position: fixed;
-    top: 64px;
-    left: 32px;
-    transition: all 0.8s ease-in-out;
-    transform: translateY(40px); */
-    margin: 28px 16px 40px;
+    bottom: 12px;
+    left: 50%;
+    transform: translate(-50%, -10%) scale(0.8, 0.2);
+    border: 1px dotted black;
+    background-color: black;
+    border-radius: 24px;
+    padding: 12px 24px;
+    opacity: 0;
+    transition: all 0.4s 0.2s ease-in-out;
+    z-index: 11;
   }
-  #home-sticky-title.visible {
+
+  #mustache-nav.active {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, 0%) scale(1, 1);
+  }
+
+  #mustache-nav ul {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    list-style: none;
+  }
+
+  #mustache-nav ul li {
+    transform: translate(-50%, -200%);
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.4s 0.2s ease-in-out;
+  }
+
+  #mustache-nav ul li p {
+    width: max-content;
+  }
+
+  #mustache-nav ul li.active {
+    transform: translate(-50%, -50%);
+    opacity: 1;
   }
 
   .sticky-horizontal {
     contain: layout;
-    --title-height: 124px;
+    --title-height: 0px;
   }
 
   .wrapper-content {
@@ -129,6 +180,10 @@ const postMaxCount = 3;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: none;
   }
 
   .info-container > p {
@@ -162,21 +217,12 @@ const postMaxCount = 3;
     video {
       width: 75%;
     }
-    #home-sticky-title {
-      margin: 0;
-      opacity: 0;
-      position: fixed;
-      transition: all 0.8s ease-in-out;
-      transform: translateY(40px);
-      top: 108px;
-      left: 32px;
-    }
 
     .sticky-horizontal {
       width: 100dvw;
       height: 400dvw;
       contain: layout;
-      --title-height: 124px;
+      --title-height: 0px;
     }
     .wrapper-content {
       width: 400dvw;
@@ -207,7 +253,7 @@ const postMaxCount = 3;
 
 <script>
   document.addEventListener("astro:page-load", () => {
-    const titleEl = document.getElementById("home-sticky-title");
+    const mustacheNavEl = document.getElementById("mustache-nav");
 
     let observer: IntersectionObserver;
 
@@ -244,11 +290,11 @@ const postMaxCount = 3;
 
         if (
           entry.intersectionRatio > 0 &&
-          !target.classList.contains("visible")
+          !target.classList.contains("active")
         ) {
-          titleEl!.classList.add("visible");
+          mustacheNavEl!.classList.add("active");
         } else {
-          titleEl!.classList.remove("visible");
+          mustacheNavEl!.classList.remove("active");
         }
       });
     }
@@ -275,15 +321,51 @@ const postMaxCount = 3;
       videoObserver.observe(video);
     });
 
-    if (window.innerWidth >= 768) {
-      createObserver();
-      registerObservedEls();
+    createObserver();
+    registerObservedEls();
 
+    if (window.innerWidth >= 768) {
       window.addEventListener("scroll", () => {
         scrollY = window.scrollY || window.pageYOffset;
       });
-
       animate();
+    } else {
+      // 2. On mobile, we still need to update the active item based on vertical scroll
+      window.addEventListener("scroll", () => {
+        updateActiveNavItem();
+      });
+    }
+
+    function updateActiveNavItem() {
+      const items = wrapperEl.querySelectorAll(".list-item-container");
+      const navItems = mustacheNavEl.querySelectorAll("li");
+
+      // On mobile, we check the vertical center; on desktop, the horizontal center
+      const isDesktop = window.innerWidth >= 768;
+      const viewportCenter = isDesktop
+        ? window.innerWidth / 2
+        : window.innerHeight / 2;
+
+      let closestIndex = 0;
+      let minDistance = Infinity;
+
+      items.forEach((item, index) => {
+        const rect = item.getBoundingClientRect();
+        // Distance from center depends on scroll direction
+        const itemCenter = isDesktop
+          ? rect.left + rect.width / 2
+          : rect.top + rect.height / 2;
+        const distance = Math.abs(viewportCenter - itemCenter);
+
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      navItems.forEach((navItem, index) => {
+        navItem.classList.toggle("active", index === closestIndex);
+      });
     }
 
     function animate() {
@@ -302,6 +384,8 @@ const postMaxCount = 3;
 
       const translateX = -currentProgress * maxTranslateX;
       wrapperEl.style.transform = `translateX(${translateX}px)`;
+
+      updateActiveNavItem();
 
       requestAnimationFrame(animate);
     }

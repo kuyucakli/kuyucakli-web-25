@@ -545,12 +545,12 @@
   }
 
   section:nth-child(2) .txt-underline {
-    text-decoration-color: rgb(86, 245, 211);
+    text-decoration-color: rgb(138, 138, 138);
   }
 
-  @supports (text-decoration: wavy underline rgb(47, 255, 130) 2px) {
+  @supports (text-decoration: wavy underline rgb(138, 138, 138) 1px) {
     .txt-underline {
-      text-decoration: wavy underline rgb(47, 255, 130) 2px;
+      text-decoration: wavy underline rgb(138, 138, 138) 1px;
       text-underline-offset: 6px;
     }
   }
