@@ -43,12 +43,11 @@ const postMaxCount = 3;
               <div class="preview-container">
                 {data.videoContentUrl ? (
                   <video
-                    height="500px"
                     controls
                     loop
                     playsinline
                     preload="auto"
-                    style="border:1px dotted rgb(75, 75, 75); border-radius:12px"
+                    style="border:1px dotted rgb(75, 75, 75); border-radius:12px; "
                     poster={data.videoPosterUrl}
                   >
                     <source src={data.videoContentUrl} />
@@ -103,8 +102,11 @@ const postMaxCount = 3;
 <style>
   video {
     width: 100%;
-
-    max-height: 50vh;
+    object-fit: cover;
+    aspect-ratio: 16 / 9; /* This will now dictate the height */
+    object-fit: cover;
+    display: block;
+    /* max-height: 50vh; */
   }
   #section-more-self {
     margin: 180px 0 280px;
@@ -209,11 +211,11 @@ const postMaxCount = 3;
     opacity: 1;
   }
 
-  /* @media (width >= 640px) {
-    .info-container > p {
-      max-width: 300px;
+  @media (width <= 768px) {
+    video {
+      height: 75dvh;
     }
-  } */
+  }
   @media screen and (width >= 768px) {
     video {
       width: 75%;
