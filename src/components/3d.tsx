@@ -300,7 +300,8 @@ function loadTextures() {
       "https://res.cloudinary.com/derfbfm9n/image/upload/v1773825353/p2_oxfxzz.png",
     ),
     loader.load(
-      "https://res.cloudinary.com/derfbfm9n/image/upload/v1773825353/p1_hxgzmu.png",
+      //"https://res.cloudinary.com/derfbfm9n/image/upload/v1773825353/p1_hxgzmu.png",
+      "https://res.cloudinary.com/derfbfm9n/image/upload/v1775901692/ball-texture-specular_qmbt4i.png",
     ),
   ];
 

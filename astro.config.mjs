@@ -9,4 +9,11 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   integrations: [react(), mdx()],
   site: "https://www.kuyucakli.com",
+   vite: {
+    server: {
+      watch: {
+        ignored: ["**/.history/**/*"], // HERE
+      },
+    },
+  },
 });
