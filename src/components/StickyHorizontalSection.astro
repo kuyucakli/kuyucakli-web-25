@@ -230,6 +230,7 @@ const postMaxCount = 3;
       height: 400dvw;
       contain: layout;
       --title-height: 0px;
+      scroll-snap-type: y mandatory;
     }
     .wrapper-content {
       width: 400dvw;
@@ -251,6 +252,8 @@ const postMaxCount = 3;
       justify-content: center;
       overflow: hidden;
       padding: 8px 12px;
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
     }
     #section-more-self {
       margin: 0;
@@ -376,6 +379,33 @@ const postMaxCount = 3;
     }
 
     function animate() {
+      const rectTop = stickyHorizontalEl.offsetTop;
+
+      // Calculate total height based on number of items
+      // to ensure 1:1 ratio between vertical scroll and horizontal items
+      const items = wrapperEl.querySelectorAll(".list-item-container");
+      const itemCount = items.length;
+      const totalHeight = stickyHorizontalEl.offsetHeight - window.innerHeight;
+
+      const maxTranslateX = wrapperEl.scrollWidth - window.innerWidth;
+
+      const targetProgress = Math.min(
+        Math.max((scrollY - rectTop) / totalHeight, 0),
+        1,
+      );
+
+      // If you want it to feel "snappy" even in the JS animation:
+      // We can round the progress to the nearest item index when the user stops scrolling
+      currentProgress += (targetProgress - currentProgress) * 0.1;
+
+      const translateX = -currentProgress * maxTranslateX;
+      wrapperEl.style.transform = `translate3d(${translateX}px, 0, 0)`;
+
+      updateActiveNavItem();
+      requestAnimationFrame(animate);
+    }
+
+    function animatex() {
       const rectTop = stickyHorizontalEl.offsetTop;
       const totalHeight = stickyHorizontalEl.offsetHeight - window.innerHeight;
 
